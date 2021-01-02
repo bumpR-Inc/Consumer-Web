@@ -2,16 +2,30 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import {StoreProvider} from './Store'
 import reportWebVitals from './reportWebVitals';
+import HomePage from './HomePage';
+import OrdersPage from './OrdersPage';
+import {Router, RouteComponentProps} from '@reach/router'
 
+const RouterPage = (props: {pageComponent: JSX.Element} & RouteComponentProps) => props.pageComponent//covered at 3:03
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <StoreProvider>
+    <Router>
+      <App path="/">
+        <RouterPage pageComponent={<HomePage />} path="/" />
+        <RouterPage pageComponent={<OrdersPage />} path="/orders" />
+      </App>
+    </Router>
+  </StoreProvider>,
+  document.getElementById("root")
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>,
+//   document.getElementById('root')
+// );
+

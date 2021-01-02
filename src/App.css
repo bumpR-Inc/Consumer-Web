@@ -36,3 +36,48 @@
     transform: rotate(360deg);
   }
 }
+
+.Top-left-logo {
+  width: 400px;
+  margin-top: 0px;
+  margin-left: 0px;
+  z-index: -100;
+
+}
+
+.restaurant-name { 
+  color: #C9512B;
+  font-family: Brush;
+  font-size: 45px;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+
+body {
+  background-color: #FFFBF5;
+}
+
+/* https://pantaley.com/blog/Create-sticky-header-only-with-React-Hooks/ */
+.Custom-header {
+  background-color: #FFFBF5;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  padding-right: 20px;
+}
+
+.Nav-text {
+  font-size: 30px;
+  color: #C9512B;
+  font-family: Brush;
+}
+
+/* * {    
+    margin: 0 !important;
+    padding: 0 !important;
+} */

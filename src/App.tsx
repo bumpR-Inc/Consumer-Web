@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { isPartiallyEmittedExpression } from "typescript";
+import { Store } from "./Store";
+import { IAction, IEpisode, IEpisodeProps } from "./interfaces";
+import { Link } from "@reach/router";
+import logo from "./assets/logo-blob.png";
+import "./App.css";
+import Card from './components/Card';
 
-function App() {
+const EpisodeList = React.lazy<any>(() => import("./EpisodesList")); //react lazy isntead of normal importing. see suspense and fallback below
+
+export default function App(props: any): JSX.Element {
+  const { state, dispatch } = React.useContext(Store); //can remove "dispatch"
+  console.log(state);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <React.Fragment>
+      {/* <header className="header"> */}
+      <header className="Custom-header">
+          <div>
+            GN Logo and maybe dropdown Here
+          </div>
+          <div>
+            <Link to="/" className="Nav-text">
+              Menu
+            </Link>
+          </div>
+          <div>
+            <Link to="/orders" className="Nav-text">
+              Orders: {state.orders.length}
+            </Link>
+          </div>
       </header>
-    </div>
-  );
+      {props.children}
+    </React.Fragment>
+  ); //?not really sure about props.children
 }
-
-export default App;
