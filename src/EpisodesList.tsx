@@ -2,18 +2,27 @@ import React from "react";
 import { addMeal, subtractMeal } from "./Actions";
 import { IEpisode } from "./interfaces";
 import Card from "./components/Card";
+import CartCard from "./components/CartCard";
+
 
 export default function EpisodesList(props: any): Array<JSX.Element> {
-  const { episodes, toggleFavAction, orders, store} = props;
-  const {state, dispatch} = store
-  
+  const { episodes, toggleFavAction, orders, store } = props;
+  const { state, dispatch } = store;
+
   return episodes.map((episode: IEpisode) => {
+    var numInCart = orders.filter((curr: IEpisode) => episode.id === curr.id)
+        .length;
     return (
       <section key={episode.id} className="episode-box">
-        <Card episode={episode} addOnClick={() => addMeal(state, dispatch, episode)}/>
+        <Card
+          episode={episode}
+          numInCart={numInCart}
+          addOnClick={() => addMeal(state, dispatch, episode)}
+          subtractOnClick={() => subtractMeal(state, dispatch, episode)}
+        />
       </section>
     );
-  });
+  }); //           
 }
 
 
