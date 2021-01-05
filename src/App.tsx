@@ -1,14 +1,14 @@
 import React from "react";
 import { isPartiallyEmittedExpression } from "typescript";
-import { Store } from "./Store";
-import { IAction, IEpisode, IEpisodeProps } from "./interfaces";
+import { Store } from "./state/Store";
+import { IAction, IEpisode, IEpisodeProps } from "./state/interfaces";
 import { Link } from "@reach/router";
-import logo from "./assets/logo-blob.png";
+import logo from "./assets/img/logo-blob.png";
 // import "./App.css";
 import Card from './components/Card';
 import './index.css';
 
-const EpisodeList = React.lazy<any>(() => import("./EpisodesList")); //react lazy isntead of normal importing. see suspense and fallback below
+const EpisodeList = React.lazy<any>(() => import("./components/EpisodesList")); //react lazy isntead of normal importing. see suspense and fallback below
 
 export default function App(props: any): JSX.Element {
   const { state, dispatch } = React.useContext(Store); //can remove "dispatch"

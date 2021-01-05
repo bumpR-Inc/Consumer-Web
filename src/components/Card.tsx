@@ -8,7 +8,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import '../index.css'
-import addImg from "../assets/add.png";
+import addImg from "../assets/img/add.png";
 
 const useStyles = makeStyles({
   root: {
