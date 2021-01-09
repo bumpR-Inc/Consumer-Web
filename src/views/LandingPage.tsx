@@ -13,6 +13,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { getDistance } from 'geolib';
 import { Store } from "../state/Store";
 import { goToMenu } from "../state/Actions";
+import { notEqual } from "assert";
+import { NONAME } from "dns";
+import { Room, CheckCircle, Cancel, Loop } from "@material-ui/icons";
 
 const thresh: number = 12;
 
@@ -79,16 +82,37 @@ const useStyles = makeStyles({
     // alignItems: 'center',
     // flex: 2,
   },
-  address: {
-    backgroundColor: '#FFFBF5',
+  addressInputContainer: {
+    display: 'flex',
+    flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
+
+    backgroundColor: '#FFFBF5',
     border: "none",
-    width: "60vw",
+    width: "56vw",
     height: "10vh",
 
     borderRadius: '5px',
-    boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.5)',
-    padding: '2%',
+  },
+  pinIconContainer: {
+    width: "4vw",
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  pinIcon: {
+    color: '#545453',
+    fontSize: '3em',
+  },
+  address: {
+    outline: 'none',
+    backgroundColor: 'transparent',
+    border: "none",
+    width: "48vw",
+    height: "10vh",
+
+    borderRadius: '5px',
+    // boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.5)',
 
     fontFamily: 'Playfair Display',
     fontSize: '4em',
@@ -98,10 +122,27 @@ const useStyles = makeStyles({
     WebkitBoxSizing: 'border-box',
     boxSizing: 'border-box',
   },
+  validityIconContainer: {
+    width: "4vw",
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  loadingIcon: {
+    color: '#C9512B',
+    fontSize: '3em',
+  },
+  validIcon: {
+    color: '#428D36',
+    fontSize: '3em',
+  },
+  invalidIcon: {
+    color: '#BC2F2F',
+    fontSize: '3em',
+  },
   addressSuggestionBox: {
     backgroundColor: '#FFFBF5',
     border: "none",
-    width: '60vw',
+    width: '56vw',
     borderRadius: '5px',
     boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.5)',
 
@@ -116,7 +157,7 @@ const useStyles = makeStyles({
     fontFamily: 'Playfair Display',
     color: '#545453',
     fontSize: '4em',
-    width: '60vw',
+    width: '56vw',
     padding: '2%',
 
     MozBoxSizing: 'border-box',
@@ -136,7 +177,7 @@ const useStyles = makeStyles({
     backgroundColor: '#C9512B',
     color: '#FFFBF5',
     border: "none",
-    width: '60vw',
+    width: '56vw',
     padding: '2%',
     borderRadius: '5px',
     fontFamily: 'Playfair Display',
@@ -147,7 +188,7 @@ const useStyles = makeStyles({
     backgroundColor: '#BC2F2F',
     color: '#FFFBF5',
     border: "none",
-    width: '60vw',
+    width: '56vw',
     padding: '2%',
     borderRadius: '5px',
     fontFamily: 'Playfair Display',
@@ -223,13 +264,28 @@ export default function LandingPage() {
             >
               {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                 <div className={classes.addressContainer}>
-                  <input
-                    className={classes.address}
-                    {...getInputProps({
-                      placeholder: 'Enter Delivery Address',
-                      // className: 'location-search-input',
-                    })}
-                  />
+                  <div className={classes.addressInputContainer}>
+                    <div className={classes.pinIconContainer}>
+                      <Room className={classes.pinIcon}></Room>
+                    </div>
+                    <input
+                      className={classes.address}
+                      {...getInputProps({
+                        placeholder: 'Enter Delivery Address',
+                        // className: 'location-search-input',
+                      })}
+                    />
+                    <div className={classes.validityIconContainer}>
+                      {loading ?
+                        (<Loop className={classes.loadingIcon}></Loop>)
+                        : (addressState !== '' && (
+                          (geocode && coveredAddress)
+                            ? (<CheckCircle className={classes.validIcon} ></CheckCircle>)
+                            : (<Cancel className={classes.invalidIcon}></Cancel>)
+                        ))
+                      }
+                    </div>
+                  </div>
                   {(loading || suggestions.length > 0) ? (<div className={classes.addressSuggestionBox}>
                     {loading && <div className={classes.addressSuggestionItem}>Loading...</div>}
                     {suggestions.map((suggestion, myKey) => {

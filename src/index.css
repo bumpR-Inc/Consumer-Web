@@ -40,7 +40,7 @@ body {
 
 @font-face {
   font-family: 'Brush';
-  src: local('Brush'), url(./fonts/CapitalDryBrush.ttf) format('truetype');
+  src: local('Brush'), url('./assets/fonts/CapitalDryBrush.ttf') format('truetype');
 }
 
 .nav-link-container {
