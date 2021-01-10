@@ -9,18 +9,20 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import '../index.css'
 import addImg from "../assets/img/add.png";
+import { colors } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
-    width: 340,
-    height: 355
+    width: 330,
+    height: 365,
   },
   media: {
-    height: 210,
+    height: 220,
   },
   cardContent: {
-    height: 55
-  }
+    height: 40,
+    // backgroundColor: "#FFFBF5",
+  },
 });
 
 export default function MediaCard(props: any) {
