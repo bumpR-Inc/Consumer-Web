@@ -1,24 +1,23 @@
 import React from "react";
 import { addMeal, subtractMeal } from "../state/Actions";
-import { IEpisode } from "../state/interfaces";
+import { IMeal } from "../state/interfaces";
 import Card from "./Card";
 import CartCard from "./CartCard";
 
 
-export default function EpisodesList(props: any): Array<JSX.Element> {
-  const { episodes, toggleFavAction, orders, store } = props;
+export default function MealsList(props: any): Array<JSX.Element> {
+  const { meals, toggleFavAction, orders, store } = props;
   const { state, dispatch } = store;
 
-  return episodes.map((episode: IEpisode) => {
-    var numInCart = orders.filter((curr: IEpisode) => episode.id === curr.id)
-        .length;
+  return meals.map((meal: IMeal) => {
+    var numInCart = orders.filter((curr: IMeal) => meal.pk === curr.pk).length;
     return (
-      <section key={episode.id} className="episode-box">
+      <section key={meal.pk} className="meal-box">
         <Card
-          episode={episode}
+          meal={meal}
           numInCart={numInCart}
-          addOnClick={() => addMeal(state, dispatch, episode)}
-          subtractOnClick={() => subtractMeal(state, dispatch, episode)}
+          addOnClick={() => addMeal(state, dispatch, meal)}
+          subtractOnClick={() => subtractMeal(state, dispatch, meal)}
         />
       </section>
     );

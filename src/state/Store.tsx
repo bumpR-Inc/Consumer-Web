@@ -1,10 +1,10 @@
 import React from "react";
 import { IState, IAction } from "./interfaces";
 
-const cacheState: boolean = false;
+const cacheState: boolean = true;
 
 var initialState: IState = {
-  episodes: [],
+  meals: [],
   orders: [],
   address: undefined,
   geocode: undefined,
@@ -21,7 +21,7 @@ export const Store = React.createContext<IState | any>(initialState);
 function reducer(state: IState, action: IAction): IState {
   switch (action.type) {
     case "FETCH_DATA":
-      state = { ...state, episodes: action.payload }; 
+      state = { ...state, meals: action.payload }; 
       break;
     case "ADD_FAV":
       state = { ...state, orders: [...state.orders, action.payload] };

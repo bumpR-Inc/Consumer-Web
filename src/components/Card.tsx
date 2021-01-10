@@ -27,7 +27,7 @@ export default function MediaCard(props: any) {
   const classes = useStyles();
   const MAX_SUMMARY_LENGTH = 120;
   
-  var limitedSummary = props.episode.summary;//prevents overflow, limits description length of the meal
+  var limitedSummary = props.meal.dietaryRestrictions;//prevents overflow, limits description length of the meal. TODO 1/8: ADD DESCRIPTION TO BACKEND!
   if (limitedSummary != null && limitedSummary.length >= MAX_SUMMARY_LENGTH) {//if there's an empty string the first condition prevents error
     limitedSummary = limitedSummary.substring(0, MAX_SUMMARY_LENGTH);
     limitedSummary += "...";
@@ -38,11 +38,11 @@ export default function MediaCard(props: any) {
       <div>
         <CardMedia
           className={classes.media}
-          image={props.episode.image.medium}
-          title={props.episode.name}
+          image={props.meal.picture_url}
+          title={props.meal.name}
         />
         <CardContent className={classes.cardContent}>
-          <div className="cardTitle">{props.episode.name}</div>
+          <div className="cardTitle">{props.meal.foodName}</div>
           <div className="cardText">{limitedSummary}</div>
         </CardContent>
       </div>
@@ -51,7 +51,7 @@ export default function MediaCard(props: any) {
           <img src={addImg} className="cardAddBtn" />
         </Button>
         <div className="cardPrice">
-          <p>${props.episode.number}</p>
+          <p>${props.meal.price}</p>
         </div>
       </div>
     </Card>

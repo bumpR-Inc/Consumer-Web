@@ -1,17 +1,17 @@
 import React from 'react'
 import { Store } from "../state/Store";
-import {IEpisodeProps } from "../state/interfaces";
+import {IMealProps } from "../state/interfaces";
 import {toggleFavAction} from '../state/Actions'
 import App from "../App";
 
-const EpisodeList = React.lazy<any>(() => import("../components/EpisodesList")); //react lazy isntead of normal importing. see suspense and fallback below
+const EpisodeList = React.lazy<any>(() => import("../components/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 const CartList = React.lazy<any>(() => import("../components/CartList"));
 
 export default function OrdersPage(): JSX.Element {
     const { state, dispatch } = React.useContext(Store);
     
     const props = {
-        episodes: state.orders,//do this instead of state.episodes for just the orders
+        meals: state.orders,//do this instead of state.episodes for just the orders
         store: {state, dispatch},
         toggleFavAction,
         orders: state.orders

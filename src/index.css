@@ -14,13 +14,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.episode-layout {
+.meal-layout {
   display: flex;
   flex-wrap: wrap;
   minimum-width: 100 vh;
 }
 
-.episode-box {
+.meal-box {
   padding: .8rem;
 
 }
