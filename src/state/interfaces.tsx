@@ -53,6 +53,15 @@ export interface IMeal {
   // url: string;
 }
 
+export interface IRestaurant {
+    pk: number;
+    name: string;
+    location: string;
+    picture_url: string;
+    generic_quota_status: boolean;
+    quota: number;
+}
+
 export interface IMealProps {
   meals: Array<IMeal>;
   store: { state: IState; dispatch: Dispatch };

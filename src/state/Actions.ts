@@ -1,9 +1,22 @@
-import { IAction, IMeal, IState } from "./interfaces";
+import { IAction, IMeal, IState, IRestaurant } from "./interfaces";
 
  export const fetchDataAction = async (dispatch: any) => {
     //use aync for api calls 2:06
     const URL =
       "http://localhost:3001/api/menuItems/";
+    const data = await fetch(URL); //fetches URL
+    const dataJSON = await data.json(); //convert to json
+    return dispatch({
+      //basically returns this object to our reducer in Store.tsx
+      type: "FETCH_DATA",
+      payload: dataJSON, //do ._embedded.episodes because we know basedo nthis specific api URL
+    });
+  };
+
+ export const fetchRestaurantsAction = async (dispatch: any) => {
+    //use aync for api calls 2:06
+    const URL =
+      "http://localhost:3001/api/restaurants/";
     const data = await fetch(URL); //fetches URL
     const dataJSON = await data.json(); //convert to json
     return dispatch({
