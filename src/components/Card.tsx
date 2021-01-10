@@ -7,7 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import '../index.css'
+import "../index.css";
 import addImg from "../assets/img/add.png";
 import { colors } from "@material-ui/core";
 
@@ -28,12 +28,13 @@ const useStyles = makeStyles({
 export default function MediaCard(props: any) {
   const classes = useStyles();
   const MAX_SUMMARY_LENGTH = 120;
-  
-  var limitedSummary = props.meal.dietaryRestrictions;//prevents overflow, limits description length of the meal. TODO 1/8: ADD DESCRIPTION TO BACKEND!
-  if (limitedSummary != null && limitedSummary.length >= MAX_SUMMARY_LENGTH) {//if there's an empty string the first condition prevents error
-    limitedSummary = limitedSummary.substring(0, MAX_SUMMARY_LENGTH);
-    limitedSummary += "...";
-  }
+
+  var limitedSummary = props.meal.description; //prevents overflow, limits description length of the meal. TODO 1/8: ADD DESCRIPTION TO BACKEND!
+  //UNCOMMENT THE BOTTOM 4 LINES IF YOU WANT TO LIMIT MEAL DESCRIPTION/SUMMARY TO CERTAIN NUMBER OF CHARS INSTEAD OF HAVING POTENTIALLY INFINITE OVERFLOW
+  // if (limitedSummary != null && limitedSummary.length >= MAX_SUMMARY_LENGTH) {//if there's an empty string the first condition prevents error
+  //   limitedSummary = limitedSummary.substring(0, MAX_SUMMARY_LENGTH);
+  //   limitedSummary += "...";
+  // }
 
   return (
     <Card className={classes.root}>
@@ -45,7 +46,9 @@ export default function MediaCard(props: any) {
         />
         <CardContent className={classes.cardContent}>
           <div className="cardTitle">{props.meal.foodName}</div>
-          <div className="cardText">{limitedSummary}</div>
+          <div className="cardTextContainer">
+            <div className="cardText">{limitedSummary}</div>
+          </div>
         </CardContent>
       </div>
       <div className="card-bottom-flex-container">

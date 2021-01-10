@@ -2,7 +2,7 @@
  * All the interfaces here
  */
 
-export type Dispatch = React.Dispatch<IAction>
+export type Dispatch = React.Dispatch<IAction>;
 
 export interface IState {
   meals: Array<IMeal>;
@@ -21,6 +21,7 @@ export interface IMeal {
   //based from Postman return
   pk: number;
   foodName: string;
+  description: string;
   restaurant: number;
   restaurant_info: {
     pk: number;
@@ -54,12 +55,12 @@ export interface IMeal {
 }
 
 export interface IRestaurant {
-    pk: number;
-    name: string;
-    location: string;
-    picture_url: string;
-    generic_quota_status: boolean;
-    quota: number;
+  pk: number;
+  name: string;
+  location: string;
+  picture_url: string;
+  generic_quota_status: boolean;
+  quota: number;
 }
 
 export interface IMealProps {

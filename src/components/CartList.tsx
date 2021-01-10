@@ -1,6 +1,6 @@
 import React from "react";
 import { addMeal, subtractMeal } from "../state/Actions";
-import { IMeal} from "../state/interfaces";
+import { IMeal } from "../state/interfaces";
 import Card from "./Card";
 import CartCard from "./CartCard";
 

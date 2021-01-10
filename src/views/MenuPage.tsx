@@ -1,12 +1,11 @@
 import React from "react";
 import { Store } from "../state/Store";
 
-import {IMealProps } from "../state/interfaces";
-import {fetchDataAction, toggleFavAction} from '../state/Actions';
+import { IMealProps } from "../state/interfaces";
+import { fetchDataAction, toggleFavAction } from "../state/Actions";
 import App from "../App";
 
 const MealList = React.lazy<any>(() => import("../components/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
-
 
 export default function HomePage() {
   const { state, dispatch } = React.useContext(Store);
@@ -17,7 +16,7 @@ export default function HomePage() {
 
   const props: IMealProps = {
     meals: state.meals,
-    store: {state, dispatch},
+    store: { state, dispatch },
     toggleFavAction: toggleFavAction,
     orders: state.orders,
   };
@@ -32,14 +31,10 @@ export default function HomePage() {
             </section>
           </React.Suspense>
         </React.Fragment>
-
       </div>
     </App>
-  )
-  ;
+  );
 }
-
-
 
 // export default function HomePage() {
 //   const { state, dispatch } = React.useContext(Store);

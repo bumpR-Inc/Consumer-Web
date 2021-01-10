@@ -37,13 +37,9 @@ export default function CartCard(props: any) {
           </div>
           <div className="cart-card-buttons-container">
             <div className="cart-card-buttons">
-              <div onClick={props.subtractOnClick}>
-                 - 
-              </div>
+              <div onClick={props.subtractOnClick}>-</div>
               {props.numInCart}
-              <div onClick={props.addOnClick}>
-                 + 
-              </div>
+              <div onClick={props.addOnClick}>+</div>
             </div>
           </div>
         </div>

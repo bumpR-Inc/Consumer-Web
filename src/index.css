@@ -3,12 +3,12 @@ html {
 }
 
 body {
-  background-color: #FFFBF5;
+  background-color: #fffbf5;
   padding: 0;
   font-size: 10px;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -21,13 +21,12 @@ body {
 }
 
 .meal-box {
-  padding: .8rem;
-
+  padding: 0.8rem;
 }
 
 /* https://pantaley.com/blog/Create-sticky-header-only-with-React-Hooks/ */
 .header {
-  background-color: #FFFBF5;
+  background-color: #fffbf5;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -39,13 +38,15 @@ body {
 }
 
 @font-face {
-  font-family: 'Brush';
-  src: local('Brush'), url('./assets/fonts/CapitalDryBrush.ttf') format('truetype');
+  font-family: "Brush";
+  src: local("Brush"),
+    url("./assets/fonts/CapitalDryBrush.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'Playfair-Bold';
-  src: local('Playfair-Bold'), url('./assets/fonts/PlayfairDisplay-Bold.otf') format('truetype');
+  font-family: "Playfair-Bold";
+  src: local("Playfair-Bold"),
+    url("./assets/fonts/PlayfairDisplay-Bold.otf") format("truetype");
 }
 
 .nav-link-container {
@@ -54,7 +55,7 @@ body {
 
 .nav-text {
   font-size: 30px;
-  color: #C9512B;
+  color: #c9512b;
   font-family: Playfair-Bold;
 }
 
@@ -63,11 +64,10 @@ body {
   margin-top: 0px;
   margin-left: 0px;
   z-index: -100;
-
 }
 
-.restaurant-name { 
-  color: #C9512B;
+.restaurant-name {
+  color: #c9512b;
   font-family: Playfair-Bold;
   font-size: 55px;
   padding: 10px;
@@ -78,7 +78,12 @@ body {
 .cardTitle {
   font-size: 22px;
   font-family: Playfair-Bold;
-  color: #C9512B;
+  color: #c9512b;
+}
+
+.cardTextContainer {
+  max-height: 35px;
+  overflow-y: scroll;
 }
 
 .cardText {
@@ -90,12 +95,11 @@ body {
 .cardPrice {
   font-size: 20px;
   font-family: Playfair-Bold;
-  color: #C9512B;
+  color: #c9512b;
 }
 
 .cardAddBtn {
   height: 40px;
-  
 }
 
 .card-bottom-flex-container {
@@ -110,30 +114,30 @@ body {
   /* outline: #C9512B solid 2px;
   border-radius: 10px; */
   /* width: 95%; */
-    margin-left: 2.5%;
-    margin-top: .75rem;
-    background-color: #fff;
-    border-radius: 10px;
-    height: 7.5rem;
-    position: relative;
-    justify-content: space-between;
-    white-space: nowrap;
-    border: 1px solid #ececec;
-    box-sizing: border-box;
-    box-shadow: 0 4px 4px rgba(0,0,0,.2);
+  margin-left: 2.5%;
+  margin-top: 0.75rem;
+  background-color: #fff;
+  border-radius: 10px;
+  height: 7.5rem;
+  position: relative;
+  justify-content: space-between;
+  white-space: nowrap;
+  border: 1px solid #ececec;
+  box-sizing: border-box;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
 }
 
 .cart-card-img {
   height: 80px;
-  width: 130px;
+  width: 115px;
   padding: 12px;
 }
 
 .cart-card-content {
   height: 80px;
   width: 210px;
-      text-align: left;
-    overflow-x: scroll;
+  text-align: left;
+  overflow-x: scroll;
 }
 
 .cart-card-title {
@@ -145,40 +149,37 @@ body {
 .cart-card-price {
   font-size: 18px;
   padding: 2px;
-
 }
 
 .cart-card-second-container {
   display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .cart-card-buttons-container {
-    background: #fff;
-    padding: .5rem;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    width: 20px;
+  background: #fff;
+  padding: 0.5rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  width: 20px;
 }
 
 .cart-card-buttons {
-    display: flex;
-    align-items: center;
-    flex-direction: column-reverse;
-    justify-content: space-between;
-    height: 100%;
-    font-size: 22px;
-    
+  display: flex;
+  align-items: center;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  height: 100%;
+  font-size: 22px;
 }
 
-.cart-cards-container{
+.cart-cards-container {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-
 }

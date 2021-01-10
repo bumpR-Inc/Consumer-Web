@@ -5,8 +5,8 @@ import { IAction, IMeal, IMealProps } from "./state/interfaces";
 import { Link } from "@reach/router";
 import logo from "./assets/img/logo-blob.png";
 // import "./App.css";
-import Card from './components/Card';
-import './index.css';
+import Card from "./components/Card";
+import "./index.css";
 
 const EpisodeList = React.lazy<any>(() => import("./components/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 
