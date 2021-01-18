@@ -7,6 +7,7 @@ import logo from "./assets/img/logo-blob.png";
 // import "./App.css";
 import Card from "./components/Card";
 import "./index.css";
+import NavBar from "./components/NavBar";
 
 const EpisodeList = React.lazy<any>(() => import("./components/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 
@@ -17,7 +18,7 @@ export default function App(props: any): JSX.Element {
   return (
     <React.Fragment>
       {/* <header className="header"> */}
-      <header className="header">
+      {/* <header className="header">
         <div>GN Logo and maybe dropdown Here</div>
         <div className="nav-link-container">
           <Link to="/" className="nav-text">
@@ -29,7 +30,8 @@ export default function App(props: any): JSX.Element {
             Orders: {state.orders.length}
           </Link>
         </div>
-      </header>
+      </header> */}
+      <NavBar/>
       {props.children}
     </React.Fragment>
   ); //?not really sure about props.children

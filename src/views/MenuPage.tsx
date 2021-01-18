@@ -14,7 +14,7 @@ export default function HomePage() {
 
 
   React.useEffect(() => {
-    state.meals.length === 0 && fetchDataAction(dispatch); //if state episodes array is empty, run this function
+    (state.meals?.length === 0 ?? false) && fetchDataAction(dispatch); //if state episodes array is empty, run this function
   }); //useEffect hook is to get data as soon as user lands on the page
 
   const props: IMealProps = {
