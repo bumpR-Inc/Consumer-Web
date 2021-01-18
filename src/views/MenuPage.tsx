@@ -23,6 +23,7 @@ export default function HomePage() {
     toggleFavAction: toggleFavAction,
     orders: state.orders,
   };
+
   return (
     <App path="/">
       <div className="menu-full-flex-container">
