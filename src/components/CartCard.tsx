@@ -29,21 +29,17 @@ export default function CartCard(props: any) {
   return (
     <div className="cart-card-container">
       <div className="cart-card-second-container">
-        <img className="cart-card-img" src={props.episode.image.medium}></img>
+        <img className="cart-card-img" src={props.meal.picture_url}></img>
         <div className="cart-card-content">
-          <div className="cart-card-title">{props.episode.name}</div>
+          <div className="cart-card-title">{props.meal.foodName}</div>
           <div className="cart-card-price">
-            ${props.episode.number} | Restaurant: {props.episode.season}
+            ${props.meal.price} | {props.meal.restaurant_info.name}
           </div>
           <div className="cart-card-buttons-container">
             <div className="cart-card-buttons">
-              <div onClick={props.subtractOnClick}>
-                 - 
-              </div>
+              <div onClick={props.subtractOnClick}>-</div>
               {props.numInCart}
-              <div onClick={props.addOnClick}>
-                 + 
-              </div>
+              <div onClick={props.addOnClick}>+</div>
             </div>
           </div>
         </div>

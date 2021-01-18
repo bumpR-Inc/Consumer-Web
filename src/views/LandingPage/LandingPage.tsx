@@ -14,20 +14,20 @@ const useStyles = makeStyles({
   },
   hero: {
     backgroundImage: `url(${background})`,
-    backgroundSize: 'cover',
-    height: '100vh',
-    width: '100vw',
-    margin: '0px !important',
+    backgroundSize: "cover",
+    height: "100vh",
+    width: "100vw",
+    margin: "0px !important",
 
     display: "flex",
     flexDirection: "column",
-    alignItems: 'center',
-    gap: '3%',
+    alignItems: "center",
+    gap: "3%",
 
-    filter: 'drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.5))',
+    filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.5))",
 
-    [theme.breakpoints.down('sm')]: {
-      height: '50vh',
+    [theme.breakpoints.down("sm")]: {
+      height: "50vh",
     },
   },
 });

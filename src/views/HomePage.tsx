@@ -6,7 +6,5 @@ import MenuPage from "./MenuPage";
 export default function HomePage() {
   const { state, dispatch } = React.useContext(Store);
 
-  return (
-    state.landing ? <LandingPage /> : <MenuPage />
-  )
+  return state.landing ? <LandingPage /> : <MenuPage />;
 }

@@ -1,12 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import {StoreProvider} from './state/Store'
-import reportWebVitals from './reportWebVitals';
-import HomePage from './views/HomePage';
-import OrdersPage from './views/OrdersPage';
-import {Router, RouteComponentProps} from '@reach/router'
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import { StoreProvider } from "./state/Store";
+import reportWebVitals from "./reportWebVitals";
+import HomePage from "./views/HomePage";
+import OrdersPage from "./views/OrdersPage";
+import { Router, RouteComponentProps } from "@reach/router";
 import AuthAPITest from "./views/AuthTestPage";
 import config from "./auth_config.json";
 import { Auth0Provider } from "@auth0/auth0-react";
@@ -20,7 +20,9 @@ const onRedirectCallback = (appState: any) => {
   );
 };
 
-const RouterPage = (props: {pageComponent: JSX.Element} & RouteComponentProps) => props.pageComponent//covered at 3:03
+const RouterPage = (
+  props: { pageComponent: JSX.Element } & RouteComponentProps
+) => props.pageComponent; //covered at 3:03
 ReactDOM.render(
   <Auth0Provider
     domain={config.domain}
@@ -40,11 +42,9 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-
 // ReactDOM.render(
 //   <React.StrictMode>
 //     <App />
 //   </React.StrictMode>,
 //   document.getElementById('root')
 // );
-

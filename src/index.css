@@ -3,34 +3,54 @@ html {
 }
 
 body {
-  background-color: #FFFBF5;
+  background-color: #fffbf5;
   padding: 0;
   font-size: 10px;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.episode-layout {
-  display: flex;
-  flex-wrap: wrap;
-  minimum-width: 100 vh;
+p {
+  font-size: 15px;
 }
 
-.episode-box {
-  padding: .8rem;
 
+
+.menu-full-flex-container {
+  display: flex;
+  justify-content: center;
+}
+
+.menu-constrained-container {
+  max-width: 90rem;
+  width:96%;
+
+  /* display:flex;
+  justify-content: center;
+  align-items: center; */
+}
+
+.meal-layout {
+  display: flex;
+  flex-wrap: wrap;
+  /* align-items: center; */
+  justify-content: center;
+}
+
+.meal-box {
+  padding: 0.8rem;
 }
 
 /* https://pantaley.com/blog/Create-sticky-header-only-with-React-Hooks/ */
 .header {
-  background-color: #FFFBF5;
+  background-color: #fffbf5;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 8;
   display: flex;
   justify-content: space-between;
   padding-top: 15px;
@@ -39,8 +59,15 @@ body {
 }
 
 @font-face {
-  font-family: 'Brush';
-  src: local('Brush'), url('./assets/fonts/CapitalDryBrush.ttf') format('truetype');
+  font-family: "Brush";
+  src: local("Brush"),
+    url("./assets/fonts/CapitalDryBrush.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Playfair-Bold";
+  src: local("Playfair-Bold"),
+    url("./assets/fonts/PlayfairDisplay-Bold.otf") format("truetype");
 }
 
 .nav-link-container {
@@ -49,8 +76,8 @@ body {
 
 .nav-text {
   font-size: 30px;
-  color: #C9512B;
-  font-family: Brush;
+  color: #c9512b;
+  font-family: Playfair-Bold;
 }
 
 .Top-left-logo {
@@ -58,22 +85,34 @@ body {
   margin-top: 0px;
   margin-left: 0px;
   z-index: -100;
-
 }
 
-.restaurant-name { 
-  color: #C9512B;
-  font-family: Brush;
-  font-size: 45px;
+
+.restaurant-name {
+  color: #c9512b;
+  font-family: Playfair-Bold;
+  font-size: 55px;
   padding: 10px;
   margin-top: 5px;
   margin-bottom: 0px;
 }
 
+.restaurant-line {
+  height: 2px;
+  width: 100%;
+  margin-bottom: 1rem;
+  background-color: #c9512b;
+}
+
 .cardTitle {
   font-size: 22px;
-  font-family: Brush;
-  color: #C9512B;
+  font-family: Playfair-Bold;
+  color: #c9512b;
+}
+
+.cardTextContainer {
+  max-height: 35px;
+  overflow-y: scroll;
 }
 
 .cardText {
@@ -83,14 +122,13 @@ body {
 }
 
 .cardPrice {
-  font-size: 20px;
-  font-family: Brush;
-  color: #C9512B;
+  font-size: 25px;
+  font-family: Playfair-Bold;
+  color: #c9512b;
 }
 
 .cardAddBtn {
   height: 40px;
-  
 }
 
 .card-bottom-flex-container {
@@ -98,37 +136,41 @@ body {
   direction: rtl;
 }
 
+.cart-cards-layout{
+  display: flex;
+  flex-direction: column;
+}
+
 .cart-card-container {
   display: flex;
   height: 130px;
   width: 450px;
   /* outline: #C9512B solid 2px;
-  border-radius: 10px; */
   /* width: 95%; */
-    margin-left: 2.5%;
-    margin-top: .75rem;
-    background-color: #fff;
-    border-radius: 10px;
-    height: 7.5rem;
-    position: relative;
-    justify-content: space-between;
-    white-space: nowrap;
-    border: 1px solid #ececec;
-    box-sizing: border-box;
-    box-shadow: 0 4px 4px rgba(0,0,0,.2);
+  margin-left: 2.5%;
+  margin-top: 0.75rem;
+  background-color: #fff;
+  border-radius: 10px;
+  height: 7.5rem;
+  position: relative;
+  justify-content: space-between;
+  white-space: nowrap;
+  border: 1px solid #ececec;
+  box-sizing: border-box;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
 }
 
 .cart-card-img {
   height: 80px;
-  width: 130px;
+  width: 115px;
   padding: 12px;
 }
 
 .cart-card-content {
   height: 80px;
   width: 210px;
-      text-align: left;
-    overflow-x: scroll;
+  text-align: left;
+  overflow-x: scroll;
 }
 
 .cart-card-title {
@@ -140,40 +182,242 @@ body {
 .cart-card-price {
   font-size: 18px;
   padding: 2px;
-
 }
 
 .cart-card-second-container {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.cart-card-buttons-container {
+  background: #fff;
+  padding: 0.5rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  width: 20px;
+}
+
+.cart-card-buttons {
+  display: flex;
+  align-items: center;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  height: 100%;
+  font-size: 22px;
+}
+
+.cart-cards-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.venmo-btn {
+  width: 15vh;
+}
+
+.flex {
+    display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
 
-.cart-card-buttons-container {
-    background: #fff;
-    padding: .5rem;
-    position: absolute;
+.flex-mid-col {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    text-align: center;
+}
+
+.bottom-cart-btn-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+}
+
+.cart-button-wrapper {
     top: 0;
-    right: 0;
+    width: 30%;
+}
+
+.cart-button {
+    pointer-events: visible;
+    user-select: none;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    /* justify-content: space-between; */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background: #c9512b;
+    margin-bottom: 1rem;
+    border-radius: 5rem;
+    color: #fcfcfc;
+    padding: .1rem 1rem;
+    box-shadow: 0 0 1rem rgba(0,0,0,.5);
+    cursor: pointer;
+}
+
+/* by default, Modal is at -150vh below until "show" is applied, then it's at the bottom. */
+.Modal {
+  position: fixed;
+  bottom: -120vh;
+  background-color: #fff;
+  width: 100%;
+  /* left: 0; */
+  /* padding: 0 12px 12px; */
+    /* transition:  bottom 0.4s ease-out; */
+  z-index: 50;
+  /* overflow: hidden; */
+  /* overflow-y: scroll; */
+  height: 85%;
+  border-top-right-radius: 2rem;
+  border-top-left-radius: 2rem;
+
+}
+
+
+.Modal.Show {
+  transition:  bottom 0.3s ease-out;
+  bottom: 0;
+}
+
+.Modal.Hide {
+  transition:  0.3s ease-out;
+  bottom: -120vh;
+}
+
+.Overlay {
+  /* background-color: rgba(0, 0, 0, 0.55); */
+  background-color: rgba(0, 0, 0, 0);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  display: none;
+  z-index: 10;
+}
+
+.Overlay.Show {
+background-color: rgba(0, 0, 0, 0.55);
+  transition: background-color 0.3s ease;
+  display: block;
+}
+
+.Overlay.Hide {
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 0.3s ease;
+  z-index: -2;
+  /* display: none; this ruins the color trnasition but prevents bug where tapping screen brings cart up */
+}
+
+.cart-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 2.25rem;
+  width: 100%;
+  background-color: #fff;
+  z-index: 21;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+  box-shadow: 4px 4px 8px rgba(0,0,0,.15);
+  min-height: 4.5rem;
+}
+
+.cart-content-container{
+  margin: auto;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  justify-content: space-evenly;
+}
+
+.cart-content{
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 0 1rem;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  overflow-y: scroll;
+  margin-bottom: 4vh;
+  margin-top: vh;
+}
+
+.cart-costs {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  margin-bottom: 10rem;
+  flex-shrink: 0;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.cart-buttons-bottom {
+    position: absolute;
+    bottom: 0;
+    height: 7.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+}
+
+.cart-buttons {
+    position: absolute;
     bottom: 0;
     display: flex;
-    width: 20px;
-}
-
-.cart-card-buttons {
-    display: flex;
-    align-items: center;
-    flex-direction: column-reverse;
     justify-content: space-between;
-    height: 100%;
-    font-size: 22px;
-    
+    width: 85%;
+    max-width: 21.4rem;
+    min-height: 2.5rem;
+    line-height: 1.5rem;
+    margin-bottom: 2.125rem;
+    user-select: none;
 }
 
-.cart-cards-container{
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
+.cart-back-button, .cart-review-order-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    height: 2.5rem;
+    border-radius: 2.5rem;
+    font-size: 1rem;
+}
 
+.cart-back-button {
+    width: 29%;
+    background: #efefef;
+}
+
+.cart-review-order-button {
+    width: 68%;
+    background: #333;
+    color: #fff;
+    text-decoration: none;
 }
