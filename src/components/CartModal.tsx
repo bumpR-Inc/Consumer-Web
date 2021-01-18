@@ -50,9 +50,22 @@ export default function CartModal(modalProps: any) {
               </div>
               {/* {console.log({ venmoLink })} */}
               <div className="cart-costs">
-                <p>Subtotal: ${mealsCost}</p>
-                <p>Tax: ${tax}</p>
-                <p>Optional Tip: ${tip}</p>
+                <div className="cost-row">
+                  <p className="cost-breakdown">Subtotal:</p>
+                  <p>${mealsCost}</p>
+                </div>
+                <div className="cost-row">
+                  <p>Tax:</p>
+                  <p>${tax}</p>
+                </div>
+                <div className="cost-row">
+                  <p>Optional Tip:</p>
+                  <p>${tip}</p>
+                </div>
+                <div className="cost-row">
+                  <p>Total:</p>
+                  <p>${totalCost}</p>
+                </div>
                 <p>
                   To confirm your order, please pay ${totalCost} with Venmo
                   below.

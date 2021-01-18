@@ -16,6 +16,7 @@ body {
 
 p {
   font-size: 15px;
+  margin: 3px;
 }
 
 
@@ -137,6 +138,7 @@ p {
 }
 
 .cart-cards-layout{
+  margin: 2rem;
   display: flex;
   flex-direction: column;
 }
@@ -366,6 +368,9 @@ background-color: rgba(0, 0, 0, 0.55);
 }
 
 .cart-costs {
+  /* todo: add some @media stuff here to make responsive (width) */
+  margin-top: 3rem;
+  width: 55%; 
   position: relative;
   display: flex;
   flex-direction: column;
@@ -374,6 +379,11 @@ background-color: rgba(0, 0, 0, 0.55);
   flex-shrink: 0;
   margin-right: auto;
   margin-left: auto;
+}
+
+.cost-row {
+  display: flex;
+  justify-content: space-between;
 }
 
 .cart-buttons-bottom {

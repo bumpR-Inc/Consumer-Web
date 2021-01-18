@@ -9,6 +9,7 @@ export default function CartList(props: any): Array<JSX.Element> {
   const { state, dispatch } = store;
 
   const uniqueMealsArray = Array.from(new Set<IMeal>(orders)); //Important: converts array to set, removing duplicates and then convert back to array
+  //bug: if cache is turned to true in store, in creates differing verisons of the same item with the same key so meals can show up multiple times in cart.
 
   return uniqueMealsArray.map((meal: IMeal) => {
     var numInCart = orders.filter((curr: IMeal) => meal.pk === curr.pk).length;
