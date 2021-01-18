@@ -33,7 +33,7 @@ export default function CartCard(props: any) {
         <div className="cart-card-content">
           <div className="cart-card-title">{props.meal.foodName}</div>
           <div className="cart-card-price">
-            ${props.meal.price} | Restaurant: {props.meal.restaurant_info.name}
+            ${props.meal.price} | {props.meal.restaurant_info.name}
           </div>
           <div className="cart-card-buttons-container">
             <div className="cart-card-buttons">

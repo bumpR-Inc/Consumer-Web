@@ -13,14 +13,14 @@ import { colors } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
-    width: 330,
-    height: 365,
+    width: 300,
+    height: 335,
   },
   media: {
-    height: 220,
+    height: 200,
   },
   cardContent: {
-    height: 40,
+    height: 45,
     // backgroundColor: "#FFFBF5",
   },
 });
