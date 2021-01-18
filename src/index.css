@@ -363,8 +363,8 @@ background-color: rgba(0, 0, 0, 0.55);
   justify-content: space-around;
   flex-direction: column;
   overflow-y: scroll;
-  margin-bottom: 4vh;
-  margin-top: vh;
+  margin-bottom: 2vh;
+  margin-top: 1vh;
 }
 
 .cart-costs {
@@ -375,7 +375,7 @@ background-color: rgba(0, 0, 0, 0.55);
   display: flex;
   flex-direction: column;
   font-size: 1rem;
-  margin-bottom: 10rem;
+  margin-bottom: 2rem;
   flex-shrink: 0;
   margin-right: auto;
   margin-left: auto;
@@ -384,6 +384,18 @@ background-color: rgba(0, 0, 0, 0.55);
 .cost-row {
   display: flex;
   justify-content: space-between;
+}
+
+.cart-payment-container {
+  margin-bottom: 500px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.qr-code {
+  padding: 1rem;
 }
 
 .cart-buttons-bottom {

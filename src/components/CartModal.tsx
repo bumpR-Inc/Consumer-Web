@@ -5,6 +5,8 @@ import { toggleFavAction } from "../state/Actions";
 import App from "../App";
 import VenmoBtn from "../components/VenmoBtn";
 
+var QRCode = require('qrcode.react')
+
 const EpisodeList = React.lazy<any>(() => import("../components/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 const CartList = React.lazy<any>(() => import("../components/CartList"));
 
@@ -75,7 +77,29 @@ export default function CartModal(modalProps: any) {
                   paying ${totalCost * 2}!
                 </p>
               </div>
+              <div className="cart-payment-container">
+                <p>
+                  To pay via Venmo and confirm your order, first tap the Venmo
+                  button below from your phone, or scan the QR code below if
+                  you're using a desktop. Then, hit "confirm order."
+                </p>
+                <VenmoBtn paymentLink={venmoLink} />
+                <QRCode value={venmoLink} className="qr-code" />
+                <p>
+                  Orders without verified Venmo payments will not be fulfilled.
+                </p>
+                <p>
+                  Similarly, if there is a complication with your order, you
+                  will receive a Venmo refund from @GN-delivery.
+                </p>
+                <p>
+                  TODO: add checkbox saying yes i have paid with venmo before confirming, address + tip entry, date entry, phone number verification, styling
+                </p>
+              </div>
             </div>
+            {/* <div className="cart-payment-container">
+              <VenmoBtn paymentLink={venmoLink} />
+            </div> */}
           </div>
         </React.Suspense>
         <div className="cart-buttons-bottom">
@@ -86,8 +110,7 @@ export default function CartModal(modalProps: any) {
             >
               Back
             </div>
-            <div className="cart-review-order-button">Review Order</div>
-            {/* <VenmoBtn paymentLink={venmoLink} /> */}
+            <div className="cart-review-order-button">Confirm Order</div>
           </div>
         </div>
       </div>

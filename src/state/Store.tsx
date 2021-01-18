@@ -1,7 +1,7 @@
 import React from "react";
 import { IState, IAction } from "./interfaces";
 
-const cacheState: boolean = true;
+const cacheState: boolean = false;
 
 var initialState: IState = {
   meals: [],
