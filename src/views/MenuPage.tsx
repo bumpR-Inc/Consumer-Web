@@ -48,20 +48,19 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
-
-            {/* helps shade background, and makes it so that if you click background it closes modal. */}
-            <div
-              className={`Overlay ${displayModal ? "Show" : "Hide"}`}
-              onClick={() => setDisplayModal(!displayModal)}
-            />
-            <div>
-              <CartModal
-                closeFunction={() => setDisplayModal(false)}
-                displayModal={displayModal}
-              />
-            </div>
           </React.Fragment>
         </div>
+      </div>
+      {/* helps shade background, and makes it so that if you click background it closes modal. */}
+      <div
+        className={`Overlay ${displayModal ? "Show" : "Hide"}`}
+        onClick={() => setDisplayModal(!displayModal)}
+      />
+      <div>
+        <CartModal
+          closeFunction={() => setDisplayModal(false)}
+          displayModal={displayModal}
+        />
       </div>
     </App>
   );
