@@ -10,13 +10,14 @@ import { Router, RouteComponentProps } from "@reach/router";
 import AuthAPITest from "./views/AuthTestPage";
 import config from "./auth_config.json";
 import { Auth0Provider } from "@auth0/auth0-react";
+import { history } from "./utils/history";
 
 const onRedirectCallback = (appState: any) => {
-  // history.push(
-  //   appState && appState.returnTo
-  //     ? appState.returnTo
-  //     : window.location.pathname
-  // );
+  history.push(
+    appState && appState.returnTo
+      ? appState.returnTo
+      : window.location.pathname
+  );
 };
 
 const RouterPage = (
