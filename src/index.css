@@ -18,13 +18,17 @@ p {
   font-size: 15px;
 }
 
+
+
 .menu-full-flex-container {
   display: flex;
   justify-content: center;
 }
 
 .menu-constrained-container {
-  max-width: 95rem;
+  max-width: 90rem;
+  width:96%;
+
   /* display:flex;
   justify-content: center;
   align-items: center; */
@@ -91,6 +95,13 @@ p {
   padding: 10px;
   margin-top: 5px;
   margin-bottom: 0px;
+}
+
+.restaurant-line {
+  height: 2px;
+  width: 100%;
+  margin-bottom: 1rem;
+  background-color: #c9512b;
 }
 
 .cardTitle {

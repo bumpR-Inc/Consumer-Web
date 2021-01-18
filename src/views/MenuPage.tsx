@@ -31,6 +31,7 @@ export default function HomePage() {
             <React.Suspense fallback={<div>loading...</div>}>
               <div>
                 <div className="restaurant-name">Punjabi Dhaba</div>
+                  <div className="restaurant-line"></div>
                 <div>
                   <section className="meal-layout">
                     <MealList {...props} />
