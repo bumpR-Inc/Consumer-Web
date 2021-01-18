@@ -1,8 +1,9 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { BorderBottom, BorderColor, GpsNotFixed } from "@material-ui/icons";
-import React from "react";
+import React, { useState } from "react";
 import { theme } from "./Theme";
 import { Store } from "../state/Store";
+import AddressModal from "./AddressModal";
 
 const useStyles = makeStyles({
   container: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles({
       flexDirection: 'column',
       height: '12vh'
     }
-  }, 
+  },
   logoContainer: {
     width: '30%',
     height: '100%',
@@ -65,11 +66,23 @@ const useStyles = makeStyles({
     color: theme.palette.primary.main,
     fontSize: '3em',
     display: 'inline',
+    background: 'none',
+    border: 'none',
+    fontWeight: 'bold',
     borderBottom: `solid 2px ${theme.palette.primary.main}`,
 
     [theme.breakpoints.down('md')]: {
       fontSize: '2em'
-    }
+    },
+
+    '&:hover': {
+      color: theme.palette.secondary.main,
+      borderBottom: `solid 2px ${theme.palette.secondary.main}`,
+    }, 
+
+    '&:focus': {
+      outline: 'none',
+    } 
   },
   detailsTo: {
     color: theme.palette.secondary.main,
@@ -78,8 +91,12 @@ const useStyles = makeStyles({
 });
 
 export default function NavBar() {
-  var classes = useStyles();
+  let classes = useStyles();
   const { state, dispatch } = React.useContext(Store);
+  const [addressModalOpen, setAddressModalOpen] = useState(false);
+
+  const openAddressModal = () => setAddressModalOpen(true);
+  const closeAddressModal = () => setAddressModalOpen(false);  
 
   return (
     <React.Fragment>
@@ -89,12 +106,14 @@ export default function NavBar() {
         </div>
         <div className={classes.detailsContainer}>
           <div className={classes.detailsWrap}>
-            <h1 className={classes.details}>Monday, January 18</h1>
+            <button className={classes.details}>Monday, January 18</button>
             <h1 className={`${classes.details} + ${classes.detailsTo}`}> to </h1>
-            <h1 className={classes.details}>{state.address.split(',')[0]}</h1>
+            <button onClick={openAddressModal} className={classes.details}>{state.address.split(',')[0]}</button>
           </div>
         </div>
       </div>
+
+      <AddressModal open={addressModalOpen} handleClose={closeAddressModal}/>
     </React.Fragment>
   )
   ;

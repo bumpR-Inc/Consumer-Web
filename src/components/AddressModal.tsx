@@ -1,100 +1,61 @@
-// import { makeStyles } from "@material-ui/core/styles";
-// import { BorderBottom, BorderColor, GpsNotFixed } from "@material-ui/icons";
-// import React from "react";
-// import { theme } from "./Theme";
-// import { Store } from "../state/Store";
+import { makeStyles } from "@material-ui/core/styles";
+import { BorderBottom, BorderColor, GpsNotFixed } from "@material-ui/icons";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
+import React from "react";
+import { theme } from "./Theme";
+import { Store } from "../state/Store";
 
-// const useStyles = makeStyles({
-//   container: {
-//     display: 'flex',
-//     flexDirection: 'row',
-//     height: '8vh',
-//     width: '100vw',
-//     backgroundColor: '#C9512B',
-//     boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.25)',
+const useStyles = makeStyles({
+  
+});
 
-//     [theme.breakpoints.down('sm')]: {
-//       flexDirection: 'column',
-//       height: '12vh'
-//     }
-//   }, 
-//   logoContainer: {
-//     width: '30%',
-//     height: '100%',
-//     display: 'flex',
-//     alignItems: 'center',
 
-//     [theme.breakpoints.down('sm')]: {
-//       width: '100%',
-//       height: '60%'
-//     }
-//   },
-//   logo: {
-//     fontFamily: 'Playfair Display',
-//     color: theme.palette.info.main,
-//     margin: '4%',
-//     fontSize: '4em',
+interface AddressModalProps {
+  open: boolean,
+  handleClose: () => void
+}
 
-//     [theme.breakpoints.down('md')]: {
-//       fontSize: '3em'
-//     }
-//   },
-//   detailsContainer: {
-//     width: '70%',
-//     height: '100%',
-//     display: 'flex',
-//     alignItems: 'center',
-//     justifyContent: 'flex-end',
-//     backgroundColor: theme.palette.info.main,
-//     filter: 'drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.25))',
-//     boxSizing: "border-box",
-//     MozBoxSizing: "border-box",
-//     WebkitBoxSizing: "border-box",
+export default function AddressModal({open, handleClose}: AddressModalProps) {
+  var classes = useStyles();
+  const { state, dispatch } = React.useContext(Store);
+  
+  // const Transition = React.forwardRef(function Transition(props, ref) {
+  //   return <Slide direction="down" ref={ref} {...props} />;
+  // });
 
-//     [theme.breakpoints.down('sm')]: {
-//       width: '100%',
-//       height: '40%',
-//       justifyContent: 'center'
-//     }
-//   },
-//   detailsWrap: {
-//     margin: '4%',
-//   },
-//   details: {
-//     fontFamily: 'Playfair Display',
-//     color: theme.palette.primary.main,
-//     fontSize: '3em',
-//     display: 'inline',
-//     borderBottom: `solid 2px ${theme.palette.primary.main}`,
-
-//     [theme.breakpoints.down('md')]: {
-//       fontSize: '2em'
-//     }
-//   },
-//   detailsTo: {
-//     color: theme.palette.secondary.main,
-//     borderBottom: 'none'
-//   }
-// });
-
-// interface AddressModalProps {
-//   open: string
-// }
-// export default function AddressModal({open}) {
-//   var classes = useStyles();
-//   const { state, dispatch } = React.useContext(Store);
-
-//   return (
-//     <React.Fragment>
-//       <Modal
-//         open={open}
-//         onClose={handleClose}
-//         aria-labelledby="simple-modal-title"
-//         aria-describedby="simple-modal-description"
-//       >
-//         {body}
-//       </Modal>
-//     </React.Fragment>
-//   )
-//   ;
-// }
+  return (
+    <div>
+      <React.Fragment>
+        <Dialog
+          open={open}
+          // TransitionComponent={Transition}
+          keepMounted
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="alert-dialog-slide-title">{"Use Google's location service?"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              Let Google help apps determine location. This means sending anonymous location data to
+              Google, even when no apps are running.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <button onClick={handleClose} color="primary">
+              Disagree
+            </button>
+            <button onClick={handleClose} color="primary">
+              Agree
+            </button>
+          </DialogActions>
+        </Dialog>
+      </React.Fragment>
+    </div>
+  );
+}
