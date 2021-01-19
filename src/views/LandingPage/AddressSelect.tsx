@@ -11,7 +11,6 @@ import PlacesAutocomplete, {
 import background from "../../assets/img/landing-background.jpg";
 import motto from "../../assets/img/motto.png";
 import { theme } from "../../components/Theme";
-import { goToMenu } from "../../state/Actions";
 import { Store } from "../../state/Store";
 import NavBar from "./NavBar";
 
@@ -43,6 +42,7 @@ const useStyles = makeStyles({
     border: "none",
     height: "10vh",
     width: '100%',
+    boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.5)',
 
     borderRadius: '5px',
   },
@@ -78,7 +78,6 @@ const useStyles = makeStyles({
     height: "10vh",
 
     borderRadius: '5px',
-    // boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.5)',
 
     fontFamily: 'Playfair Display',
     fontSize: '4em',
@@ -94,9 +93,11 @@ const useStyles = makeStyles({
     },
   },
   validityIconContainer: {
+    height: '100%',
     width: "7%",
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center',
     [theme.breakpoints.down('sm')]: {
       width: '10%',
     },
@@ -111,6 +112,13 @@ const useStyles = makeStyles({
   validIcon: {
     color: theme.palette.success.main,
     fontSize: '3em',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '2em',
+    },
+  },
+  validIconNavbar: {
+    color: theme.palette.info.main,
+    fontSize: '2em',
     [theme.breakpoints.down('sm')]: {
       fontSize: '2em',
     },
@@ -167,6 +175,15 @@ const useStyles = makeStyles({
       fontSize: '2.5em',
     },
   },
+  validAddressButtonNavbar: {
+    backgroundColor: theme.palette.success.main,
+    border: "none",
+    height: '100%',
+    width: '100%',
+    "&:hover": {
+      backgroundColor: theme.palette.success.dark,
+    }
+  },
   invalidAddressLink: {
     width: '100%',
   },
@@ -187,16 +204,18 @@ const useStyles = makeStyles({
   }
 });
 
-export default function AddressSelect() {
-  const { user, isAuthenticated, getAccessTokenSilently, loginWithRedirect, logout } = useAuth0();
-  const { state, dispatch } = React.useContext(Store);
+interface AddressSelectProps {
+  landing: boolean,
+  onConfirm: (address: string, geocode: any) => void
+}
 
+export default function AddressSelect({landing, onConfirm}: AddressSelectProps) {  
   var classes = useStyles();
   var [addressState, handleAddressChange] = useState<string>('');
   var [geocode, handleGeocodeChange] = useState<any>(null);
   var [validAddress, setValidAddress] = useState<boolean>(false);
   var [coveredAddress, setCoveredAddress] = useState<boolean>(false);
-  var [showMotto, setShowMotto] = useState<boolean>(true);
+  var [showMotto, setShowMotto] = useState<boolean>(landing);
 
   var setGeocode = (latLng: any) => {
     console.log(latLng);
@@ -241,7 +260,7 @@ export default function AddressSelect() {
                     <div className={classes.pinIconContainer}>
                       <Room className={classes.pinIcon}></Room>
                     </div>
-                    <input
+                    <input ref={input => input && input.focus()}
                       className={classes.address}
                       {...getInputProps({
                         placeholder: 'Enter Delivery Address',
@@ -253,7 +272,13 @@ export default function AddressSelect() {
                         (<Loop className={classes.loadingIcon}></Loop>)
                         : (addressState !== '' && (
                           (geocode && coveredAddress)
-                            ? (<CheckCircle className={classes.validIcon} ></CheckCircle>)
+                          ? (
+                            landing
+                              ? (<CheckCircle className = { classes.validIcon } ></CheckCircle>)
+                              : (<button className={classes.validAddressButtonNavbar} onClick={() => onConfirm(addressState, geocode)}>
+                                  <CheckCircle className={classes.validIconNavbar}></CheckCircle>
+                                </button>)
+                          )
                             : (<Cancel className={classes.invalidIcon}></Cancel>)
                         ))
                       }
@@ -287,11 +312,11 @@ export default function AddressSelect() {
               })}
               </div>)
               : (
-                geocode && 
+                (landing && geocode) && 
                 (
                   (coveredAddress) ? 
                     (
-                      <button className={classes.validAddressButton} onClick={() => goToMenu(dispatch, addressState, geocode)}>
+                      <button className={classes.validAddressButton} onClick={() => onConfirm(addressState, geocode)}>
                         View Menu
                       </button>
                     )

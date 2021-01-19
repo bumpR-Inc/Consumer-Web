@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { BorderBottom, BorderColor, GpsNotFixed } from "@material-ui/icons";
-import React, { useState } from "react";
+import React, { useState, MouseEvent } from "react";
 import { theme } from "./Theme";
 import { Store } from "../state/Store";
 import AddressModal from "./AddressModal";
@@ -93,10 +93,13 @@ const useStyles = makeStyles({
 export default function NavBar() {
   let classes = useStyles();
   const { state, dispatch } = React.useContext(Store);
-  const [addressModalOpen, setAddressModalOpen] = useState(false);
 
-  const openAddressModal = () => setAddressModalOpen(true);
-  const closeAddressModal = () => setAddressModalOpen(false);  
+  const [ addressAnchor, setAddressAnchor ] = useState<any>(null);
+
+  const handleAddressClick = (event: MouseEvent) => {
+    setAddressAnchor(event.currentTarget);
+  };
+  const handleAddressClose = () => setAddressAnchor(null);
 
   return (
     <React.Fragment>
@@ -108,12 +111,11 @@ export default function NavBar() {
           <div className={classes.detailsWrap}>
             <button className={classes.details}>Monday, January 18</button>
             <h1 className={`${classes.details} + ${classes.detailsTo}`}> to </h1>
-            <button onClick={openAddressModal} className={classes.details}>{state.address.split(',')[0]}</button>
-          </div>
+            <button onClick={handleAddressClick} className={classes.details}>{state.address.split(',')[0]}</button>          </div>
         </div>
       </div>
 
-      <AddressModal open={addressModalOpen} handleClose={closeAddressModal}/>
+      <AddressModal anchor={addressAnchor} handleClose={handleAddressClose}/>
     </React.Fragment>
   )
   ;

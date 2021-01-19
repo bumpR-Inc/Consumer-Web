@@ -103,3 +103,15 @@ export const goToMenu = async (
     payload: { address: address, geocode: geocode },
   });
 };
+
+export const updateAddress = async (
+  dispatch: any,
+  address: string,
+  geocode: any
+) => {
+  return dispatch({
+    //redirects to menu page, while settign the address and geocode
+    type: "UPDATE_ADDRESS",
+    payload: { address: address, geocode: geocode },
+  });
+};
