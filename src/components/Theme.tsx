@@ -11,20 +11,21 @@ export const theme = createMuiTheme({
     },
   },
   palette: {
-    primary: {
+    primary: { // orange
       main: '#C9512B',
       dark: '#B04A29'
     },
-    secondary: {
+    secondary: { // grey
       main: '#545453',
     },
-    error: {
+    error: { // red
       main: '#BC2F2F',
     },
-    success: {
+    success: { // green
       main: '#428D36',
+      dark: '#337129'
     },
-    info: {
+    info: { // off-white 
       main: '#FFFBF5',
     }
     

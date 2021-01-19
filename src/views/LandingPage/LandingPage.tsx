@@ -2,11 +2,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import background from "../../assets/img/landing-background.jpg";
 import { theme } from "../../components/Theme";
-import NavBar from "./NavBar";
+import { goToMenu } from "../../state/Actions";
+import { Store } from "../../state/Store";
 import AddressSelect from "./AddressSelect";
 import DealCarousel from "./DealCarousel";
-import Process from "./Process";
 import Footer from "./Footer";
+import NavBar from "./NavBar";
+import Process from "./Process";
 
 const useStyles = makeStyles({
   container: {
@@ -33,7 +35,12 @@ const useStyles = makeStyles({
 });
 
 export default function LandingPage() {
+  const { state, dispatch } = React.useContext(Store);
   var classes = useStyles();
+  
+  const addressOnConfirm = (address: string, geocode: any) => {
+    goToMenu(dispatch, address, geocode);
+  }
 
   return (
   <div>
@@ -41,8 +48,7 @@ export default function LandingPage() {
       <div className={classes.container}>
         <div className={classes.hero}>
           <NavBar/>
-          <AddressSelect/>
-          <div />
+            <AddressSelect landing={true} onConfirm={addressOnConfirm}/>
         </div>
       </div>
       <DealCarousel/> 

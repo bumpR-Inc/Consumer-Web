@@ -43,6 +43,13 @@ function reducer(state: IState, action: IAction): IState {
         landing: false,
       };
       break;
+    case "UPDATE_ADDRESS":
+      state = {
+        ...state,
+        address: action.payload["address"],
+        geocode: action.payload["geocode"],
+      };
+      break;
     case "NO_CHANGE":
       state = state;
       break;
