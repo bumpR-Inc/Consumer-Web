@@ -26,7 +26,7 @@ export default function CartModal(modalProps: any) {
         "venmo://paycharge?txn=pay&recipients=GN-delivery&amount="; //partial, still need more parameters
 
     //calculates cost of meals
-    const taxRate: number = 0.0725;
+    const taxRate: number = 0.0925;
     var mealsCost = props.orders.reduce(
         (accumulator: number, currentMeal: IMeal) =>
         accumulator + currentMeal.price,
@@ -52,30 +52,35 @@ export default function CartModal(modalProps: any) {
               </div>
               {/* {console.log({ venmoLink })} */}
               <div className="cart-costs">
+                <div className="cart-line"></div>
                 <div className="cost-row">
-                  <p className="cost-breakdown">Subtotal:</p>
-                  <p>${mealsCost}</p>
+                  <p className="cardText">Subtotal:</p>
+                  <p className="cardText">${mealsCost}</p>
                 </div>
                 <div className="cost-row">
-                  <p>Tax:</p>
-                  <p>${tax}</p>
+                  <p className="cardText">Tax:</p>
+                  <p className="cardText">${tax}</p>
                 </div>
                 <div className="cost-row">
-                  <p>Optional Tip:</p>
-                  <p>${tip}</p>
+                  <p className="cardText">Optional Tip:</p>
+                  <p className="cardText">${tip}</p>
                 </div>
                 <div className="cost-row">
-                  <p>Total:</p>
-                  <p>${totalCost}</p>
+                  <p className="cardText bolded">Total:</p>
+                  <p className="cardText bolded">${totalCost}</p>
                 </div>
-                <p>
-                  To confirm your order, please pay ${totalCost} with Venmo
-                  below.
-                </p>
-                <p>
+                <div className="cart-line"></div>
+
+                {/* <div className="cost-row">
+                  <p className="cardText">
+                    To confirm your order, please pay ${totalCost} with Venmo
+                    below.
+                  </p>
+                </div> */}
+                {/* <p>
                   If you were ordering the same thing on DoorDash, you'd be
                   paying ${totalCost * 2}!
-                </p>
+                </p> */}
               </div>
               <div className="cart-payment-container">
                 <p>
@@ -93,7 +98,9 @@ export default function CartModal(modalProps: any) {
                   will receive a Venmo refund from @GN-delivery.
                 </p>
                 <p>
-                  TODO: add checkbox saying yes i have paid with venmo before confirming, address + tip entry, date entry, phone number verification, styling
+                  TODO: add checkbox saying yes i have paid with venmo before
+                  confirming, address + tip entry, date entry, phone number
+                  verification, styling
                 </p>
               </div>
             </div>

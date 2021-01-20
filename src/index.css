@@ -71,6 +71,12 @@ p {
     url("./assets/fonts/PlayfairDisplay-Bold.otf") format("truetype");
 }
 
+@font-face {
+  font-family: "Playfair";
+  src: local("Playfair-Regular"),
+    url("./assets/fonts/PlayfairDisplay-Regular.otf") format("truetype");
+}
+
 .nav-link-container {
   width: 200px;
 }
@@ -105,6 +111,14 @@ p {
   background-color: #c9512b;
 }
 
+.cart-line {
+  height: 1px;
+  width: 100%;
+  margin-top: .3rem;
+  margin-bottom: .3rem;
+  background-color: #333;
+}
+
 .cardTitle {
   font-size: 22px;
   font-family: Playfair-Bold;
@@ -117,9 +131,9 @@ p {
 }
 
 .cardText {
-  font-size: 16px;
-  font-family: Playfair Display;
-  color: #545453;
+  font-size: 14px;
+  font-family: "Playfair";
+  color: #272727;
 }
 
 .cardPrice {
@@ -145,12 +159,12 @@ p {
 
 .cart-card-container {
   display: flex;
-  height: 130px;
-  width: 450px;
+  width: 34rem;
   /* outline: #C9512B solid 2px;
   /* width: 95%; */
-  margin-left: 2.5%;
-  margin-top: 0.75rem;
+  margin-left: .5vw;
+  margin-right: .5vw;
+  margin-top: 1vh;
   background-color: #fff;
   border-radius: 10px;
   height: 7.5rem;
@@ -162,6 +176,11 @@ p {
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
 }
 
+.bolded {
+  font-weight: bold;
+  font-size: 18px;
+}
+
 .cart-card-img {
   height: 80px;
   width: 115px;
@@ -169,6 +188,7 @@ p {
 }
 
 .cart-card-content {
+  font-family: Playfair;
   height: 80px;
   width: 210px;
   text-align: left;
@@ -176,12 +196,15 @@ p {
 }
 
 .cart-card-title {
+  font-family: Playfair-Bold;
   font-size: 20px;
   font-weight: bold;
   padding: 2px;
+  color: #c9512b;
 }
 
 .cart-card-price {
+  font-family: Playfair;
   font-size: 18px;
   padding: 2px;
 }
@@ -220,7 +243,9 @@ p {
 }
 
 .venmo-btn {
-  width: 15vh;
+  width: 35vw;
+  max-width: 180px;
+  margin: .5rem;
 }
 
 .flex {
@@ -330,11 +355,13 @@ background-color: rgba(0, 0, 0, 0.55);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: 2rem;
+  /* font-weight: 700; */
+  font-family: "Playfair-Bold";
+  font-size: 2.2rem;
+  color: #fff;
   line-height: 2.25rem;
   width: 100%;
-  background-color: #fff;
+  background-color: #c9512b;
   z-index: 21;
   border-top-left-radius: 2rem;
   border-top-right-radius: 2rem;
@@ -345,11 +372,13 @@ background-color: rgba(0, 0, 0, 0.55);
 .cart-content-container{
   margin: auto;
   align-items: center;
-  width: 100%;
+  /* width: 100%; */
+  max-width: 480px;
   height: 100%;
   overflow-y: scroll;
   justify-content: space-evenly;
 }
+
 
 .cart-content{
   position: relative;
@@ -362,23 +391,26 @@ background-color: rgba(0, 0, 0, 0.55);
   align-items: center;
   justify-content: space-around;
   flex-direction: column;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   margin-bottom: 2vh;
   margin-top: 1vh;
 }
 
 .cart-costs {
   /* todo: add some @media stuff here to make responsive (width) */
-  margin-top: 3rem;
-  width: 55%; 
+  margin-top: 1.5rem;
+  /* width: 55%;  */
   position: relative;
   display: flex;
   flex-direction: column;
   font-size: 1rem;
   margin-bottom: 2rem;
   flex-shrink: 0;
-  margin-right: auto;
-  margin-left: auto;
+  /* margin-right: 1vw;
+  margin-left: 1vw; */
+  padding-right: 1.5vw;
+  padding-left: 1.5vw;
+  width: 100%;
 }
 
 .cost-row {
@@ -387,7 +419,7 @@ background-color: rgba(0, 0, 0, 0.55);
 }
 
 .cart-payment-container {
-  margin-bottom: 500px;
+  margin-bottom: 10rem;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -439,7 +471,7 @@ background-color: rgba(0, 0, 0, 0.55);
 
 .cart-review-order-button {
     width: 68%;
-    background: #333;
+    background: #c9512b;
     color: #fff;
     text-decoration: none;
 }
