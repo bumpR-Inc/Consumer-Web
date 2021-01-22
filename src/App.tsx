@@ -1,38 +1,39 @@
-import React from "react";
-import { isPartiallyEmittedExpression } from "typescript";
-import { Store } from "./state/Store";
-import { IAction, IMeal, IMealProps } from "./state/interfaces";
-import { Link } from "@reach/router";
-import logo from "./assets/img/logo-blob.png";
-// import "./App.css";
-import Card from "./components/Card";
-import "./index.css";
-import NavBar from "./components/NavBar";
+import { Router, Route, Switch } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import history from "./utils/history";
 
-const EpisodeList = React.lazy<any>(() => import("./components/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
+// styles
+import "./App.css";
 
-export default function App(props: any): JSX.Element {
-  const { state, dispatch } = React.useContext(Store); //can remove "dispatch"
-  console.log(state);
+// fontawesome
+// import initFontAwes,ome from "./utils/initFontAwesome";
+import HomePage from "./views/HomePage";
+import LandingPage from "./views/LandingPage/LandingPage";
+import OrdersPage from "./views/OrdersPage";
+
+// initFontAwesome();
+
+const App = () => {
+  const { isLoading, error } = useAuth0();
+
+  if (error) {
+    return <div>Oops... {error.message}</div>;
+  }
+
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
 
   return (
-    <React.Fragment>
-      {/* <header className="header"> */}
-      {/* <header className="header">
-        <div>GN Logo and maybe dropdown Here</div>
-        <div className="nav-link-container">
-          <Link to="/" className="nav-text">
-            Menu
-          </Link>
-        </div>
-        <div className="nav-link-container">
-          <Link to="/orders" className="nav-text">
-            Orders: {state.orders.length}
-          </Link>
-        </div>
-      </header> */}
-      <NavBar/>
-      {props.children}
-    </React.Fragment>
-  ); //?not really sure about props.children
-}
+    // <Home/>
+    <Router history={history}>
+      <Switch>
+        <Route path="/" exact component={HomePage} />
+        <Route path="/landing" exact component={LandingPage} />
+        <Route path="/orders" component={OrdersPage} />
+      </Switch>
+    </Router>
+  );
+};
+
+export default App;

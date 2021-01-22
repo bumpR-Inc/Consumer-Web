@@ -4,6 +4,7 @@ import { IMealProps, IMeal } from "../state/interfaces";
 import { toggleFavAction } from "../state/Actions";
 import App from "../App";
 import VenmoBtn from "../components/VenmoBtn";
+import Wrapper from "./Wrapper";
 
 
 const EpisodeList = React.lazy<any>(() => import("../components/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
@@ -36,7 +37,7 @@ export default function OrdersPage(): JSX.Element {
   );
 
   return (
-    <App path="/">
+    <Wrapper path="/">
       <React.Suspense fallback={<div>loading...</div>}>
         <div className="cart-cards-layout">
           <CartList {...props} />
@@ -48,7 +49,7 @@ export default function OrdersPage(): JSX.Element {
         <p>To confirm your order, please pay ${totalCost} with Venmo below.</p>
         <VenmoBtn paymentLink={venmoLink} />
       </React.Suspense>
-    </App>
+    </Wrapper>
   );
 }
 
