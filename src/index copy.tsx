@@ -27,7 +27,7 @@ ReactDOM.render(
     domain={config.domain}
     clientId={config.clientId}
     audience={config.audience}
-    redirectUri={window.location.origin}
+    redirectUri={window.location.origin.split('//')[1]}
     onRedirectCallback={onRedirectCallback}
   >
     <StoreProvider>
