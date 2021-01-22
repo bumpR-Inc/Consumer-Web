@@ -1,14 +1,15 @@
 import React from "react";
-import { Store } from "../state/Store";
-import CartModal from "../components/CartModal"
-
-import { IMealProps } from "../state/interfaces";
-import { fetchDataAction, toggleFavAction } from "../state/Actions";
 import App from "../App";
+import CartModal from "../components/CartModal";
+import { fetchDataAction, toggleFavAction } from "../state/Actions";
+import { IMealProps } from "../state/interfaces";
+import { Store } from "../state/Store";
+import MenuWrapper from "./Wrapper";
+
 
 const MealList = React.lazy<any>(() => import("../components/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 
-export default function HomePage() {
+export default function MenuPage() {
   const { state, dispatch } = React.useContext(Store);
   const [displayModal, setDisplayModal] = React.useState(false);
 
@@ -25,7 +26,7 @@ export default function HomePage() {
   };
 
   return (
-    <App path="/">
+    <MenuWrapper path="/">
       <div className="menu-full-flex-container">
         <div className="menu-constrained-container">
           <React.Fragment>
@@ -64,7 +65,7 @@ export default function HomePage() {
           displayModal={displayModal}
         />
       </div>
-    </App>
+    </MenuWrapper>
   );
 }
 

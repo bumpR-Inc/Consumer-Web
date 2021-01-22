@@ -104,7 +104,7 @@ export default function Navbar() {
               : (
                 <h1
                   className={classes.signIn}
-                  onClick={() => logout()}
+                  onClick={() => logout({returnTo: window.location.origin})}
                 >
                   Logout.
                 </h1>
