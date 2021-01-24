@@ -10,6 +10,7 @@ export interface IState {
   address?: string;
   geocode?: any;
   landing: boolean;
+  restaurants: Array<IRestaurant>;
 }
 
 export interface IAction {
@@ -68,4 +69,5 @@ export interface IMealProps {
   store: { state: IState; dispatch: Dispatch };
   toggleFavAction: (state: IState, dispatch: any, meal: IMeal) => IAction;
   orders: Array<IMeal>;
+  restaurants: Array<IRestaurant>;
 }

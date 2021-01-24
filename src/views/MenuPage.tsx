@@ -1,7 +1,7 @@
 import React from "react";
 import App from "../App";
 import CartModal from "../components/CartModal";
-import { fetchDataAction, toggleFavAction } from "../state/Actions";
+import { fetchDataAction, fetchRestaurantsAction, toggleFavAction } from "../state/Actions";
 import { IMealProps } from "../state/interfaces";
 import { Store } from "../state/Store";
 import MenuWrapper from "./Wrapper";
@@ -15,7 +15,11 @@ export default function MenuPage() {
 
 
   React.useEffect(() => {
-    (state.meals?.length === 0 ?? false) && fetchDataAction(dispatch); //if state episodes array is empty, run this function
+    if (state.meals?.length === 0 ?? false) {
+      //if state meals array is empty, run these functions to fill up state.
+      fetchDataAction(dispatch);
+      fetchRestaurantsAction(dispatch);
+    }
   }); //useEffect hook is to get data as soon as user lands on the page
 
   const props: IMealProps = {
@@ -23,6 +27,7 @@ export default function MenuPage() {
     store: { state, dispatch },
     toggleFavAction: toggleFavAction,
     orders: state.orders,
+    restaurants: state.restaurants,
   };
 
   return (
