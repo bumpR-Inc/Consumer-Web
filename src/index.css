@@ -19,8 +19,16 @@ p {
   margin: 3px;
 }
 
+h1 {
+  font-size: 18px;
+  color: #fff;
+  font-family: Playfair-Bold;
+}
 
-
+.center {
+  display: flex;
+  justify-content: center;
+}
 .menu-full-flex-container {
   display: flex;
   justify-content: center;
@@ -403,6 +411,7 @@ background-color: rgba(0, 0, 0, 0.55);
   position: relative;
   display: flex;
   flex-direction: column;
+  /* align-items: center; */
   font-size: 1rem;
   margin-bottom: 2rem;
   flex-shrink: 0;
@@ -411,6 +420,12 @@ background-color: rgba(0, 0, 0, 0.55);
   padding-right: 1.5vw;
   padding-left: 1.5vw;
   width: 100%;
+}
+.cartText {
+  font-size: 16px;
+  font-family: "Playfair";
+  color: #272727;
+  letter-spacing: .02em;
 }
 
 .cost-row {
@@ -454,6 +469,7 @@ background-color: rgba(0, 0, 0, 0.55);
 }
 
 .cart-back-button, .cart-review-order-button {
+  font-family: "Playfair";
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -475,3 +491,8 @@ background-color: rgba(0, 0, 0, 0.55);
     color: #fff;
     text-decoration: none;
 }
+
+/* .checkbox-row {
+  display: flex;
+  justify-content: space-around;
+} */

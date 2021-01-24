@@ -38,15 +38,6 @@ export default function MenuPage() {
         <div className="menu-constrained-container">
           <React.Fragment>
             <React.Suspense fallback={<div>loading...</div>}>
-              {/* <div>
-                <div className="restaurant-name">Punjabi Dhaba</div>
-                  <div className="restaurant-line"></div>
-                <div>
-                  <section className="meal-layout">
-                    <MealList {...props} />
-                  </section>
-                </div>
-              </div> */}
               <MealListByRestaurant {...props}/>
             </React.Suspense>
             <div className="bottom-cart-btn-wrapper">
