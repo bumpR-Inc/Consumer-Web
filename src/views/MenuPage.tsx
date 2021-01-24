@@ -8,6 +8,8 @@ import MenuWrapper from "./Wrapper";
 
 
 const MealList = React.lazy<any>(() => import("../components/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
+const MealListByRestaurant = React.lazy<any>(() => import("../components/MealListByRestaurant")); //react lazy isntead of normal importing. see suspense and fallback below
+
 
 export default function MenuPage() {
   const { state, dispatch } = React.useContext(Store);
@@ -36,7 +38,7 @@ export default function MenuPage() {
         <div className="menu-constrained-container">
           <React.Fragment>
             <React.Suspense fallback={<div>loading...</div>}>
-              <div>
+              {/* <div>
                 <div className="restaurant-name">Punjabi Dhaba</div>
                   <div className="restaurant-line"></div>
                 <div>
@@ -44,7 +46,8 @@ export default function MenuPage() {
                     <MealList {...props} />
                   </section>
                 </div>
-              </div>
+              </div> */}
+              <MealListByRestaurant {...props}/>
             </React.Suspense>
             <div className="bottom-cart-btn-wrapper">
               <div className="cart-button-wrapper">
