@@ -18,12 +18,16 @@ const useStyles = makeStyles({
     MozBoxSizing: 'border-box',
     WebkitBoxSizing: 'border-box',
   },
+  textWrap: {
+    width: '100%',
+  },
   text: {
     color: theme.palette.primary.main,
     fontSize: '10em',
     fontWeight: 'normal',
     fontFamily: 'Brush',
     margin: '0px',
+    textAlign: 'center',
     [theme.breakpoints.down('md')]: {
       fontSize: '8em',
     },
@@ -38,9 +42,11 @@ export default function Footer() {
 
   return (
     <div className={classes.container}>
-      <h1 className={classes.text}>
-        Order today!
-      </h1>
+      <div className={classes.textWrap}>
+        <h1 className={classes.text}>
+          Order today!
+        </h1>
+      </div>
     </div>
   );
 }
