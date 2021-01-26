@@ -12,10 +12,10 @@ const useStyles = makeStyles({
     flexDirection: 'row'
   },
   navBuffer: {
-    flex: 1,
-    [theme.breakpoints.down('sm')]: {
-      flex: 0,
-    },
+    // flex: 1,
+    // [theme.breakpoints.down('sm')]: {
+    //   flex: 0,
+    // },
   },
   titleContainer: {
     width: '100%',
@@ -46,19 +46,19 @@ const useStyles = makeStyles({
     },
 
     [theme.breakpoints.down('sm')]: {
-      textAlign: 'left',
+      // textAlign: 'left',
     },
   },
   signInContainer: {
-    zIndex: 1,
-    width: '100%',
-    top: 0,
-    flex: 1,
-    display: 'flex',
-    justifyContent: 'flex-end',
-    [theme.breakpoints.down('sm')]: {
-      alignItems: 'center',
-    },
+    // zIndex: 1,
+    // width: '100%',
+    // top: 0,
+    // flex: 1,
+    // display: 'flex',
+    // justifyContent: 'flex-end',
+    // [theme.breakpoints.down('sm')]: {
+    //   alignItems: 'center',
+    // },
   },
   signIn: {
     fontFamily: 'Playfair Display',
