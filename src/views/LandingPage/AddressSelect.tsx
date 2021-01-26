@@ -22,7 +22,8 @@ const useStyles = makeStyles({
   },
   motto: {
     height: 'auto',
-    width: 'auto'
+    width: '90vw',
+    maxWidth: '800px',
   },
   addressContainer: {
     display: 'flex',
@@ -243,7 +244,7 @@ export default function AddressSelect({landing, onConfirm}: AddressSelectProps) 
   <>
   
     {showMotto && <div>
-        <img src={motto} />
+        <img src={motto} className={classes.motto} />
     </div>}
     <PlacesAutocomplete
         value={addressState}

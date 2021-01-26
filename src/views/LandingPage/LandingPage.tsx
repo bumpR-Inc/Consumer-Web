@@ -27,10 +27,6 @@ const useStyles = makeStyles({
     gap: "3%",
 
     filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.5))",
-
-    [theme.breakpoints.down("sm")]: {
-      height: "50vh",
-    },
   },
 });
 

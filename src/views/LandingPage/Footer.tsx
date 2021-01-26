@@ -14,6 +14,9 @@ const useStyles = makeStyles({
     backgroundColor: theme.palette.info.main,
     justifyContent: 'center',
     alignItems: 'center',
+    boxSizing: 'border-box',
+    MozBoxSizing: 'border-box',
+    WebkitBoxSizing: 'border-box',
   },
   text: {
     color: theme.palette.primary.main,
@@ -21,6 +24,12 @@ const useStyles = makeStyles({
     fontWeight: 'normal',
     fontFamily: 'Mighty Brush',
     margin: '0px',
+    [theme.breakpoints.down('md')]: {
+      fontSize: '8em',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '14vw',
+    },
   },
 });
 

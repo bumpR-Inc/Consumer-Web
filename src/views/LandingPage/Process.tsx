@@ -19,6 +19,9 @@ const useStyles = makeStyles({
     alignItems: 'center',
     gap: '5vw',
     boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.75)',
+    boxSizing: 'border-box',
+    MozBoxSizing: 'border-box',
+    WebkitBoxSizing: 'border-box',
     [theme.breakpoints.down('md')]: {
       flexDirection: 'column',
       height: 'auto',
@@ -66,7 +69,7 @@ const useStyles = makeStyles({
     display: 'inline',
     fontFamily: 'Mighty Brush',
     fontSize: '3em',
-    lineHeight: '0em',
+    lineHeight: '1em',
     textAlign: 'center',
     color: theme.palette.primary.main,
   },

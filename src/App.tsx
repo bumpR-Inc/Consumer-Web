@@ -10,6 +10,7 @@ import "./App.css";
 import HomePage from "./views/HomePage";
 import LandingPage from "./views/LandingPage/LandingPage";
 import OrdersPage from "./views/OrdersPage";
+import PrivacyPolicy from "./views/PrivacyPolicy";
 
 // initFontAwesome();
 
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/" exact component={HomePage} />
         <Route path="/landing" exact component={LandingPage} />
         <Route path="/orders" component={OrdersPage} />
+        <Route path="/privacy" component={PrivacyPolicy} />
       </Switch>
     </Router>
   );
