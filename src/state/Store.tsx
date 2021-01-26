@@ -9,6 +9,7 @@ var initialState: IState = {
   address: undefined,
   geocode: undefined,
   landing: true,
+  restaurants: [],
 };
 
 var localState = localStorage.getItem("state");
@@ -22,6 +23,9 @@ function reducer(state: IState, action: IAction): IState {
   switch (action.type) {
     case "FETCH_DATA":
       state = { ...state, meals: action.payload };
+      break;
+    case "FETCH_RESTAURANTS":
+      state = { ...state, restaurants: action.payload };
       break;
     case "ADD_FAV":
       state = { ...state, orders: [...state.orders, action.payload] };

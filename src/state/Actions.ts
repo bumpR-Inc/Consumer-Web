@@ -20,7 +20,7 @@ export const fetchRestaurantsAction = async (dispatch: any) => {
   const dataJSON = await data.json(); //convert to json
   return dispatch({
     //basically returns this object to our reducer in Store.tsx
-    type: "FETCH_DATA",
+    type: "FETCH_RESTAURANTS",
     payload: dataJSON, //do ._embedded.episodes because we know basedo nthis specific api URL
   });
 };

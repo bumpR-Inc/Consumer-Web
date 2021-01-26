@@ -1,13 +1,15 @@
 import React from "react";
 import App from "../App";
 import CartModal from "../components/CartModal";
-import { fetchDataAction, toggleFavAction } from "../state/Actions";
+import { fetchDataAction, fetchRestaurantsAction, toggleFavAction } from "../state/Actions";
 import { IMealProps } from "../state/interfaces";
 import { Store } from "../state/Store";
 import MenuWrapper from "./Wrapper";
 
 
 const MealList = React.lazy<any>(() => import("../components/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
+const MealListByRestaurant = React.lazy<any>(() => import("../components/MealListByRestaurant")); //react lazy isntead of normal importing. see suspense and fallback below
+
 
 export default function MenuPage() {
   const { state, dispatch } = React.useContext(Store);
@@ -15,7 +17,11 @@ export default function MenuPage() {
 
 
   React.useEffect(() => {
-    (state.meals?.length === 0 ?? false) && fetchDataAction(dispatch); //if state episodes array is empty, run this function
+    if (state.meals?.length === 0 ?? false) {
+      //if state meals array is empty, run these functions to fill up state.
+      fetchDataAction(dispatch);
+      fetchRestaurantsAction(dispatch);
+    }
   }); //useEffect hook is to get data as soon as user lands on the page
 
   const props: IMealProps = {
@@ -23,6 +29,7 @@ export default function MenuPage() {
     store: { state, dispatch },
     toggleFavAction: toggleFavAction,
     orders: state.orders,
+    restaurants: state.restaurants,
   };
 
   return (
@@ -31,15 +38,7 @@ export default function MenuPage() {
         <div className="menu-constrained-container">
           <React.Fragment>
             <React.Suspense fallback={<div>loading...</div>}>
-              <div>
-                <div className="restaurant-name">Punjabi Dhaba</div>
-                  <div className="restaurant-line"></div>
-                <div>
-                  <section className="meal-layout">
-                    <MealList {...props} />
-                  </section>
-                </div>
-              </div>
+              <MealListByRestaurant {...props}/>
             </React.Suspense>
             <div className="bottom-cart-btn-wrapper">
               <div className="cart-button-wrapper">
