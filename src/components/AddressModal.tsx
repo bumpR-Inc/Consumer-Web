@@ -11,7 +11,7 @@ import Slide from '@material-ui/core/Slide';
 import React, { useState, PointerEvent } from "react";
 import { theme } from "./Theme";
 import { Store } from "../state/Store";
-import AddressSelect from "../views/LandingPage/AddressSelect";
+import AddressSelect from "../views/LandingPage/Hero/AddressSelect";
 import { updateAddress } from "../state/Actions";
 
 const useStyles = makeStyles({

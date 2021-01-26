@@ -4,11 +4,12 @@ import background from "../../assets/img/landing-background.jpg";
 import { theme } from "../../components/Theme";
 import { goToMenu } from "../../state/Actions";
 import { Store } from "../../state/Store";
-import AddressSelect from "./AddressSelect";
+import AddressSelect from "./Hero/AddressSelect";
 import DealCarousel from "./DealCarousel";
 import Footer from "./Footer";
-import NavBar from "./NavBar";
+import NavBar from "./Hero/NavBar";
 import Process from "./Process";
+import Hero from "./Hero/Hero";
 
 const useStyles = makeStyles({
   container: {
@@ -41,12 +42,7 @@ export default function LandingPage() {
   return (
   <div>
     <React.Fragment>
-      <div className={classes.container}>
-        <div className={classes.hero}>
-          <NavBar/>
-            <AddressSelect landing={true} onConfirm={addressOnConfirm}/>
-        </div>
-      </div>
+      <Hero/>
       <DealCarousel/> 
       <Process/> 
       <Footer/> 

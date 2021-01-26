@@ -8,15 +8,24 @@ import PlacesAutocomplete, {
 
   getLatLng
 } from 'react-places-autocomplete';
-import background from "../../assets/img/landing-background.jpg";
-import motto from "../../assets/img/motto.png";
-import { theme } from "../../components/Theme";
-import { Store } from "../../state/Store";
-import NavBar from "./NavBar";
+import background from "../../../assets/img/landing-background.jpg";
+import motto from "../../../assets/img/motto.png";
+import { theme } from "../../../components/Theme";
+import { Store } from "../../../state/Store";
 
 const thresh: number = 12;
 
 const useStyles = makeStyles({
+  container: {
+    // backgroundColor: 'green',
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '3%',
+  },
   mottoContainer: {
 
   },
@@ -24,6 +33,10 @@ const useStyles = makeStyles({
     height: 'auto',
     width: '90vw',
     maxWidth: '800px',
+
+    [theme.breakpoints.down('sm')]: {
+      width: '95vw',
+    }
   },
   addressContainer: {
     display: 'flex',
@@ -32,6 +45,20 @@ const useStyles = makeStyles({
     width: "95vw",
     maxWidth: theme.breakpoints.values.md.toString() + 'px',
     gap: "1vh",
+  },
+  hideMottoButtonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    backgroundColor: theme.palette.info.main,
+    border: "none",
+    height: "10vh",
+    width: '80%',
+    boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.5)',
+
+    borderRadius: '25px',
   },
   addressInputContainer: {
     display: 'flex',
@@ -241,23 +268,24 @@ export default function AddressSelect({landing, onConfirm}: AddressSelectProps) 
   };
 
   return (
-  <>
-  
-    {showMotto && <div>
-        <img src={motto} className={classes.motto} />
-    </div>}
-    <PlacesAutocomplete
-        value={addressState}
-        onChange={handleAddressChange}
-        onSelect={handleAddressSelect}
-      >
-        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div className={classes.addressContainer}>
-            <div className={classes.addressInputContainer} onClick={() => setShowMotto(false)}>
-              
+    <div className={classes.container} style={{justifyContent: showMotto ? 'center' : 'flex-start'}}>
+      {showMotto && <div>
+          <img src={motto} className={classes.motto} />
+      </div>}
+      <PlacesAutocomplete
+          value={addressState}
+          onChange={handleAddressChange}
+          onSelect={handleAddressSelect}
+        >
+          {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+            <div className={classes.addressContainer}>
               {showMotto
-                ? (<h1 className={classes.hideMottoButton}>View Selection</h1>)
-                : (<>
+                ? (
+                  <div className={classes.hideMottoButtonContainer} onClick={() => setShowMotto(false)}>
+                    <h1 className={classes.hideMottoButton}>View Selection</h1>
+                  </div>
+                )
+                : (<div className={classes.addressInputContainer}>
                     <div className={classes.pinIconContainer}>
                       <Room className={classes.pinIcon}></Room>
                     </div>
@@ -284,57 +312,57 @@ export default function AddressSelect({landing, onConfirm}: AddressSelectProps) 
                         ))
                       }
                     </div>
-                  </>)
-              }
-              
-            </div>
-            {(loading || suggestions.length > 0) ? (<div className={classes.addressSuggestionBox}>
-              {loading && <div className={classes.addressSuggestionItem}>Loading...</div>}
-              {suggestions.map((suggestion, myKey) => {
-                const className = suggestion.active
-                  ? 'suggestion-item--active'
-                  : 'suggestion-item';
-                // inline style for demonstration purpose
-                const style = suggestion.active
-                  ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                  : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                return (
-                  <div className={classes.addressSuggestionItem}
-                  // key={myKey}
-                  
-                    {...getSuggestionItemProps(suggestion, {
-                      // className,
-                      // style,
-                    })}
-                  >
-                    <span onClick={() => handleAddressSelect(suggestion.description) }>{suggestion.description}</span>
                   </div>
-                );
-              })}
-              </div>)
-              : (
-                (landing && geocode) && 
-                (
-                  (coveredAddress) ? 
-                    (
-                      <button className={classes.validAddressButton} onClick={() => onConfirm(addressState, geocode)}>
-                        View Menu
-                      </button>
-                    )
-                  :
-                    (
-                      <a href="" className={classes.invalidAddressLink}>
-                        <button className={classes.invalidAddressButton}>
-                          We don't deliver there... yet. <br/> Click to fill out update form!
-                        </button>
-                      </a>
-                    )
                 )
-              )
-            }
-          </div>
-        )}
-      </PlacesAutocomplete>
-    </>
+              }
+                
+              {(loading || suggestions.length > 0) ? (<div className={classes.addressSuggestionBox}>
+                {loading && <div className={classes.addressSuggestionItem}>Loading...</div>}
+                {suggestions.map((suggestion, myKey) => {
+                  const className = suggestion.active
+                    ? 'suggestion-item--active'
+                    : 'suggestion-item';
+                  // inline style for demonstration purpose
+                  const style = suggestion.active
+                    ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                    : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                  return (
+                    <div className={classes.addressSuggestionItem}
+                    // key={myKey}
+                    
+                      {...getSuggestionItemProps(suggestion, {
+                        // className,
+                        // style,
+                      })}
+                    >
+                      <span onClick={() => handleAddressSelect(suggestion.description) }>{suggestion.description}</span>
+                    </div>
+                  );
+                })}
+                </div>)
+                : (
+                  (landing && geocode) && 
+                  (
+                    (coveredAddress) ? 
+                      (
+                        <button className={classes.validAddressButton} onClick={() => onConfirm(addressState, geocode)}>
+                          View Menu
+                        </button>
+                      )
+                    :
+                      (
+                        <a href="" className={classes.invalidAddressLink}>
+                          <button className={classes.invalidAddressButton}>
+                            We don't deliver there... yet. <br/> Click to fill out update form!
+                          </button>
+                        </a>
+                      )
+                  )
+                )
+              }
+            </div>
+          )}
+        </PlacesAutocomplete>
+    </div>
   );
 }

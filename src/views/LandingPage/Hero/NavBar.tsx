@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { Menu } from "@material-ui/icons";
 import React, { useState } from "react";
-import { theme } from "../../components/Theme";
+import { theme } from "../../../components/Theme";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const useStyles = makeStyles({
