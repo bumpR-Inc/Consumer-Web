@@ -70,19 +70,19 @@ h1 {
 @font-face {
   font-family: "Brush";
   src: local("Brush"),
-    url("./assets/fonts/CapitalDryBrush.ttf") format("truetype");
+    url("./assets/fonts/MightyBrush.ttf") format("truetype");
 }
 
-@font-face {
+/* @font-face {
   font-family: "Playfair-Bold";
   src: local("Playfair-Bold"),
     url("./assets/fonts/PlayfairDisplay-Bold.otf") format("truetype");
-}
+} */
 
 @font-face {
   font-family: "Playfair";
-  src: local("Playfair-Regular"),
-    url("./assets/fonts/PlayfairDisplay-Regular.otf") format("truetype");
+  src: local("Playfair"),
+    url("./assets/fonts/PlayfairDisplay.ttf") format("truetype");
 }
 
 .nav-link-container {

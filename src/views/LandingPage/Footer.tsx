@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     color: theme.palette.primary.main,
     fontSize: '10em',
     fontWeight: 'normal',
-    fontFamily: 'Mighty Brush',
+    fontFamily: 'Brush',
     margin: '0px',
     [theme.breakpoints.down('md')]: {
       fontSize: '8em',

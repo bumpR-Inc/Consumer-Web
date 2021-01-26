@@ -67,7 +67,7 @@ const useStyles = makeStyles({
   },
   cardTitle: {
     display: 'inline',
-    fontFamily: 'Mighty Brush',
+    fontFamily: 'Brush',
     fontSize: '3em',
     lineHeight: '1em',
     textAlign: 'center',
@@ -75,7 +75,7 @@ const useStyles = makeStyles({
   },
   cardDescription: {
     fontSize: '2em',
-    fontFamily: 'Playfair Display',
+    fontFamily: 'Playfair',
     color: theme.palette.secondary.main,
   }
 });

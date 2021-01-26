@@ -96,7 +96,7 @@ const useStyles = makeStyles({
     },
   },
   hideMottoButton: {
-    fontFamily: 'Playfair Display',
+    fontFamily: 'Playfair-Bold',
     fontSize: '4em',
     color: theme.palette.secondary.main,
     
