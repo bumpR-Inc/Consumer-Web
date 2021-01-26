@@ -26,7 +26,7 @@ const useStyles = makeStyles({
       flexDirection: 'column',
       height: 'auto',
       gap: '2vh',
-      padding: '2%',
+      padding: '6%',
     }
   },
   card: {
