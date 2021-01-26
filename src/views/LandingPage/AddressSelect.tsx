@@ -13,6 +13,7 @@ import motto from "../../assets/img/motto.png";
 import { theme } from "../../components/Theme";
 import { Store } from "../../state/Store";
 import NavBar from "./NavBar";
+import { useHistory } from "react-router-dom";
 
 const thresh: number = 12;
 
@@ -46,6 +47,11 @@ const useStyles = makeStyles({
     boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.5)',
 
     borderRadius: '5px',
+  },
+  mottoHideButton: {
+    '&hover': {
+      color: theme.palette.primary.main,
+    }
   },
   pinIconContainer: {
     width: "7%",
@@ -210,29 +216,30 @@ interface AddressSelectProps {
   onConfirm: (address: string, geocode: any) => void
 }
 
-export default function AddressSelect({landing, onConfirm}: AddressSelectProps) {  
-  var classes = useStyles();
-  var [addressState, handleAddressChange] = useState<string>('');
-  var [geocode, handleGeocodeChange] = useState<any>(null);
-  var [validAddress, setValidAddress] = useState<boolean>(false);
-  var [coveredAddress, setCoveredAddress] = useState<boolean>(false);
-  var [showMotto, setShowMotto] = useState<boolean>(landing);
+export default function AddressSelect({ landing, onConfirm }: AddressSelectProps) {  
+  let history = useHistory();
+  let classes = useStyles();
+  let [addressState, handleAddressChange] = useState<string>('');
+  let [geocode, handleGeocodeChange] = useState<any>(null);
+  let [validAddress, setValidAddress] = useState<boolean>(false);
+  let [coveredAddress, setCoveredAddress] = useState<boolean>(false);
+  let [showMotto, setShowMotto] = useState<boolean>(landing);
 
-  var setGeocode = (latLng: any) => {
+  let setGeocode = (latLng: any) => {
     console.log(latLng);
-    var distance: number = getDistance({ latitude: 37.872055, longitude: -122.260013 }, latLng);
+    let distance: number = getDistance({ latitude: 37.872055, longitude: -122.260013 }, latLng);
     console.log(distance);
     handleGeocodeChange(latLng);
     setCoveredAddress(distance <= 1500);
     setValidAddress(true);
   }
 
-  var setAddressError = (error: any) => {
+  let setAddressError = (error: any) => {
     console.log(error);
     setValidAddress(false);
   }
 
-  var handleAddressSelect = (address: string) => {
+  let handleAddressSelect = (address: string) => {
     handleAddressChange(address);
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
@@ -253,10 +260,15 @@ export default function AddressSelect({landing, onConfirm}: AddressSelectProps) 
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div className={classes.addressContainer}>
-            <div className={classes.addressInputContainer} onClick={() => setShowMotto(false)}>
+            <div className={classes.addressInputContainer}
+              onClick={() =>
+                // setShowMotto(false)
+                {history.push("https://goodneighborsubs.typeform.com/to/PgA4qzJo")}
+              }
+            >
               
               {showMotto
-                ? (<h1 className={classes.hideMottoButton}>View Selection</h1>)
+                ? (<h1 className={classes.hideMottoButton}>Coming soon!</h1>)
                 : (<>
                     <div className={classes.pinIconContainer}>
                       <Room className={classes.pinIcon}></Room>

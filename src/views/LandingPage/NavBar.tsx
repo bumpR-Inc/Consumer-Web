@@ -90,7 +90,7 @@ export default function Navbar() {
         <h1 className={classes.title}>Good Neighbor.</h1>
       </div>
         <div className={classes.signInContainer}>
-          {(window.innerWidth >= theme.breakpoints.values.sm)
+          {/* {(window.innerWidth >= theme.breakpoints.values.sm)
             ? (
               !isAuthenticated ?
               (
@@ -113,7 +113,7 @@ export default function Navbar() {
             (
               <Menu className={classes.menuIcon}></Menu>
             )
-          }
+          } */}
       </div>
     </div>
   )
