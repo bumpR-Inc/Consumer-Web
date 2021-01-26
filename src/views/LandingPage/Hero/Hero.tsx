@@ -46,7 +46,11 @@ const useStyles = makeStyles({
     flexGrow: 0
   },
   addressContainer: {
-    flexGrow: 4
+    flexGrow: 4,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
   }, 
   bufferContainer: {
     flexGrow: 1,

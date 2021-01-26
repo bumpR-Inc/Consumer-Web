@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     backgroundColor: theme.palette.primary.main,
     justifyContent: 'center',
     alignItems: 'center',
-    gap: '5vw',
+    // gap: '5vw',
     boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.75)',
     boxSizing: 'border-box',
     MozBoxSizing: 'border-box',
@@ -25,12 +25,13 @@ const useStyles = makeStyles({
     [theme.breakpoints.down('md')]: {
       flexDirection: 'column',
       height: 'auto',
-      gap: '2vh',
+      // gap: '2vh',
       padding: '6%',
     }
   },
   card: {
     height: '80%',
+    minWidth: '300px',
     width: '20vw',
     backgroundColor: theme.palette.info.main,
     borderRadius: '5px',
@@ -43,6 +44,7 @@ const useStyles = makeStyles({
     webkitBoxSizing: 'border-box',
     boxSizing: 'border-box', 
     boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.25)',
+    margin: '2vh',
     [theme.breakpoints.down('md')]: {
       width: '90vw',
       maxWidth: '350px',
