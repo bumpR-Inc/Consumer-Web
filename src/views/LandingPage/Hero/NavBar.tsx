@@ -27,7 +27,7 @@ const useStyles = makeStyles({
     },
   },
   title: {
-    fontFamily: 'Playfair Display',
+    fontFamily: 'Playfair-Bold',
     margin: '0px !important',
     textAlign: 'center',
     // fontSize: '5em',

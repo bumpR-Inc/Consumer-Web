@@ -31,10 +31,11 @@ const useStyles = makeStyles({
     }
   },
   logo: {
-    fontFamily: 'Playfair Display',
+    fontFamily: 'Playfair',
     color: theme.palette.info.main,
     margin: '4%',
     fontSize: '4em',
+    fontWeight: 'bold',
 
     [theme.breakpoints.down('md')]: {
       fontSize: '3em'
