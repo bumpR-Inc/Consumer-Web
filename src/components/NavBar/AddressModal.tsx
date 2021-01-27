@@ -9,10 +9,10 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import React, { useState, PointerEvent } from "react";
-import { theme } from "./Theme";
-import { Store } from "../state/Store";
-import AddressSelect from "../views/LandingPage/Hero/AddressSelect";
-import { updateAddress } from "../state/Actions";
+import { theme } from "../Theme";
+import { Store } from "../../state/Store";
+import AddressSelect from "../../views/LandingPage/Hero/AddressSelect";
+import { updateAddress } from "../../state/Actions";
 
 const useStyles = makeStyles({
   popover: {
@@ -57,11 +57,11 @@ export default function AddressModal({anchor, handleClose}: AddressModalProps) {
           // aria-describedby="alert-dialog-slide-description"
           anchorOrigin={{
             vertical: 'bottom',
-            horizontal: 'center',
+            horizontal: 'right',
           }}
           transformOrigin={{
             vertical: 'top',
-            horizontal: 'center',
+            horizontal: 'right',
           }}
         >
           <AddressSelect landing={false} onConfirm={addressOnConfirm}/>

@@ -113,7 +113,7 @@ export default function Process() {
     <div className={classes.container}>
       <Card image={step1image} number={1} title={'you schedule your lunch'} description={'Use our website to schedule a delicous lunch in advance, all without extra fees.'}/>
       <Card image={step2image} number={2} title={'local restaurant prepares food'} description={'We provide a simplified preperation process for local restaurants, and negotiate large-order discounts to save you money.'}/>
-      <Card image={step3image} number={1} title={'we deliver!'} description={'We plan super efficient routes so you don’t pay for delivery. Then our associates follow the route to bring the meal to you.'}/>
+      <Card image={step3image} number={3} title={'we deliver!'} description={'We plan super efficient routes so you don’t pay for delivery. Then our associates follow the route to bring the meal to you.'}/>
     </div>
   );
 }

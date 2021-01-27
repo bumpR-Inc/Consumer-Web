@@ -10,6 +10,7 @@ export interface IState {
   address?: string;
   geocode?: any;
   landing: boolean;
+  date: Date;
   restaurants: Array<IRestaurant>;
 }
 
