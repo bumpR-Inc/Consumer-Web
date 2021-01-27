@@ -1,20 +1,26 @@
 import React from "react";
 import { IState, IAction } from "./interfaces";
 
-const cacheState: boolean = false;
+const cacheState: boolean = true;
+const currentDate: Date = new Date();
+let initialDate: Date = new Date(currentDate.getTime());
+initialDate.setDate(currentDate.getDate() + (7 + 1 - currentDate.getDay()) % 7);
+
 
 var initialState: IState = {
   meals: [],
   orders: [],
-  address: undefined,
+  address: "Set Location",
   geocode: undefined,
   landing: true,
+  date: initialDate,
   restaurants: [],
 };
 
 var localState = localStorage.getItem("state");
 if (localState != null && cacheState) {
   initialState = JSON.parse(localState);
+  initialState.date = new Date(JSON.parse(localState).date);
 }
 
 export const Store = React.createContext<IState | any>(initialState);
@@ -54,6 +60,12 @@ function reducer(state: IState, action: IAction): IState {
         geocode: action.payload["geocode"],
       };
       break;
+    case "SET_DATE":
+      state = {
+        ...state,
+        date: action.payload["date"],
+      }
+      break;
     case "NO_CHANGE":
       state = state;
       break;
@@ -64,6 +76,7 @@ function reducer(state: IState, action: IAction): IState {
 
   var stateStringified = JSON.stringify(state);
   localStorage.setItem("state", stateStringified);
+  console.log(state);
 
   return state;
 }

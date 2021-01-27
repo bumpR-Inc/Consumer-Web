@@ -115,3 +115,15 @@ export const updateAddress = async (
     payload: { address: address, geocode: geocode },
   });
 };
+
+export const setDate = async (
+  dispatch: any,
+  date: Date,
+) => {
+  return dispatch({
+    //redirects to menu page, while settign the address and geocode
+    type: "SET_DATE",
+    payload: { date: date },
+  });
+};
+
