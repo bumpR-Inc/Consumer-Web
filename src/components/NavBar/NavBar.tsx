@@ -1,9 +1,11 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { BorderBottom, BorderColor, GpsNotFixed } from "@material-ui/icons";
 import React, { useState, MouseEvent } from "react";
-import { theme } from "./Theme";
-import { Store } from "../state/Store";
+import { theme } from "../Theme";
+import { Store } from "../../state/Store";
 import AddressModal from "./AddressModal";
+import DateModal from "./DateModal";
+const dateFormat = require("dateformat");
 
 const useStyles = makeStyles({
   container: {
@@ -87,7 +89,12 @@ const useStyles = makeStyles({
   },
   detailsTo: {
     color: theme.palette.secondary.main,
-    borderBottom: 'none'
+    borderBottom: 'none',
+
+    '&:hover': {
+      color: theme.palette.secondary.main,
+      borderBottom: `none`,
+    }, 
   }
 });
 
@@ -102,6 +109,13 @@ export default function NavBar() {
   };
   const handleAddressClose = () => setAddressAnchor(null);
 
+  const [ dateAnchor, setDateAnchor ] = useState<any>(null);
+
+  const handleDateClick = (event: MouseEvent) => {
+    setDateAnchor(event.currentTarget);
+  };
+  const handleDateClose = () => setDateAnchor(null);
+
   return (
     <React.Fragment>
       <div className={classes.container}>
@@ -110,13 +124,15 @@ export default function NavBar() {
         </div>
         <div className={classes.detailsContainer}>
           <div className={classes.detailsWrap}>
-            <button className={classes.details}>Monday, January 18</button>
+            <h1 className={`${classes.details} + ${classes.detailsTo}`}> Lunch on </h1>
+            <button onClick={handleDateClick} className={classes.details}>{dateFormat(state.date, "DDD, mmmm d")}</button>
             <h1 className={`${classes.details} + ${classes.detailsTo}`}> to </h1>
             <button onClick={handleAddressClick} className={classes.details}>{state.address.split(',')[0]}</button>          </div>
         </div>
       </div>
 
       <AddressModal anchor={addressAnchor} handleClose={handleAddressClose}/>
+      <DateModal anchor={dateAnchor} handleClose={handleDateClose}/>
     </React.Fragment>
   )
   ;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Store } from "../state/Store";
 import "../index.css";
-import NavBar from "../components/NavBar";
+import NavBar from "../components/NavBar/NavBar";
 
 const EpisodeList = React.lazy<any>(() => import("../components/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 
