@@ -8,10 +8,10 @@ import PlacesAutocomplete, {
 
   getLatLng
 } from 'react-places-autocomplete';
-import background from "../../../assets/img/landing-background.jpg";
-import motto from "../../../assets/img/motto.png";
-import { theme } from "../../../components/Theme";
-import { Store } from "../../../state/Store";
+import background from "../../assets/img/landing-background.jpg";
+import motto from "../../assets/img/motto.png";
+import { theme } from "../Theme";
+import { Store } from "../../state/Store";
 import { useHistory } from "react-router-dom";
 
 const thresh: number = 12;

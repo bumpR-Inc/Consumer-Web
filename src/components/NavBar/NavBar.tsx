@@ -75,7 +75,7 @@ const useStyles = makeStyles({
     borderBottom: `solid 2px ${theme.palette.primary.main}`,
 
     [theme.breakpoints.down('md')]: {
-      fontSize: '2em'
+      fontSize: '3.7vw'
     },
 
     '&:hover': {

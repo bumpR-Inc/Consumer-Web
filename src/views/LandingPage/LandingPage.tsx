@@ -4,12 +4,10 @@ import background from "../../assets/img/landing-background.jpg";
 import { theme } from "../../components/Theme";
 import { goToMenu } from "../../state/Actions";
 import { Store } from "../../state/Store";
-import AddressSelect from "./Hero/AddressSelect";
 import DealCarousel from "./DealCarousel";
 import Footer from "./Footer";
-import NavBar from "./Hero/NavBar";
 import Process from "./Process";
-import Hero from "./Hero/Hero";
+import Hero from "./Hero";
 
 const useStyles = makeStyles({
   container: {
