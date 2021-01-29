@@ -11,6 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { theme } from "../Theme";
 
 
+
 var QRCode = require('qrcode.react')
 
 const EpisodeList = React.lazy<any>(() => import("./MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
@@ -47,7 +48,11 @@ const useStyles = makeStyles({
   },
 });
 
+
+
 export default function CartModal(modalProps: any) {
+  
+
     var classes = useStyles();
     const { state, dispatch } = React.useContext(Store);
     const [checkedPaidBox, setPaidBox] = React.useState(false);//for tracking state of checkbox at bottom

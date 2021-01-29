@@ -5,6 +5,7 @@ import { fetchDataAction, fetchRestaurantsAction, toggleFavAction } from "../../
 import { IMealProps } from "../../state/interfaces";
 import { Store } from "../../state/Store";
 import MenuWrapper from "./Wrapper";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 
 
 const MealList = React.lazy<any>(() => import("../../components/OrderingUI/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
@@ -12,6 +13,33 @@ const MealListByRestaurant = React.lazy<any>(() => import("../../components/Orde
 
 
 export default function MenuPage() {
+
+
+      //start of OAuth stuff
+    const {
+      getAccessTokenSilently,
+      loginWithPopup,
+      getAccessTokenWithPopup,
+    } = useAuth0();
+
+    const callApi = async () => {
+      try {
+        const token = await getAccessTokenSilently();
+
+        const response = await fetch(`http://localhost:3001/api/private`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const responseData = await response.json();
+        console.log("success!!");
+      } catch (error) {
+        console.log("failed!!");
+      }
+    };
+//end of OAuth stuff
+
   const { state, dispatch } = React.useContext(Store);
   const [displayModal, setDisplayModal] = React.useState(false);
 
@@ -64,6 +92,7 @@ export default function MenuPage() {
           displayModal={displayModal}
         />
       </div>
+      <button onClick={callApi}>OAuth private endpoint tester</button>
     </MenuWrapper>
   );
 }
