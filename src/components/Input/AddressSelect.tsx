@@ -288,12 +288,12 @@ export default function AddressSelect({ landing, onConfirm }: AddressSelectProps
               {showMotto
                 ? (
                   <div className={classes.hideMottoButtonContainer} onClick={() =>
-                    // setShowMotto(false)
-                    {history.push("https://goodneighborsubs.typeform.com/to/PgA4qzJo")}
+                    setShowMotto(false)
+                    // {history.push("https://goodneighborsubs.typeform.com/to/PgA4qzJo")}
                   }>
                   <h1 className={classes.hideMottoButton}>
-                    {/* View Selection */}
-                    Coming Soon!
+                    View Selection
+                    {/* Coming Soon! */}
                   </h1>
                   </div>
                 )
