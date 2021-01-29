@@ -1,14 +1,33 @@
 import { makeStyles } from "@material-ui/core/styles";
 import Popover from "@material-ui/core/Popover";
+import Dialog from "@material-ui/core/Dialog";
 import React from "react";
 import DayInput from "../Input/DayInput";
+import { theme } from "../Theme";
 
 const useStyles = makeStyles({
   popover: {
     marginTop: '2%',
     backgroundColor: 'transparent',
     background: 'none',
-    boxShadow: 'none !important'
+    boxShadow: 'none !important',
+    height: '100%',
+  },
+  dialogCard: {
+    background: theme.palette.info.main,
+    padding: '7vw',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  dialogTitle: {
+    color: theme.palette.primary.main,
+    textAlign: 'center',
+    fontSize: '27px',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '5.5vw'
+    }
   }
 });
 
@@ -24,7 +43,9 @@ export default function DateModal({ anchor, handleClose }: DateModalProps) {
   return (
     <div>
       <React.Fragment>
-        <Popover
+        {
+          window.innerWidth >= theme.breakpoints.values.md
+          ? <Popover
           className={classes.popover}
           open={Boolean(anchor)}
           onClose={handleClose}
@@ -40,6 +61,26 @@ export default function DateModal({ anchor, handleClose }: DateModalProps) {
         >
           <DayInput handleSelect={handleClose}/>
         </Popover>
+        
+        : <Dialog
+          // className={classes.popover}
+          open={Boolean(anchor)}
+          onClose={handleClose}
+          // anchorEl={anchor}
+          // anchorOrigin={{
+          //   vertical: 'bottom',
+          //   horizontal: 'right',
+          // }}
+          // transformOrigin={{
+          //   vertical: 'top',
+          //   horizontal: 'right',
+          // }}
+        >
+          <div className={classes.dialogCard}>
+            <h1 className={classes.dialogTitle}>Select Delivery Date</h1>
+            <DayInput handleSelect={handleClose}/>
+          </div>
+        </Dialog> }
       </React.Fragment>
     </div>
   );

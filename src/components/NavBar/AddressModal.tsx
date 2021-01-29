@@ -19,7 +19,9 @@ const useStyles = makeStyles({
     marginTop: '2%',
     backgroundColor: 'transparent',
     background: 'none',
-    boxShadow: 'none !important'
+    boxShadow: 'none !important',
+
+    height: '100%',
   }
 });
 
