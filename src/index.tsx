@@ -6,10 +6,8 @@ import * as serviceWorker from "./serviceWorker";
 import { Auth0Provider } from "@auth0/auth0-react";
 import config from "./auth_config.json";
 import history from "./utils/history";
-import { Router, RouteComponentProps } from "@reach/router";
+import { RouteComponentProps } from "@reach/router";
 import { StoreProvider } from "./state/Store";
-import HomePage from "./views/MenuPage";
-import LandingPage from "./views/LandingPage/LandingPage";
 
 const onRedirectCallback = (appState: any) => {
   history.push(

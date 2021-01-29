@@ -1,9 +1,8 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { title } from "process";
 import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
-import texture from "../../assets/img/texture.png";
+import texture from "../../assets/img/landing/decoration/pattern-big.png";
 import { theme } from "../../components/Theme";
-import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import deal1 from "../../assets/img/deals/deal1.png";
 import deal2 from "../../assets/img/deals/deal2.png";
 import deal3 from "../../assets/img/deals/deal3.png";

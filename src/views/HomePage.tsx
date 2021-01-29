@@ -1,7 +1,7 @@
 import React from "react";
 import { Store } from "../state/Store";
 import LandingPage from "./LandingPage/LandingPage";
-import MenuPage from "./MenuPage";
+import MenuPage from "./Ordering/MenuPage";
 
 export default function HomePage() {
   const { state, dispatch } = React.useContext(Store);

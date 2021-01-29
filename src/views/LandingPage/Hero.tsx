@@ -1,13 +1,14 @@
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
-import backgroundPreload from "../../assets/img/landing-background-preload.jpg";
-import background from "../../assets/img/landing-background.jpg";
+import backgroundPreload from "../../assets/img/landing/background/landing-background-preload.jpg";
+import background from "../../assets/img/landing/background/landing-background.jpg";
 import { theme } from "../../components/Theme";
 import { goToMenu } from "../../state/Actions";
 import { Store } from "../../state/Store";
 import AddressSelect from "../../components/Input/AddressSelect";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useAuth0 } from "@auth0/auth0-react";
+import { Menu } from "@material-ui/icons";
 
 const useStyles = makeStyles({
   container: {
@@ -150,7 +151,7 @@ export default function Hero() {
                 <h1 className={classes.title}>Good Neighbor.</h1>
               </div>
                 <div className={classes.signInContainer}>
-                  {/* {(window.innerWidth >= theme.breakpoints.values.sm)
+                  {(window.innerWidth >= theme.breakpoints.values.sm)
                     ? (
                       !isAuthenticated ?
                       (
@@ -173,7 +174,7 @@ export default function Hero() {
                     (
                       <Menu className={classes.menuIcon}></Menu>
                     )
-                  } */}
+                  }
               </div>
             </div>
           </div>

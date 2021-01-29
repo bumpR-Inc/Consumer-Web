@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { title } from "process";
 import React from "react";
-import texture from "../../assets/img/texture.png";
+import texture from "../../assets/img/decoration/pattern-big.png";
 import { theme } from "../../components/Theme";
 import step1image from "../../assets/img/process/step1.png";
 import step2image from "../../assets/img/process/step2.png";
