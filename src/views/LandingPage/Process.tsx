@@ -3,9 +3,9 @@ import { title } from "process";
 import React from "react";
 import texture from "../../assets/img/decoration/pattern-big.png";
 import { theme } from "../../components/Theme";
-import step1image from "../../assets/img/process/step1.png";
-import step2image from "../../assets/img/process/step2.png";
-import step3image from "../../assets/img/process/step3.png";
+import step1image from "../../assets/img/landing/process/step1.png";
+import step2image from "../../assets/img/landing/process/step2.png";
+import step3image from "../../assets/img/landing/process/step3.png";
 
 
 const useStyles = makeStyles({
