@@ -25,8 +25,7 @@ export default function MenuPage() {
     const callApi = async () => {
       try {
         const token = await getAccessTokenSilently();
-        // console.log('token');
-        // console.log(token);
+
         const response = await fetch(`http://localhost:3001/api/private`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -36,7 +35,7 @@ export default function MenuPage() {
         const responseData = await response.json();
         console.log(responseData);
       } catch (error) {
-        console.log("failed!!");
+        console.log("Error in using auth token to hit private endpoint.");
       }
     };
 //end of OAuth stuff

@@ -22,7 +22,7 @@ p {
 h1 {
   font-size: 18px;
   color: #fff;
-  font-family: Playfair-Bold;
+  font-family: Playfair;
 }
 
 .center {
@@ -92,7 +92,7 @@ h1 {
 .nav-text {
   font-size: 30px;
   color: #c9512b;
-  font-family: Playfair-Bold;
+  font-family: Playfair;
 }
 
 .Top-left-logo {
@@ -105,7 +105,7 @@ h1 {
 
 .restaurant-name {
   color: #c9512b;
-  font-family: Playfair-Bold;
+  font-family: Playfair;
   font-size: 55px;
   padding: 10px;
   margin-top: 5px;
@@ -128,13 +128,13 @@ h1 {
 }
 
 .cardTitle {
-  font-size: 22px;
-  font-family: Playfair-Bold;
+  font-size: 20px;
+  font-family: Playfair;
   color: #c9512b;
 }
 
 .cardTextContainer {
-  max-height: 35px;
+  max-height: 36px;
   overflow-y: scroll;
 }
 
@@ -145,8 +145,8 @@ h1 {
 }
 
 .cardPrice {
-  font-size: 25px;
-  font-family: Playfair-Bold;
+  font-size: 18px;
+  font-family: Playfair;
   color: #c9512b;
 }
 
@@ -157,6 +157,7 @@ h1 {
 .card-bottom-flex-container {
   display: flex;
   direction: rtl;
+  align-items: center;
 }
 
 .cart-cards-layout{
@@ -204,7 +205,7 @@ h1 {
 }
 
 .cart-card-title {
-  font-family: Playfair-Bold;
+  font-family: Playfair;
   font-size: 20px;
   font-weight: bold;
   padding: 2px;
@@ -364,7 +365,7 @@ background-color: rgba(0, 0, 0, 0.55);
   align-items: center;
   justify-content: center;
   /* font-weight: 700; */
-  font-family: "Playfair-Bold";
+  font-family: Playfair;
   font-size: 2.2rem;
   color: #fff;
   line-height: 2.25rem;

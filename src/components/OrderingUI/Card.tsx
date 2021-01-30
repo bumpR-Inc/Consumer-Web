@@ -51,8 +51,8 @@ export default function MediaCard(props: any) {
         <Button onClick={props.addOnClick}>
           <img src={addImg} className="cardAddBtn" />
         </Button>
-        <div className="cardPrice">
-          <p>${props.meal.price}</p>
+        <div>
+          <p className="cardPrice">${props.meal.price}</p>
         </div>
       </div>
     </Card>
