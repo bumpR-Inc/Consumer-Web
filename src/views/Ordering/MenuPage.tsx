@@ -6,43 +6,57 @@ import { IMealProps } from "../../state/interfaces";
 import { Store } from "../../state/Store";
 import MenuWrapper from "./Wrapper";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
-
+import axios from 'axios'
 
 const MealList = React.lazy<any>(() => import("../../components/OrderingUI/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 const MealListByRestaurant = React.lazy<any>(() => import("../../components/OrderingUI/MealListByRestaurant")); //react lazy isntead of normal importing. see suspense and fallback below
 
 
 export default function MenuPage() {
+  //start of OAuth stuff
+  const {
+    getAccessTokenSilently,
+    loginWithPopup,
+    getAccessTokenWithPopup,
+  } = useAuth0();
 
+  // const callApi = async () => {
+  //   try {
+  //     const token = await getAccessTokenSilently();
 
-      //start of OAuth stuff
-    const {
-      getAccessTokenSilently,
-      loginWithPopup,
-      getAccessTokenWithPopup,
-    } = useAuth0();
+  //     const response = await fetch(`http://localhost:3001/api/private`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
 
-    const callApi = async () => {
-      try {
-        const token = await getAccessTokenSilently();
+  //     const responseData = await response.json();
+  //     console.log(responseData);
+  //   } catch (error) {
+  //     console.log("Error in using auth token to hit private endpoint.");
+  //   }
+  // };
+  const callApi = async () => {
 
-        const response = await fetch(`http://localhost:3001/api/private`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+    try {
+      const token = await getAccessTokenSilently();
 
-        const responseData = await response.json();
-        console.log(responseData);
-      } catch (error) {
-        console.log("Error in using auth token to hit private endpoint.");
-      }
-    };
-//end of OAuth stuff
+      axios.get('http://localhost:3001/api/private', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      })
+      .then((response) => {console.log(response);
+      })
+
+    } catch (error) {
+      console.log("Error in using auth token to hit private endpoint.");
+    }
+  };
+  //end of OAuth test stuff
 
   const { state, dispatch } = React.useContext(Store);
   const [displayModal, setDisplayModal] = React.useState(false);
-
 
   React.useEffect(() => {
     if (state.meals?.length === 0 ?? false) {
@@ -66,7 +80,7 @@ export default function MenuPage() {
         <div className="menu-constrained-container">
           <React.Fragment>
             <React.Suspense fallback={<div>loading...</div>}>
-              <MealListByRestaurant {...props}/>
+              <MealListByRestaurant {...props} />
             </React.Suspense>
             <div className="bottom-cart-btn-wrapper">
               <div className="cart-button-wrapper">
