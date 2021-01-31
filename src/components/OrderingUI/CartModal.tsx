@@ -147,6 +147,9 @@ export default function CartModal(modalProps: any) {
                   button below from your phone, or scan the QR code below if
                   you're using a desktop. Then, hit "confirm order."
                 </p>
+                <p className="cartText">Address: </p>
+                <p className="cartText">Date/time: </p>
+                <p className="cartText">Phone: </p>
                 <VenmoBtn paymentLink={venmoLink} />
                 <QRCode value={venmoLink} className="qr-code" />
                 <p className="cartText">
@@ -158,25 +161,14 @@ export default function CartModal(modalProps: any) {
                 </p> */}
 
                 {/* potential bug here: setPaidBox isn't checking actual state of button, just toggling. might be possible to offset on-off cycle causing bug. */}
-
                 <div className="checkbox-row">
                   <CustomCheckbox
                     onChange={() => setPaidBox(!checkedPaidBox)}
                     label="Yes, I have paid with Venmo."
                   />
-                  {/* <p className="cartText">Bow</p> */}
                 </div>
-                {/* {checkedPaidBox ? <p>checked</p> : <p>not</p>} */}
-                <p>
-                  TODO: add checkbox saying yes i have paid with venmo before
-                  confirming, address + tip entry, date entry, phone number
-                  verification, styling
-                </p>
               </div>
             </div>
-            {/* <div className="cart-payment-container">
-              <VenmoBtn paymentLink={venmoLink} />
-            </div> */}
           </div>
         </React.Suspense>
         <div className="cart-buttons-bottom">
@@ -189,12 +181,21 @@ export default function CartModal(modalProps: any) {
             </div>
             <div
               className="cart-review-order-button"
-              onClick={() => setAttemptedToConfirmOrder(true)}
+              onClick={function () {
+                setAttemptedToConfirmOrder(true);
+                checkedPaidBox && modalProps.submitOrderFunction();
+              }}
             >
               Confirm Order
             </div>
           </div>
-          {(attemptedToConfirmOrder && !checkedPaidBox) ? <p className="cartText">Please pay with Venmo and select the checkbox above to order.</p> : <p></p>}
+          {attemptedToConfirmOrder && !checkedPaidBox ? (
+            <p className="cartText">
+              Please pay with Venmo and select the checkbox above to order.
+            </p>
+          ) : (
+            <p></p>
+          )}
         </div>
       </div>
     );

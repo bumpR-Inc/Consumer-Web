@@ -6,6 +6,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import "../../index.css";
 import addImg from "../../assets/img/ui/add.png";
+import MealPropertyTag from "./MealPropertyTag";
 
 const useStyles = makeStyles({
   root: {
@@ -53,7 +54,9 @@ export default function MediaCard(props: any) {
         </Button>
         <div>
           <p className="cardPrice">${props.meal.price}</p>
+
         </div>
+        {props.meal.dietaryRestrictions == "Vegetarian" ? <MealPropertyTag text={props.meal.dietaryRestrictions}/> : <p></p>}
       </div>
     </Card>
   );

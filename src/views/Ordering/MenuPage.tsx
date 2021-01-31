@@ -134,6 +134,7 @@ export default function MenuPage() {
         <CartModal
           closeFunction={() => setDisplayModal(false)}
           displayModal={displayModal}
+          submitOrderFunction={submitOrder}
         />
       </div>
       <button onClick={submitOrder}>OAuth private endpoint tester</button>
