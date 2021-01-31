@@ -55,6 +55,33 @@ export default function MenuPage() {
   };
   //end of OAuth test stuff
 
+  //start of OAuth-enabled function to submit order
+  const submitOrder = async () => {
+    try {
+      const token = await getAccessTokenSilently();
+
+      axios
+        .post("http://localhost:3001/api/orderscreate", {
+          restaurant: 1,
+          deliveryTime: "date placeholder",
+          location: "address placeholder",
+          menuItems: [1],
+          pricePaid: 10.00
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+        });
+    } catch (error) {
+      console.log("Error in submitting post request for order");
+    }
+  };
+
+  //end of OAuth-enabled function to submit order
+
   const { state, dispatch } = React.useContext(Store);
   const [displayModal, setDisplayModal] = React.useState(false);
 
@@ -106,7 +133,7 @@ export default function MenuPage() {
           displayModal={displayModal}
         />
       </div>
-      <button onClick={callApi}>OAuth private endpoint tester</button>
+      <button onClick={submitOrder}>OAuth private endpoint tester</button>
     </MenuWrapper>
   );
 }

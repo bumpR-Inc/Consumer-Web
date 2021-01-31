@@ -78,7 +78,7 @@ export default function CustomCheckbox(props: any) {
           {...props}
         />
       }
-      label={<span style={{ fontSize: "1.2em", fontFamily: "Playfair Display", color: theme.palette.secondary.main}}>{props.label}</span>}
+      label={<span style={{ fontSize: "1.2em", fontFamily: "Playfair", color: theme.palette.secondary.main}}>{props.label}</span>}
     />
   );
 }

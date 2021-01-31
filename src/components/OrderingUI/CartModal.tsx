@@ -57,6 +57,7 @@ export default function CartModal(modalProps: any) {
     const { state, dispatch } = React.useContext(Store);
     const [checkedPaidBox, setPaidBox] = React.useState(false);//for tracking state of checkbox at bottom
     const [tipAmt, setTipAmt] = React.useState(0);//for tracking state of checkbox at bottom
+    const [attemptedToConfirmOrder, setAttemptedToConfirmOrder] = React.useState(false);//for tracking state of checkbox at bottom
 
     const props = {
       meals: state.orders, //do this instead of state.episodes for just the orders
@@ -99,7 +100,7 @@ export default function CartModal(modalProps: any) {
                 <div className="center">
                   <p className="cartText">Tip:</p>
                   <TextField
-                    onChange = {(event)=> setTipAmt(Number(event.target.value))}
+                    onChange={(event) => setTipAmt(Number(event.target.value))}
                     className={classes.tip}
                     type="number"
                     inputProps={{
@@ -108,7 +109,6 @@ export default function CartModal(modalProps: any) {
                       step: "1",
                       className: classes.tipInput,
                     }}
-                    
                   />
                 </div>
                 <div className="cart-line"></div>
@@ -187,8 +187,14 @@ export default function CartModal(modalProps: any) {
             >
               Back
             </div>
-            <div className="cart-review-order-button">Confirm Order</div>
+            <div
+              className="cart-review-order-button"
+              onClick={() => setAttemptedToConfirmOrder(true)}
+            >
+              Confirm Order
+            </div>
           </div>
+          {(attemptedToConfirmOrder && !checkedPaidBox) ? <p className="cartText">Please pay with Venmo and select the checkbox above to order.</p> : <p></p>}
         </div>
       </div>
     );
