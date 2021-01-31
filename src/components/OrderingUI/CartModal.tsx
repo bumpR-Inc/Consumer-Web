@@ -27,7 +27,7 @@ const useStyles = makeStyles({
     // backgroundColor: "red"
   },
   tipInput: {
-    fontFamily: "Playfair Display",
+    fontFamily: 'Playfair',
     color: theme.palette.secondary.main,
     colorSecondary: theme.palette.primary.main,
     fontSize: "1.3em",

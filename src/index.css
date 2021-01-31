@@ -310,7 +310,10 @@ h1 {
 /* by default, Modal is at -150vh below until "show" is applied, then it's at the bottom. */
 .Modal {
   position: fixed;
-  bottom: -120vh;
+  /* bottom: -120vh; */
+  left: 120vw;
+  bottom: 0vw;
+
   background-color: #fff;
   width: 100%;
   /* left: 0; */
@@ -327,13 +330,19 @@ h1 {
 
 
 .Modal.Show {
-  transition:  bottom 0.3s ease-out;
+  /* transition:  bottom 0.3s ease-out; */
+  transition:  left 0.3s ease-out;
+  left: 80vw;
   bottom: 0;
+  /* transition:  bottom 0.3s ease-out;
+  bottom: 0; */
 }
 
 .Modal.Hide {
   transition:  0.3s ease-out;
-  bottom: -120vh;
+  left: 120vw;
+  /* transition:  0.3s ease-out;
+  bottom: -120vh; */
 }
 
 .Overlay {

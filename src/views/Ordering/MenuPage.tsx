@@ -61,17 +61,20 @@ export default function MenuPage() {
       const token = await getAccessTokenSilently();
 
       axios
-        .post("http://localhost:3001/api/orderscreate", {
+        .post("http://localhost:3001/api/orderscreate", 
+        {
           restaurant: 1,
-          deliveryTime: "date placeholder",
+          deliveryTime: "2021-02-15",
           location: "address placeholder",
           menuItems: [1],
           pricePaid: 10.00
-        }, {
+        }, 
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        })
+        }
+        )
         .then((response) => {
           console.log(response);
         });
