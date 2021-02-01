@@ -17,8 +17,8 @@ const useStyles = makeStyles({
 
   },
   textStyle: {
-    fontFamily: "Playfair Display",
-    fontSize: "1rem",
+    fontFamily: "Playfair",
+    fontSize: ".95rem",
     color: "white",
   }
 });

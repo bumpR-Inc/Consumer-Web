@@ -147,7 +147,7 @@ export default function CartModal(modalProps: any) {
                   button below from your phone, or scan the QR code below if
                   you're using a desktop. Then, hit "confirm order."
                 </p>
-                <p className="cartText">Address: </p>
+                <p className="cartText">Address: {state.address}</p>
                 <p className="cartText">Date/time: </p>
                 <p className="cartText">Phone: </p>
                 <VenmoBtn paymentLink={venmoLink} />
