@@ -63,7 +63,7 @@ export default function MenuPage() {
       axios
         .post("http://localhost:3001/api/orderscreate", 
         {
-          restaurant: 1,
+          restaurant: 1,//REMOVE RESTAURANT FIELDS, SHREYA REMOVING IT FROM THE BACKEND
           deliveryTime: "2021-02-15",
           location: "address placeholder",
           menuItems: [1],

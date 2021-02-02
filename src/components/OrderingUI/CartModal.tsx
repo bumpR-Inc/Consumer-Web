@@ -9,6 +9,9 @@ import CustomCheckbox from "../Input/CustomCheckbox";
 import { TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { theme } from "../Theme";
+import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios";
+import { setTotalCost } from "../../state/Actions";
 
 
 
@@ -52,12 +55,14 @@ const useStyles = makeStyles({
 
 export default function CartModal(modalProps: any) {
   
-
     var classes = useStyles();
     const { state, dispatch } = React.useContext(Store);
-    const [checkedPaidBox, setPaidBox] = React.useState(false);//for tracking state of checkbox at bottom
-    const [tipAmt, setTipAmt] = React.useState(0);//for tracking state of checkbox at bottom
-    const [attemptedToConfirmOrder, setAttemptedToConfirmOrder] = React.useState(false);//for tracking state of checkbox at bottom
+    const [checkedPaidBox, setPaidBox] = React.useState(false); //for tracking state of checkbox at bottom
+    const [tipAmt, setTipAmt] = React.useState(0); //for tracking state of checkbox at bottom
+    const [
+      attemptedToConfirmOrder,
+      setAttemptedToConfirmOrder,
+    ] = React.useState(false); //for tracking state of checkbox at bottom
 
     const props = {
       meals: state.orders, //do this instead of state.episodes for just the orders
@@ -66,6 +71,40 @@ export default function CartModal(modalProps: any) {
       orders: state.orders,
       //bascially looping over favorites, and if we click on unfavorite, then we get rid of it
     };
+
+   const {
+     getAccessTokenSilently,
+     loginWithPopup,
+     getAccessTokenWithPopup,
+   } = useAuth0();
+
+   //start of OAuth-enabled function to submit order
+   const submitOrder = async () => {
+     try {
+       const token = await getAccessTokenSilently();
+        console.log(state.date)
+       axios
+         .post(
+           "http://localhost:3001/api/orderscreate",
+           {
+             deliveryTime: "2021-02-15",
+             location: state.address,
+             menuItems: state.orders.map((meal : IMeal) => meal.pk),
+             pricePaid: state.totalCost,
+           },
+           {
+             headers: {
+               Authorization: `Bearer ${token}`,
+             },
+           }
+         )
+         .then((response) => {
+           console.log(response);
+         });
+     } catch (error) {
+       console.log("Error in submitting post request for order");
+     }
+   };
 
   //Cost math and venmo string manipulation
     var venmoLink: string =
@@ -81,6 +120,7 @@ export default function CartModal(modalProps: any) {
     var tax: number = Math.round(mealsCost * taxRate * 100) / 100; //rounding to two decimals
     //TODO: ADD TIP OPTION, MAKE RESPONSIVE, FIGURE OUT WHAT HAPPENS IF VENMO ISN'T INSTALLED, ADD CASHAPP (SHOULDN'T BE HARD)
     var totalCost: number = mealsCost + tipAmt + tax;
+    setTotalCost(dispatch, totalCost);
     venmoLink = venmoLink.concat(totalCost.toString());
     venmoLink = venmoLink.concat(
         "&note=Thanks%20for%20your%20Good%20Neighbor%20zero%20fee%20pre-order%21"
@@ -155,10 +195,6 @@ export default function CartModal(modalProps: any) {
                 <p className="cartText">
                   Orders without verified Venmo payments will not be fulfilled.
                 </p>
-                {/* <p>
-                  Similarly, if there is a complication with your order, you
-                  will receive a Venmo refund from @GN-delivery.
-                </p> */}
 
                 {/* potential bug here: setPaidBox isn't checking actual state of button, just toggling. might be possible to offset on-off cycle causing bug. */}
                 <div className="checkbox-row">
@@ -183,7 +219,7 @@ export default function CartModal(modalProps: any) {
               className="cart-review-order-button"
               onClick={function () {
                 setAttemptedToConfirmOrder(true);
-                checkedPaidBox && modalProps.submitOrderFunction();
+                checkedPaidBox && submitOrder();
               }}
             >
               Confirm Order

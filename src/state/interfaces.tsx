@@ -12,6 +12,7 @@ export interface IState {
   landing: boolean;
   date: Date;
   restaurants: Array<IRestaurant>;
+  totalCost: number;
 }
 
 export interface IAction {
