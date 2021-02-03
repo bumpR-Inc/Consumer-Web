@@ -120,7 +120,9 @@ export default function CartModal(modalProps: any) {
     var tax: number = Math.round(mealsCost * taxRate * 100) / 100; //rounding to two decimals
     //TODO: ADD TIP OPTION, MAKE RESPONSIVE, FIGURE OUT WHAT HAPPENS IF VENMO ISN'T INSTALLED, ADD CASHAPP (SHOULDN'T BE HARD)
     var totalCost: number = mealsCost + tipAmt + tax;
-    setTotalCost(dispatch, totalCost);
+    if (totalCost != state.totalCost) {
+      setTotalCost(dispatch, totalCost);
+    }
     venmoLink = venmoLink.concat(totalCost.toString());
     venmoLink = venmoLink.concat(
         "&note=Thanks%20for%20your%20Good%20Neighbor%20zero%20fee%20pre-order%21"
