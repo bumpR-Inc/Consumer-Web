@@ -16,6 +16,7 @@ var initialState: IState = {
   mobileUpdateAddressPage: false,
   date: initialDate,
   restaurants: [],
+  totalCost: 0
 };
 
 var localState = localStorage.getItem("state");
@@ -77,7 +78,13 @@ function reducer(state: IState, action: IAction): IState {
       state = {
         ...state,
         date: action.payload["date"],
-      }
+      };
+      break;
+    case "SET_TOTAL_COST":
+      state = {
+        ...state,
+        totalCost: action.payload["totalCost"],
+      };
       break;
     case "NO_CHANGE":
       state = state;

@@ -6,44 +6,87 @@ import { IMealProps } from "../../state/interfaces";
 import { Store } from "../../state/Store";
 import MenuWrapper from "./Wrapper";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
-
+import axios from 'axios'
 
 const MealList = React.lazy<any>(() => import("../../components/OrderingUI/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 const MealListByRestaurant = React.lazy<any>(() => import("../../components/OrderingUI/MealListByRestaurant")); //react lazy isntead of normal importing. see suspense and fallback below
 
 
 export default function MenuPage() {
+  //start of OAuth stuff
+  const {
+    getAccessTokenSilently,
+    loginWithPopup,
+    getAccessTokenWithPopup,
+  } = useAuth0();
 
+  // const callApi = async () => {
+  //   try {
+  //     const token = await getAccessTokenSilently();
 
-      //start of OAuth stuff
-    const {
-      getAccessTokenSilently,
-      loginWithPopup,
-      getAccessTokenWithPopup,
-    } = useAuth0();
+  //     const response = await fetch(`http://localhost:3001/api/private`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
 
-    const callApi = async () => {
-      try {
-        const token = await getAccessTokenSilently();
-        // console.log('token');
-        // console.log(token);
-        const response = await fetch(`http://localhost:3001/api/private`, {
+  //     const responseData = await response.json();
+  //     console.log(responseData);
+  //   } catch (error) {
+  //     console.log("Error in using auth token to hit private endpoint.");
+  //   }
+  // };
+  const callApi = async () => {
+
+    try {
+      const token = await getAccessTokenSilently();
+
+      axios.get('http://localhost:3001/api/private', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      })
+      .then((response) => {console.log(response);
+      })
+
+    } catch (error) {
+      console.log("Error in using auth token to hit private endpoint.");
+    }
+  };
+  //end of OAuth test stuff
+
+  //start of OAuth-enabled function to submit order
+  const submitOrder = async () => {
+    try {
+      const token = await getAccessTokenSilently();
+
+      axios
+        .post("http://localhost:3001/api/orderscreate", 
+        {
+          restaurant: 1,//REMOVE RESTAURANT FIELDS, SHREYA REMOVING IT FROM THE BACKEND
+          deliveryTime: "2021-02-15",
+          location: "address placeholder",
+          menuItems: [1],
+          pricePaid: 10.00
+        }, 
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+        }
+        )
+        .then((response) => {
+          console.log(response);
         });
+    } catch (error) {
+      console.log("Error in submitting post request for order");
+    }
+  };
 
-        const responseData = await response.json();
-        console.log(responseData);
-      } catch (error) {
-        console.log("failed!!");
-      }
-    };
-//end of OAuth stuff
+  //end of OAuth-enabled function to submit order
 
   const { state, dispatch } = React.useContext(Store);
   const [displayModal, setDisplayModal] = React.useState(false);
-
 
   React.useEffect(() => {
     if (state.meals?.length === 0 ?? false) {
@@ -67,7 +110,7 @@ export default function MenuPage() {
         <div className="menu-constrained-container">
           <React.Fragment>
             <React.Suspense fallback={<div>loading...</div>}>
-              <MealListByRestaurant {...props}/>
+              <MealListByRestaurant {...props} />
             </React.Suspense>
             <div className="bottom-cart-btn-wrapper">
               <div className="cart-button-wrapper">
@@ -91,9 +134,10 @@ export default function MenuPage() {
         <CartModal
           closeFunction={() => setDisplayModal(false)}
           displayModal={displayModal}
+          submitOrderFunction={submitOrder}
         />
       </div>
-      <button onClick={callApi}>OAuth private endpoint tester</button>
+      <button onClick={submitOrder}>OAuth private endpoint tester</button>
     </MenuWrapper>
   );
 }

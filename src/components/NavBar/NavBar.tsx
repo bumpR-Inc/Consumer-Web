@@ -75,6 +75,7 @@ const useStyles = makeStyles({
     border: 'none',
     fontWeight: 'bold',
     borderBottom: `solid 2px ${theme.palette.primary.main}`,
+    cursor: 'pointer',
 
     [theme.breakpoints.down('md')]: {
       fontSize: '3.7vw'

@@ -147,3 +147,10 @@ export const fromMobileUpdateAddressPage = async (
   });
 };
 
+export const setTotalCost = async (dispatch: any, totalCost: number) => {
+  return dispatch({
+    //redirects to menu page, while settign the address and geocode
+    type: "SET_TOTAL_COST",
+    payload: { totalCost: totalCost },
+  });
+};

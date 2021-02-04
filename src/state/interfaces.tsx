@@ -13,6 +13,7 @@ export interface IState {
   mobileUpdateAddressPage: boolean;
   date: Date;
   restaurants: Array<IRestaurant>;
+  totalCost: number;
 }
 
 export interface IAction {
@@ -21,7 +22,6 @@ export interface IAction {
 }
 
 export interface IMeal {
-  //based from Postman return
   pk: number;
   foodName: string;
   description: string;
@@ -38,23 +38,6 @@ export interface IMeal {
   picture_url: string;
   price: number;
   popularity: number;
-
-  //based on rick and morty api
-  // airdate: string;
-  // airstamp: string;
-  // airtime: string;
-  // id: number;
-  // image: {
-  //   medium: string;
-  //   original: string;
-  // };
-  // name: string;
-  // number: number;
-  // runtime: number;
-  // season: number;
-  // summary: string;
-  // type: string;
-  // url: string;
 }
 
 export interface IRestaurant {
