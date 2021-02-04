@@ -239,10 +239,11 @@ const useStyles = makeStyles({
 
 interface AddressSelectProps {
   landing: boolean,
+  miniButton: boolean,
   onConfirm: (address: string, geocode: any) => void
 }
 
-export default function AddressSelect({ landing, onConfirm }: AddressSelectProps) {  
+export default function AddressSelect({ landing, miniButton, onConfirm }: AddressSelectProps) {  
   let history = useHistory();
   let classes = useStyles();
   let [addressState, handleAddressChange] = useState<string>('');
@@ -314,7 +315,7 @@ export default function AddressSelect({ landing, onConfirm }: AddressSelectProps
                         : (addressState !== '' && (
                           (geocode && coveredAddress)
                           ? (
-                            landing
+                            !miniButton
                               ? (<CheckCircle className = { classes.validIcon } ></CheckCircle>)
                               : (<button className={classes.validAddressButtonNavbar} onClick={() => onConfirm(addressState, geocode)}>
                                   <CheckCircle className={classes.validIconNavbar}></CheckCircle>
@@ -353,12 +354,12 @@ export default function AddressSelect({ landing, onConfirm }: AddressSelectProps
                 })}
                 </div>)
                 : (
-                  (landing && geocode) && 
+                  (!miniButton && geocode) && 
                   (
                     (coveredAddress) ? 
                       (
                         <button className={classes.validAddressButton} onClick={() => onConfirm(addressState, geocode)}>
-                          View Menu
+                          {landing ? 'View Menu' : 'Update Address'}
                         </button>
                       )
                     :

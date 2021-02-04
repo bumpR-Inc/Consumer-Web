@@ -179,7 +179,7 @@ export default function Hero() {
             </div>
           </div>
           <div className={classes.addressContainer}>
-            <AddressSelect landing={true} onConfirm={addressOnConfirm} />
+            <AddressSelect landing={true} miniButton={false} onConfirm={addressOnConfirm} />
           </div>
           <div className={classes.bufferContainer}>
 

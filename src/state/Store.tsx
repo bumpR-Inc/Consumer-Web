@@ -1,7 +1,7 @@
 import React from "react";
 import { IState, IAction } from "./interfaces";
 
-const cacheState: boolean = false;
+const cacheState: boolean = true;
 const currentDate: Date = new Date();
 let initialDate: Date = new Date(currentDate.getTime());
 initialDate.setDate(currentDate.getDate() + (7 + 1 - currentDate.getDay()) % 7);
@@ -13,6 +13,7 @@ var initialState: IState = {
   address: "Set Location",
   geocode: undefined,
   landing: true,
+  mobileUpdateAddressPage: false,
   date: initialDate,
   restaurants: [],
 };
@@ -51,6 +52,18 @@ function reducer(state: IState, action: IAction): IState {
         address: action.payload["address"],
         geocode: action.payload["geocode"],
         landing: false,
+      };
+      break;
+    case "TO_MOBILE_UPDATE_ADDRESS_PAGE":
+      state = {
+        ...state,
+        mobileUpdateAddressPage: true,
+      };
+      break;
+    case "FROM_MOBILE_UPDATE_ADDRESS_PAGE":
+      state = {
+        ...state,
+        mobileUpdateAddressPage: false,
       };
       break;
     case "UPDATE_ADDRESS":
