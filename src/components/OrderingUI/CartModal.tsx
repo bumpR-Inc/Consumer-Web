@@ -87,9 +87,9 @@ export default function CartModal(modalProps: any) {
          .post(
            "http://localhost:3001/api/orderscreate",
            {
-             deliveryTime: "2021-02-15",
+             deliveryTime: "2006-10-25 14:30:59",
              location: state.address,
-             menuItems: state.orders.map((meal : IMeal) => meal.pk),
+             menuItems: state.orders.map((meal: IMeal) => meal.pk),
              pricePaid: state.totalCost,
            },
            {
