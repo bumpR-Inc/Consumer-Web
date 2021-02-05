@@ -127,6 +127,26 @@ export const setDate = async (
   });
 };
 
+export const toMobileUpdateAddressPage = async (
+  dispatch: any,
+) => {
+  return dispatch({
+    //redirects to menu page, while settign the address and geocode
+    type: "TO_MOBILE_UPDATE_ADDRESS_PAGE",
+    // payload: { date: date },
+  });
+};
+
+export const fromMobileUpdateAddressPage = async (
+  dispatch: any,
+) => {
+  return dispatch({
+    //redirects to menu page, while settign the address and geocode
+    type: "FROM_MOBILE_UPDATE_ADDRESS_PAGE",
+    // payload: { date: date },
+  });
+};
+
 export const setTotalCost = async (dispatch: any, totalCost: number) => {
   return dispatch({
     //redirects to menu page, while settign the address and geocode

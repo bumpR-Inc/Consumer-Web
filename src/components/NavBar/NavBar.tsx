@@ -5,6 +5,8 @@ import { theme } from "../Theme";
 import { Store } from "../../state/Store";
 import AddressModal from "./AddressModal";
 import DateModal from "./DateModal";
+import { toMobileUpdateAddressPage, updateAddress } from "../../state/Actions";
+
 const dateFormat = require("dateformat");
 
 const useStyles = makeStyles({
@@ -106,8 +108,13 @@ export default function NavBar() {
   const [ addressAnchor, setAddressAnchor ] = useState<any>(null);
 
   const handleAddressClick = (event: MouseEvent) => {
-    setAddressAnchor(event.currentTarget);
+    if (window.innerWidth <= theme.breakpoints.values.md) {
+      toMobileUpdateAddressPage(dispatch);
+    } else {
+      setAddressAnchor(event.currentTarget);
+    }
   };
+
   const handleAddressClose = () => setAddressAnchor(null);
 
   const [ dateAnchor, setDateAnchor ] = useState<any>(null);

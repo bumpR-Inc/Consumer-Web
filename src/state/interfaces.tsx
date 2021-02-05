@@ -10,6 +10,7 @@ export interface IState {
   address?: string;
   geocode?: any;
   landing: boolean;
+  mobileUpdateAddressPage: boolean;
   date: Date;
   restaurants: Array<IRestaurant>;
   totalCost: number;

@@ -22,6 +22,29 @@ const useStyles = makeStyles({
     boxShadow: 'none !important',
 
     height: '100%',
+  },
+  dialog: {
+    margin: '0px',
+    width: '100vw',
+    maxWidth: '100vw',
+    minWidth: '100vw',
+  },
+  dialogCard: {
+    background: theme.palette.info.main,
+    padding: '7vw',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100vw',
+  },
+  dialogTitle: {
+    color: theme.palette.primary.main,
+    textAlign: 'center',
+    fontSize: '27px',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '5.5vw'
+    }
   }
 });
 
@@ -39,24 +62,15 @@ export default function AddressModal({anchor, handleClose}: AddressModalProps) {
     handleClose();
     updateAddress(dispatch, address, geocode);
   }
-  // const Transition = React.forwardRef(function Transition(props, ref) {
-  //   return <Slide direction="down" ref={ref} {...props} />;
-  // });
-
-  console.log(anchor);
 
   return (
     <div>
       <React.Fragment>
-        <Popover
+        {window.innerWidth >= theme.breakpoints.values.md ? <Popover
           className={classes.popover}
           open={Boolean(anchor)}
-          // TransitionComponent={Transition}
-          // keepMounted
           onClose={handleClose}
           anchorEl={anchor}
-          // aria-labelledby="alert-dialog-slide-title"
-          // aria-describedby="alert-dialog-slide-description"
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'right',
@@ -66,23 +80,21 @@ export default function AddressModal({anchor, handleClose}: AddressModalProps) {
             horizontal: 'right',
           }}
         >
-          <AddressSelect landing={false} onConfirm={addressOnConfirm}/>
-          {/* <DialogTitle id="alert-dialog-slide-title">{"Use Google's location service?"}</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description">
-              Let Google help apps determine location. This means sending anonymous location data to
-              Google, even when no apps are running.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <button onClick={handleClose} color="primary">
-              Disagree
-            </button>
-            <button onClick={handleClose} color="primary">
-              Agree
-            </button>
-          </DialogActions> */}
+          <AddressSelect landing={false} miniButton={true} onConfirm={addressOnConfirm} />
         </Popover>
+        :<Dialog
+        open={Boolean(anchor)}
+        onClose={handleClose}
+        className={classes.dialog}
+        fullWidth={true}
+            maxWidth={"xl"}
+            style={{'margin': '0px', width: '100%'}}
+      >
+        <div className={classes.dialogCard}>
+              <AddressSelect landing={false} miniButton={true} onConfirm={addressOnConfirm} />
+        </div>
+      </Dialog>
+        }
       </React.Fragment>
     </div>
   );
