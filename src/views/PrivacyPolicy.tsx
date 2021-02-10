@@ -26,7 +26,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function DealCarousel() {
+export default function PrivacyPolicy() {
   let classes = useStyles();
 
   return (
