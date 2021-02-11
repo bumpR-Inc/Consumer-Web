@@ -40,14 +40,18 @@ const useStyles = makeStyles({
       fontSize: '14vw',
     },
   },
-  privacy: {
-    width: '100%',
+  paperworkWrap: {
+    display: 'inline',
+  },
+  paperwork: {
+    // width: '100%',
     color: theme.palette.primary.main,
     fontSize: '3em',
     fontWeight: 'normal',
     fontFamily: 'Playfair',
     margin: '0px',
     textAlign: 'center',
+    display: 'inline',
     [theme.breakpoints.down('md')]: {
       fontSize: '3em',
     },
@@ -66,7 +70,11 @@ export default function Footer() {
         <h1 className={classes.text}>
           Order today!
         </h1>
-        <a className={classes.privacy} href="/privacy">Privacy Policy</a>
+        <div className={classes.paperworkWrap}>
+          <a className={classes.paperwork} href="/privacy">Privacy Policy</a>
+          <p className={classes.paperwork}> | </p>
+          <a className={classes.paperwork} href="/terms">Terms of Service</a>        
+        </div>
       </div>
     </div>
   );

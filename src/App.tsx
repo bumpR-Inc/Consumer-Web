@@ -11,6 +11,7 @@ import HomePage from "./views/HomePage";
 import LandingPage from "./views/LandingPage/LandingPage";
 import OrdersPage from "./views/OrdersPage";
 import PrivacyPolicy from "./views/PrivacyPolicy";
+import TermsOfService from "./views/TermsOfService";
 
 // initFontAwesome();
 
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/landing" exact component={LandingPage} />
         <Route path="/orders" component={OrdersPage} />
         <Route path="/privacy" component={PrivacyPolicy} />
+        <Route path="/terms" component={TermsOfService} />
       </Switch>
     </Router>
   );
