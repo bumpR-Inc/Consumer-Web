@@ -10,11 +10,9 @@ import { RouteComponentProps } from "@reach/router";
 import { StoreProvider } from "./state/Store";
 
 const onRedirectCallback = (appState: any) => {
-  history.push(
-    appState && appState.returnTo
-      ? appState.returnTo
-      : window.location.pathname
-  );
+  // history.push("/");
+  // history.push("/"
+  // );
 };
 
 const RouterPage = (

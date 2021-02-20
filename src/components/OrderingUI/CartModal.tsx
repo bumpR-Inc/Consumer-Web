@@ -26,8 +26,6 @@ const useStyles = makeStyles({
     color: theme.palette.secondary.main,
     colorSecondary: theme.palette.primary.main,
     underline: theme.palette.primary.main,
-
-    // backgroundColor: "red"
   },
   tipInput: {
     fontFamily: 'Playfair',
@@ -41,13 +39,133 @@ const useStyles = makeStyles({
     step: "1",
     textAlign: "center",
     underline: theme.palette.primary.main,
-    // MozBoxSizing: "border-box",
-    // WebkitBoxSizing: "border-box",
-    // boxSizing: "border-box",
+  },
 
-    // [theme.breakpoints.down("sm")]: {
-    //   fontSize: "2.5em",
-    // },
+  cartHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    /* font-weight: 700, */
+    fontFamily: 'Playfair',
+    fontSize: '2.2rem',
+    color: '#fff',
+    lineHeight: '2.25rem',
+    width: '100%',
+    backgroundColor: '#c9512b',
+    zIndex: 21,
+    borderTopLeftRadius: '2rem',
+    borderTopRightRadius: '2rem',
+    boxShadow: '4px 4px 8px rgba(0,0,0,.15)',
+    minHeight: '4.5rem',
+  },
+
+  cartContentContainer: {
+    margin: 'auto',
+    alignItems: 'center',
+    /* width: '100%', */
+    maxWidth: '480px',
+    height: '100%',
+    overflowY: 'scroll',
+    justifyContent: 'space-evenly',
+  },
+  
+  
+  cartContent: {
+    position: 'relative',
+    width: '100%',
+    boxSizing: 'border-box',
+    padding: '0 0 1rem',
+    marginRight: 'auto',
+    marginLeft: 'auto',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    flexDirection: 'column',
+    marginBottom: '2vh',
+    marginTop: '1vh',
+  },
+  cartCosts: {
+    /* todo: add some @media stuff here to make responsive (width) */
+    marginTop: '1.5rem',
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    fontSize: '1rem',
+    marginBottom: '2rem',
+    flexShrink: 0,
+    paddingRight: '1.5vw',
+    paddingLeft: '1.5vw',
+    width: '100%',
+  },
+
+  cartText: {
+    fontSize: '16px',
+    fontFamily: "Playfair",
+    color: '#272727',
+    letterSpacing: '.02em',
+  },
+  
+  costRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  
+  cartPaymentContainer: {
+    marginBottom: '10rem',
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  
+  qrCode: {
+    padding: '1rem',
+  },
+  
+  cartButtonsBottom: {
+      position: 'absolute',
+      bottom: 0,
+      height: '7.5rem',
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+      backgroundColor: '#fff',
+  },
+  
+  cartButtons: {
+      position: 'absolute',
+      bottom: 0,
+      display: 'flex',
+      justifyContent: 'space-between',
+      width: '85%',
+      maxWidth: '21.4rem',
+      minHeight: '2.5rem',
+      marginBottom: '2.125rem',
+      userSelect: 'none',
+  },
+  
+  cartButton: {
+    fontFamily: "Playfair",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+    height: '2.5rem',
+    borderRadius: '2.5rem',
+    fontSize: '1rem',
+  },
+  
+  cartBackButton: {
+      width: '29%',
+      background: '#efefef',
+  },
+  
+  cartReviewOrderButton: {
+    width: '68%',
+    background: '#c9512b',
+    color: '#fff',
+    textDecoration: 'none',
   },
 });
 
@@ -142,7 +260,7 @@ export default function CartModal(modalProps: any) {
               {/* {console.log({ venmoLink })} */}
               <div className="cart-costs">
                 <div className="center">
-                  <p className="cartText">Tip:</p>
+                  <p className="cart-text">Tip:</p>
                   <TextField
                     onChange={(event) => setTipAmt(Number(event.target.value))}
                     className={classes.tip}
@@ -157,20 +275,20 @@ export default function CartModal(modalProps: any) {
                 </div>
                 <div className="cart-line"></div>
                 <div className="cost-row">
-                  <p className="cartText">Subtotal:</p>
-                  <p className="cartText">${mealsCost}</p>
+                  <p className="cart-text">Subtotal:</p>
+                  <p className="cart-text">${mealsCost}</p>
                 </div>
                 <div className="cost-row">
-                  <p className="cartText">Tax:</p>
-                  <p className="cartText">${tax}</p>
+                  <p className="cart-text">Tax:</p>
+                  <p className="cart-text">${tax}</p>
                 </div>
                 <div className="cost-row">
-                  <p className="cartText">Optional Tip:</p>
-                  <p className="cartText">${tipAmt}</p>
+                  <p className="cart-text">Optional Tip:</p>
+                  <p className="cart-text">${tipAmt}</p>
                 </div>
                 <div className="cost-row">
-                  <p className="cartText bolded">Total:</p>
-                  <p className="cartText bolded">${totalCost}</p>
+                  <p className="cart-text bolded">Total:</p>
+                  <p className="cart-text bolded">${totalCost}</p>
                 </div>
                 <div className="cart-line"></div>
 
@@ -186,17 +304,17 @@ export default function CartModal(modalProps: any) {
                 </p> */}
               </div>
               <div className="cart-payment-container">
-                <p className="cartText">
+                <p className="cart-text">
                   To pay via Venmo and confirm your order, first tap the Venmo
                   button below from your phone, or scan the QR code below if
                   you're using a desktop. Then, hit "confirm order."
                 </p>
-                <p className="cartText">Address: {state.address}</p>
-                <p className="cartText">Date/time: </p>
-                <p className="cartText">Phone: </p>
+                <p className="cart-text">Address: {state.address}</p>
+                <p className="cart-text">Date/time: </p>
+                <p className="cart-text">Phone: </p>
                 <VenmoBtn paymentLink={venmoLink} />
                 <QRCode value={venmoLink} className="qr-code" />
-                <p className="cartText">
+                <p className="cart-text">
                   Orders without verified Venmo payments will not be fulfilled.
                 </p>
 
@@ -220,7 +338,7 @@ export default function CartModal(modalProps: any) {
               Back
             </div>
             <div
-              className="cart-review-order-button"
+              className={`cart-review-order-button${!checkedPaidBox ? ' cart-button-disabled' : ''}`}
               onClick={function () {
                 setAttemptedToConfirmOrder(true);
                 checkedPaidBox && submitOrder();
@@ -230,7 +348,7 @@ export default function CartModal(modalProps: any) {
             </div>
           </div>
           {attemptedToConfirmOrder && !checkedPaidBox ? (
-            <p className="cartText">
+            <p className="cart-text cart-error">
               Please pay with Venmo and select the checkbox above to order.
             </p>
           ) : (
