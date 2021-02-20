@@ -503,6 +503,13 @@ background-color: rgba(0, 0, 0, 0.55);
     text-decoration: none;
 }
 
+.cart-button-disabled {
+  background-color: grey;
+}
+
+.cart-error {
+  color: red
+}
 /* .checkbox-row {
   display: flex;
   justify-content: space-around;

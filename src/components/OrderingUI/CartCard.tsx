@@ -45,26 +45,5 @@ export default function CartCard(props: any) {
         </div>
       </div>
     </div>
-    // <Card className={classes.root}>
-    //   <div>
-    //     <CardMedia
-    //       className={classes.media}
-    //       image={props.episode.image.medium}
-    //       title={props.episode.name}
-    //     />
-    //     <CardContent className={classes.cardContent}>
-    //       <div className="cardTitle">{props.episode.name}</div>
-    //       <div className="cardText">{limitedSummary}</div>
-    //     </CardContent>
-    //   </div>
-    //   <div className="card-bottom-flex-container">
-    //     <Button onClick={props.addOnClick}>
-    //       <img src={addImg} className="cardAddBtn" />
-    //     </Button>
-    //     <div className="cardPrice">
-    //       <p>${props.episode.number}</p>
-    //     </div>
-    //   </div>
-    // </Card>
   );
 }
