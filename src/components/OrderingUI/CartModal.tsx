@@ -87,7 +87,7 @@ export default function CartModal(modalProps: any) {
          .post(
            "http://localhost:3001/api/orderscreate",
            {
-             deliveryTime: "2006-10-25 14:30:59",
+             deliveryTime: "2021-02-25 14:30:59", //  2006-10-25 14:30:59"
              location: state.address,
              menuItems: state.orders.map((meal: IMeal) => meal.pk),
              pricePaid: state.totalCost,
@@ -124,9 +124,11 @@ export default function CartModal(modalProps: any) {
       setTotalCost(dispatch, totalCost);
     }
     venmoLink = venmoLink.concat(totalCost.toString());
+    // let orderCode : string = Math.random().toString(36).substring(7);
     venmoLink = venmoLink.concat(
-        "&note=Thanks%20for%20your%20Good%20Neighbor%20zero%20fee%20pre-order%21"
+        "&note=Thanks%20for%20your%20Good%20Neighbor%20zero%20fee%20pre-order%21%20%"
     );
+    // venmoLink = venmoLink.concat(orderCode);
 
     return (
       <div className={`Modal ${modalProps.displayModal ? "Show" : "Hide"}`}>
