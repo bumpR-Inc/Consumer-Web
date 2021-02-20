@@ -19,6 +19,8 @@ const useStyles = makeStyles({
     width: "100vw",
   },
   hero: {
+    // paddingTop: '10%',
+    // paddingBottom: '10%',
     position: 'absolute',
     height: "100%",
     width: "100%",

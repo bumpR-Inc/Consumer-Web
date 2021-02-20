@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'row',
     width: '100vw',
-    height: '50vh',
+    height: '500px',
     backgroundColor: theme.palette.primary.main,
     justifyContent: 'center',
     alignItems: 'center',
@@ -30,7 +30,7 @@ const useStyles = makeStyles({
     }
   },
   card: {
-    height: '80%',
+    height: '400px',
     minWidth: '300px',
     width: '20vw',
     backgroundColor: theme.palette.info.main,
