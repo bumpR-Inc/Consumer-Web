@@ -62,11 +62,10 @@ const useStyles = makeStyles({
   cartContentContainer: {
     margin: 'auto',
     alignItems: 'center',
-    /* width: '100%', */
-    maxWidth: '480px',
-    height: '100%',
-    overflowY: 'scroll',
+    maxWidth: '500px',
     justifyContent: 'space-evenly',
+    maxHeight: '70vh',
+    // backgroundColor: 'blue'
   },
   
   
@@ -201,11 +200,11 @@ export default function CartModal(modalProps: any) {
      try {
        const token = await getAccessTokenSilently();
         console.log(state.date)
-       axios
+        axios
          .post(
            "http://localhost:3001/api/orderscreate",
            {
-             deliveryTime: "2021-02-25 14:30:59", //  2006-10-25 14:30:59"
+             deliveryTime: "2021-02-26 14:30:59", //  2006-10-25 14:30:59"
              location: state.address,
              menuItems: state.orders.map((meal: IMeal) => meal.pk),
              pricePaid: state.totalCost,
@@ -252,78 +251,81 @@ export default function CartModal(modalProps: any) {
       <div className={`Modal ${modalProps.displayModal ? "Show" : "Hide"}`}>
         <div className="cart-header">Cart</div>
         <React.Suspense fallback={<div>loading...</div>}>
-          <div className="cart-content-container">
-            <div className="cart-content">
-              <div className="cart-cards-layout">
-                <CartList {...props} />
-              </div>
-              {/* {console.log({ venmoLink })} */}
-              <div className="cart-costs">
-                <div className="center">
-                  <p className="cart-text">Tip:</p>
-                  <TextField
-                    onChange={(event) => setTipAmt(Number(event.target.value))}
-                    className={classes.tip}
-                    type="number"
-                    inputProps={{
-                      min: "0",
-                      max: "2499",
-                      step: "1",
-                      className: classes.tipInput,
-                    }}
-                  />
+          <div className="cart-outer-width-container">
+            <div className={classes.cartContentContainer}>
+            {/* <div className="cart-content-container"> */}
+              <div className="cart-content">
+                <div className="cart-cards-layout">
+                  <CartList {...props} />
                 </div>
-                <div className="cart-line"></div>
-                <div className="cost-row">
-                  <p className="cart-text">Subtotal:</p>
-                  <p className="cart-text">${mealsCost}</p>
-                </div>
-                <div className="cost-row">
-                  <p className="cart-text">Tax:</p>
-                  <p className="cart-text">${tax}</p>
-                </div>
-                <div className="cost-row">
-                  <p className="cart-text">Optional Tip:</p>
-                  <p className="cart-text">${tipAmt}</p>
-                </div>
-                <div className="cost-row">
-                  <p className="cart-text bolded">Total:</p>
-                  <p className="cart-text bolded">${totalCost}</p>
-                </div>
-                <div className="cart-line"></div>
+                {/* {console.log({ venmoLink })} */}
+                <div className="cart-costs">
+                  <div className="center">
+                    <p className="cart-text">Tip:</p>
+                    <TextField
+                      onChange={(event) => setTipAmt(Number(event.target.value))}
+                      className={classes.tip}
+                      type="number"
+                      inputProps={{
+                        min: "0",
+                        max: "2499",
+                        step: "1",
+                        className: classes.tipInput,
+                      }}
+                    />
+                  </div>
+                  <div className="cart-line"></div>
+                  <div className="cost-row">
+                    <p className="cart-text">Subtotal:</p>
+                    <p className="cart-text">${mealsCost}</p>
+                  </div>
+                  <div className="cost-row">
+                    <p className="cart-text">Tax:</p>
+                    <p className="cart-text">${tax}</p>
+                  </div>
+                  <div className="cost-row">
+                    <p className="cart-text">Optional Tip:</p>
+                    <p className="cart-text">${tipAmt}</p>
+                  </div>
+                  <div className="cost-row">
+                    <p className="cart-text bolded">Total:</p>
+                    <p className="cart-text bolded">${totalCost}</p>
+                  </div>
+                  <div className="cart-line"></div>
 
-                {/* <div className="cost-row">
-                  <p className="cardText">
-                    To confirm your order, please pay ${totalCost} with Venmo
-                    below.
+                  {/* <div className="cost-row">
+                    <p className="cardText">
+                      To confirm your order, please pay ${totalCost} with Venmo
+                      below.
+                    </p>
+                  </div> */}
+                  {/* <p>
+                    If you were ordering the same thing on DoorDash, you'd be
+                    paying ${totalCost * 2}!
+                  </p> */}
+                </div>
+                <div className="cart-payment-container">
+                  <p className="cart-text">
+                    To pay via Venmo and confirm your order, first tap the Venmo
+                    button below from your phone, or scan the QR code below if
+                    you're using a desktop. Then, hit "confirm order."
                   </p>
-                </div> */}
-                {/* <p>
-                  If you were ordering the same thing on DoorDash, you'd be
-                  paying ${totalCost * 2}!
-                </p> */}
-              </div>
-              <div className="cart-payment-container">
-                <p className="cart-text">
-                  To pay via Venmo and confirm your order, first tap the Venmo
-                  button below from your phone, or scan the QR code below if
-                  you're using a desktop. Then, hit "confirm order."
-                </p>
-                <p className="cart-text">Address: {state.address}</p>
-                <p className="cart-text">Date/time: </p>
-                <p className="cart-text">Phone: </p>
-                <VenmoBtn paymentLink={venmoLink} />
-                <QRCode value={venmoLink} className="qr-code" />
-                <p className="cart-text">
-                  Orders without verified Venmo payments will not be fulfilled.
-                </p>
+                  <p className="cart-text">Address: {state.address}</p>
+                  <p className="cart-text">Date/time: </p>
+                  <p className="cart-text">Phone: </p>
+                  <VenmoBtn paymentLink={venmoLink} />
+                  <QRCode value={venmoLink} className={classes.qrCode} />
+                  <p className="cart-text">
+                    Orders without verified Venmo payments will not be fulfilled.
+                  </p>
 
-                {/* potential bug here: setPaidBox isn't checking actual state of button, just toggling. might be possible to offset on-off cycle causing bug. */}
-                <div className="checkbox-row">
-                  <CustomCheckbox
-                    onChange={() => setPaidBox(!checkedPaidBox)}
-                    label="Yes, I have paid with Venmo."
-                  />
+                  {/* potential bug here: setPaidBox isn't checking actual state of button, just toggling. might be possible to offset on-off cycle causing bug. */}
+                  <div className="checkbox-row">
+                    <CustomCheckbox
+                      onChange={() => setPaidBox(!checkedPaidBox)}
+                      label="Yes, I have paid with Venmo."
+                    />
+                  </div>
                 </div>
               </div>
             </div>
