@@ -193,12 +193,14 @@ export default function CartModal(modalProps: any) {
      loginWithPopup,
      getAccessTokenWithPopup,
    } = useAuth0();
+    
+   console.log(state.date);
 
    //start of OAuth-enabled function to submit order
    const submitOrder = async () => {
      try {
        const token = await getAccessTokenSilently();
-        console.log(state.date)
+        // console.log(state.date)
         axios
          .post(
            "http://localhost:3001/api/orderscreate",
@@ -354,6 +356,7 @@ export default function CartModal(modalProps: any) {
               onClick={function () {
                 setAttemptedToConfirmOrder(true);
                 checkedPaidBox && submitOrder();
+                setOrderCode(dispatch, "");//makes sure previous code doesn't persist for future orders
               }}
             >
               Confirm Order
