@@ -13,7 +13,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { setTotalCost } from "../../state/Actions";
 
-
+var dateFormat = require("dateformat");
 
 var QRCode = require('qrcode.react')
 
@@ -193,34 +193,37 @@ export default function CartModal(modalProps: any) {
      loginWithPopup,
      getAccessTokenWithPopup,
    } = useAuth0();
-    
-   console.log(state.date);
+  
+   //for isoTime, use "isoTime string with dateFormat"
+  //  var reformattedLunchTime = dateFormat(state.date, "isoDate") + " 12:30:00";
+  //  console.log(reformattedLunchTime);
 
    //start of OAuth-enabled function to submit order
    const submitOrder = async () => {
      try {
+        var reformattedLunchTime = dateFormat(state.date, "isoDate") + " 12:30:00";
+        // console.log(reformattedLunchTime);
        const token = await getAccessTokenSilently();
-        // console.log(state.date)
         axios
-         .post(
-           "http://localhost:3001/api/orderscreate",
-           {
-             deliveryTime: "2021-02-26 14:30:59", //  2006-10-25 14:30:59"
-             location: state.address,
-             menuItems: state.orders.map((meal: IMeal) => meal.pk),
-             pricePaid: state.totalCost,
-           },
-           {
-             headers: {
-               Authorization: `Bearer ${token}`,
-             },
-           }
-         )
-         .then((response) => {
-           console.log(response);
-         });
+          .post(
+            "http://localhost:3001/api/orderscreate",
+            {
+              deliveryTime: reformattedLunchTime, //  example: 2006-10-25 14:30:59"
+              location: state.address,
+              menuItems: state.orders.map((meal: IMeal) => meal.pk),
+              pricePaid: state.totalCost,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((response) => {
+            console.log(response);
+          });
      } catch (error) {
-       console.log("Error in submitting post request for order");
+       console.log("Error in submitting post request for order, might not be signed in.");
      }
    };
 
@@ -323,7 +326,7 @@ export default function CartModal(modalProps: any) {
                     you're using a desktop. Then, hit "confirm order."
                   </p>
                   <p className="cart-text">Address: {state.address}</p>
-                  <p className="cart-text">Date/time: </p>
+                  <p className="cart-text">Date/time: {dateFormat(state.date, "isoDate")}</p>
                   <p className="cart-text">Phone: </p>
                   <VenmoBtn paymentLink={venmoLink} />
                   <QRCode value={venmoLink} className={classes.qrCode} />
