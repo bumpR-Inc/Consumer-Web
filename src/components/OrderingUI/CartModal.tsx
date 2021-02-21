@@ -1,7 +1,7 @@
 import React from "react";
 import { Store } from "../../state/Store";
 import { IMealProps, IMeal } from "../../state/interfaces";
-import { toggleFavAction } from "../../state/Actions";
+import { setOrderCode, toggleFavAction } from "../../state/Actions";
 import App from "../../App";
 import VenmoBtn from "./VenmoBtn";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -171,7 +171,6 @@ const useStyles = makeStyles({
 
 
 export default function CartModal(modalProps: any) {
-  
     var classes = useStyles();
     const { state, dispatch } = React.useContext(Store);
     const [checkedPaidBox, setPaidBox] = React.useState(false); //for tracking state of checkbox at bottom
@@ -241,11 +240,23 @@ export default function CartModal(modalProps: any) {
       setTotalCost(dispatch, totalCost);
     }
     venmoLink = venmoLink.concat(totalCost.toString());
-    // let orderCode : string = Math.random().toString(36).substring(7);
     venmoLink = venmoLink.concat(
-        "&note=Thanks%20for%20your%20Good%20Neighbor%20zero%20fee%20pre-order%21%20%"
+      "&note=Thanks%20for%20your%20Good%20Neighbor%20zero%20fee%20pre-order%21%20%23"
     );
-    // venmoLink = venmoLink.concat(orderCode);
+
+    //order code
+    if (state.orderCode == "") {
+      var newOrderCode = "";
+      var possible =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      for (var i = 0; i < 5; i++)
+        newOrderCode += possible.charAt(
+          Math.floor(Math.random() * possible.length)
+        );
+      // var newOrderCode : string = Math.random().toString(36).substring(7);
+      setOrderCode(dispatch, newOrderCode);
+    }
+    venmoLink = venmoLink.concat(state.orderCode);
 
     return (
       <div className={`Modal ${modalProps.displayModal ? "Show" : "Hide"}`}>
@@ -258,7 +269,6 @@ export default function CartModal(modalProps: any) {
                 <div className="cart-cards-layout">
                   <CartList {...props} />
                 </div>
-                {/* {console.log({ venmoLink })} */}
                 <div className="cart-costs">
                   <div className="center">
                     <p className="cart-text">Tip:</p>

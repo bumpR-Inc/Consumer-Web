@@ -1,7 +1,7 @@
 import React from "react";
 import { IState, IAction } from "./interfaces";
 
-const cacheState: boolean = false;
+const cacheState: boolean = true;
 const currentDate: Date = new Date();
 let initialDate: Date = new Date(currentDate.getTime());
 initialDate.setDate(currentDate.getDate() + (7 + 1 - currentDate.getDay()) % 7);
@@ -16,7 +16,8 @@ var initialState: IState = {
   mobileUpdateAddressPage: false,
   date: initialDate,
   restaurants: [],
-  totalCost: 0
+  totalCost: 0, 
+  orderCode: ""//filled in cartmodal
 };
 
 var localState = localStorage.getItem("state");
@@ -84,6 +85,12 @@ function reducer(state: IState, action: IAction): IState {
       state = {
         ...state,
         totalCost: action.payload["totalCost"],
+      };
+      break;
+    case "SET_ORDER_CODE":
+      state = {
+        ...state,
+        orderCode: action.payload["orderCode"],
       };
       break;
     case "NO_CHANGE":
