@@ -14,6 +14,7 @@ export interface IState {
   date: Date;
   restaurants: Array<IRestaurant>;
   totalCost: number;
+  orderCode: string;
 }
 
 export interface IAction {

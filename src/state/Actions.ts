@@ -154,3 +154,11 @@ export const setTotalCost = async (dispatch: any, totalCost: number) => {
     payload: { totalCost: totalCost },
   });
 };
+
+export const setOrderCode = async (dispatch: any, orderCode: string) => {
+  return dispatch({
+    //redirects to menu page, while settign the address and geocode
+    type: "SET_ORDER_CODE",
+    payload: { orderCode: orderCode },
+  });
+};

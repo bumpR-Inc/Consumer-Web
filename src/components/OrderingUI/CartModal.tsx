@@ -1,7 +1,7 @@
 import React from "react";
 import { Store } from "../../state/Store";
 import { IMealProps, IMeal } from "../../state/interfaces";
-import { toggleFavAction } from "../../state/Actions";
+import { setOrderCode, toggleFavAction } from "../../state/Actions";
 import App from "../../App";
 import VenmoBtn from "./VenmoBtn";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -13,7 +13,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { setTotalCost } from "../../state/Actions";
 
-
+var dateFormat = require("dateformat");
 
 var QRCode = require('qrcode.react')
 
@@ -62,11 +62,10 @@ const useStyles = makeStyles({
   cartContentContainer: {
     margin: 'auto',
     alignItems: 'center',
-    /* width: '100%', */
-    maxWidth: '480px',
-    height: '100%',
-    overflowY: 'scroll',
+    maxWidth: '500px',
     justifyContent: 'space-evenly',
+    maxHeight: '70vh',
+    // backgroundColor: 'blue'
   },
   
   
@@ -172,7 +171,6 @@ const useStyles = makeStyles({
 
 
 export default function CartModal(modalProps: any) {
-  
     var classes = useStyles();
     const { state, dispatch } = React.useContext(Store);
     const [checkedPaidBox, setPaidBox] = React.useState(false); //for tracking state of checkbox at bottom
@@ -195,32 +193,37 @@ export default function CartModal(modalProps: any) {
      loginWithPopup,
      getAccessTokenWithPopup,
    } = useAuth0();
+  
+   //for isoTime, use "isoTime string with dateFormat"
+  //  var reformattedLunchTime = dateFormat(state.date, "isoDate") + " 12:30:00";
+  //  console.log(reformattedLunchTime);
 
    //start of OAuth-enabled function to submit order
    const submitOrder = async () => {
      try {
+        var reformattedLunchTime = dateFormat(state.date, "isoDate") + " 12:30:00";
+        // console.log(reformattedLunchTime);
        const token = await getAccessTokenSilently();
-        console.log(state.date)
-       axios
-         .post(
-           "http://localhost:3001/api/orderscreate",
-           {
-             deliveryTime: "2021-02-15",
-             location: state.address,
-             menuItems: state.orders.map((meal : IMeal) => meal.pk),
-             pricePaid: state.totalCost,
-           },
-           {
-             headers: {
-               Authorization: `Bearer ${token}`,
-             },
-           }
-         )
-         .then((response) => {
-           console.log(response);
-         });
+        axios
+          .post(
+            "http://localhost:3001/api/orderscreate",
+            {
+              deliveryTime: reformattedLunchTime, //  example: 2006-10-25 14:30:59"
+              location: state.address,
+              menuItems: state.orders.map((meal: IMeal) => meal.pk),
+              pricePaid: state.totalCost,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((response) => {
+            console.log(response);
+          });
      } catch (error) {
-       console.log("Error in submitting post request for order");
+       console.log("Error in submitting post request for order, might not be signed in.");
      }
    };
 
@@ -243,85 +246,101 @@ export default function CartModal(modalProps: any) {
     }
     venmoLink = venmoLink.concat(totalCost.toString());
     venmoLink = venmoLink.concat(
-        "&note=Thanks%20for%20your%20Good%20Neighbor%20zero%20fee%20pre-order%21"
+      "&note=Thanks%20for%20your%20Good%20Neighbor%20zero%20fee%20pre-order%21%20%23"
     );
+
+    //order code
+    if (state.orderCode == "") {
+      var newOrderCode = "";
+      var possible =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      for (var i = 0; i < 5; i++)
+        newOrderCode += possible.charAt(
+          Math.floor(Math.random() * possible.length)
+        );
+      // var newOrderCode : string = Math.random().toString(36).substring(7);
+      setOrderCode(dispatch, newOrderCode);
+    }
+    venmoLink = venmoLink.concat(state.orderCode);
 
     return (
       <div className={`Modal ${modalProps.displayModal ? "Show" : "Hide"}`}>
         <div className="cart-header">Cart</div>
         <React.Suspense fallback={<div>loading...</div>}>
-          <div className="cart-content-container">
-            <div className="cart-content">
-              <div className="cart-cards-layout">
-                <CartList {...props} />
-              </div>
-              {/* {console.log({ venmoLink })} */}
-              <div className="cart-costs">
-                <div className="center">
-                  <p className="cart-text">Tip:</p>
-                  <TextField
-                    onChange={(event) => setTipAmt(Number(event.target.value))}
-                    className={classes.tip}
-                    type="number"
-                    inputProps={{
-                      min: "0",
-                      max: "2499",
-                      step: "1",
-                      className: classes.tipInput,
-                    }}
-                  />
+          <div className="cart-outer-width-container">
+            <div className={classes.cartContentContainer}>
+            {/* <div className="cart-content-container"> */}
+              <div className="cart-content">
+                <div className="cart-cards-layout">
+                  <CartList {...props} />
                 </div>
-                <div className="cart-line"></div>
-                <div className="cost-row">
-                  <p className="cart-text">Subtotal:</p>
-                  <p className="cart-text">${mealsCost}</p>
-                </div>
-                <div className="cost-row">
-                  <p className="cart-text">Tax:</p>
-                  <p className="cart-text">${tax}</p>
-                </div>
-                <div className="cost-row">
-                  <p className="cart-text">Optional Tip:</p>
-                  <p className="cart-text">${tipAmt}</p>
-                </div>
-                <div className="cost-row">
-                  <p className="cart-text bolded">Total:</p>
-                  <p className="cart-text bolded">${totalCost}</p>
-                </div>
-                <div className="cart-line"></div>
+                <div className="cart-costs">
+                  <div className="center">
+                    <p className="cart-text">Tip:</p>
+                    <TextField
+                      onChange={(event) => setTipAmt(Number(event.target.value))}
+                      className={classes.tip}
+                      type="number"
+                      inputProps={{
+                        min: "0",
+                        max: "2499",
+                        step: "1",
+                        className: classes.tipInput,
+                      }}
+                    />
+                  </div>
+                  <div className="cart-line"></div>
+                  <div className="cost-row">
+                    <p className="cart-text">Subtotal:</p>
+                    <p className="cart-text">${mealsCost}</p>
+                  </div>
+                  <div className="cost-row">
+                    <p className="cart-text">Tax:</p>
+                    <p className="cart-text">${tax}</p>
+                  </div>
+                  <div className="cost-row">
+                    <p className="cart-text">Optional Tip:</p>
+                    <p className="cart-text">${tipAmt}</p>
+                  </div>
+                  <div className="cost-row">
+                    <p className="cart-text bolded">Total:</p>
+                    <p className="cart-text bolded">${totalCost}</p>
+                  </div>
+                  <div className="cart-line"></div>
 
-                {/* <div className="cost-row">
-                  <p className="cardText">
-                    To confirm your order, please pay ${totalCost} with Venmo
-                    below.
+                  {/* <div className="cost-row">
+                    <p className="cardText">
+                      To confirm your order, please pay ${totalCost} with Venmo
+                      below.
+                    </p>
+                  </div> */}
+                  {/* <p>
+                    If you were ordering the same thing on DoorDash, you'd be
+                    paying ${totalCost * 2}!
+                  </p> */}
+                </div>
+                <div className="cart-payment-container">
+                  <p className="cart-text">
+                    To pay via Venmo and confirm your order, first tap the Venmo
+                    button below from your phone, or scan the QR code below if
+                    you're using a desktop. Then, hit "confirm order."
                   </p>
-                </div> */}
-                {/* <p>
-                  If you were ordering the same thing on DoorDash, you'd be
-                  paying ${totalCost * 2}!
-                </p> */}
-              </div>
-              <div className="cart-payment-container">
-                <p className="cart-text">
-                  To pay via Venmo and confirm your order, first tap the Venmo
-                  button below from your phone, or scan the QR code below if
-                  you're using a desktop. Then, hit "confirm order."
-                </p>
-                <p className="cart-text">Address: {state.address}</p>
-                <p className="cart-text">Date/time: </p>
-                <p className="cart-text">Phone: </p>
-                <VenmoBtn paymentLink={venmoLink} />
-                <QRCode value={venmoLink} className="qr-code" />
-                <p className="cart-text">
-                  Orders without verified Venmo payments will not be fulfilled.
-                </p>
+                  <p className="cart-text">Address: {state.address}</p>
+                  <p className="cart-text">Date/time: {dateFormat(state.date, "isoDate")}</p>
+                  <p className="cart-text">Phone: </p>
+                  <VenmoBtn paymentLink={venmoLink} />
+                  <QRCode value={venmoLink} className={classes.qrCode} />
+                  <p className="cart-text">
+                    Orders without verified Venmo payments will not be fulfilled.
+                  </p>
 
-                {/* potential bug here: setPaidBox isn't checking actual state of button, just toggling. might be possible to offset on-off cycle causing bug. */}
-                <div className="checkbox-row">
-                  <CustomCheckbox
-                    onChange={() => setPaidBox(!checkedPaidBox)}
-                    label="Yes, I have paid with Venmo."
-                  />
+                  {/* potential bug here: setPaidBox isn't checking actual state of button, just toggling. might be possible to offset on-off cycle causing bug. */}
+                  <div className="checkbox-row">
+                    <CustomCheckbox
+                      onChange={() => setPaidBox(!checkedPaidBox)}
+                      label="Yes, I have paid with Venmo."
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -340,6 +359,7 @@ export default function CartModal(modalProps: any) {
               onClick={function () {
                 setAttemptedToConfirmOrder(true);
                 checkedPaidBox && submitOrder();
+                setOrderCode(dispatch, "");//makes sure previous code doesn't persist for future orders
               }}
             >
               Confirm Order

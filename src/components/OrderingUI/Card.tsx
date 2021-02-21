@@ -11,10 +11,10 @@ import MealPropertyTag from "./MealPropertyTag";
 const useStyles = makeStyles({
   root: {
     width: 300,
-    height: 335,
+    height: 325,
   },
   media: {
-    height: 200,
+    height: 190,
   },
   cardContent: {
     height: 45,
