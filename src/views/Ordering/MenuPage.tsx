@@ -138,6 +138,7 @@ export default function MenuPage() {
         />
       </div>
       <button onClick={callApi}>OAuth private endpoint tester</button>
+      <div className="menu-buffer"></div>
     </MenuWrapper>
   );
 }
