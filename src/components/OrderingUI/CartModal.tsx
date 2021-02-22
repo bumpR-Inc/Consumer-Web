@@ -233,7 +233,7 @@ export default function CartModal(modalProps: any) {
         "venmo://paycharge?txn=pay&recipients=GN-delivery&amount="; //partial, still need more parameters
 
     //calculates cost of meals
-    const taxRate: number = 0.0925;
+    const taxRate: number = 0.095;
     var mealsCost = props.orders.reduce(
         (accumulator: number, currentMeal: IMeal) =>
         accumulator + currentMeal.price,
@@ -253,8 +253,7 @@ export default function CartModal(modalProps: any) {
     //order code
     if (state.orderCode == "") {
       var newOrderCode = "";
-      var possible =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890123456789";
       for (var i = 0; i < 5; i++)
         newOrderCode += possible.charAt(
           Math.floor(Math.random() * possible.length)
