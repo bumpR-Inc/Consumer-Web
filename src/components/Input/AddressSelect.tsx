@@ -54,11 +54,15 @@ const useStyles = makeStyles({
 
     backgroundColor: theme.palette.info.main,
     border: "none",
-    height: "10vh",
+    height: "100%",
     width: '80%',
     boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.5)',
 
     borderRadius: '25px',
+
+    '&:hover': {
+      color: 'black',
+    },
   },
   addressInputContainer: {
     display: 'flex',

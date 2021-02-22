@@ -40,7 +40,9 @@ const useStyles = makeStyles({
     fontWeight: "bold",
   },
   titlePost: {
-    height: '50vh',
+    // height: '50vh',
+    paddingTop: '3%',
+    paddingBottom: '3%',
     backgroundImage: `url(${texture})`,
     position: 'relative',
     overflow: 'hidden',
@@ -49,7 +51,9 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     alignContent: 'center',
     [theme.breakpoints.down('sm')]: {
-      height: '75vh'
+      // height: '75vh',
+      // paddingTop: '1%',
+      // paddingBottom: '1%',
     }
   },
   dealContainer: {
@@ -98,7 +102,7 @@ export default function DealCarousel() {
       </div>
       <div className={classes.titlePost}>
         <div className={classes.dealContainer}>
-          <Marquee direction="ltr" velocity={window.innerWidth <= theme.breakpoints.values.md ? 5 : 40} resetAfterTries={0} scatterRandomly={false} onInit={() => {}} onFinish={() => {}}>
+          <Marquee direction="ltr" velocity={window.innerWidth <= theme.breakpoints.values.md ? 10 : 40} resetAfterTries={0} scatterRandomly={false} onInit={() => {}} onFinish={() => {}}>
             {
               deals.map((value: string, index: number) => {
                 return (
