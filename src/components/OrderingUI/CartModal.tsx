@@ -1,17 +1,15 @@
-import React from "react";
-import { Store } from "../../state/Store";
-import { IMealProps, IMeal } from "../../state/interfaces";
-import { setOrderCode, toggleFavAction } from "../../state/Actions";
-import App from "../../App";
-import VenmoBtn from "./VenmoBtn";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import CustomCheckbox from "../Input/CustomCheckbox";
+import { useAuth0 } from "@auth0/auth0-react";
 import { TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { theme } from "../Theme";
-import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
-import { setTotalCost } from "../../state/Actions";
+import React from "react";
+import { setOrderCode, setTotalCost, toggleFavAction } from "../../state/Actions";
+import { IMeal } from "../../state/interfaces";
+import { Store } from "../../state/Store";
+import CustomCheckbox from "../Input/CustomCheckbox";
+import { theme } from "../Theme";
+import CartPriceBreakdown from "./CartPriceBreakdown";
+import VenmoBtn from "./VenmoBtn";
 
 var dateFormat = require("dateformat");
 
@@ -173,6 +171,7 @@ const useStyles = makeStyles({
 export default function CartModal(modalProps: any) {
     var classes = useStyles();
     const { state, dispatch } = React.useContext(Store);
+    const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
     const [checkedPaidBox, setPaidBox] = React.useState(false); //for tracking state of checkbox at bottom
     const [tipAmt, setTipAmt] = React.useState(0); //for tracking state of checkbox at bottom
     const [
@@ -289,25 +288,7 @@ export default function CartModal(modalProps: any) {
                       }}
                     />
                   </div>
-                  <div className="cart-line"></div>
-                  <div className="cost-row">
-                    <p className="cart-text">Subtotal:</p>
-                    <p className="cart-text">${mealsCost}</p>
-                  </div>
-                  <div className="cost-row">
-                    <p className="cart-text">Tax:</p>
-                    <p className="cart-text">${tax}</p>
-                  </div>
-                  <div className="cost-row">
-                    <p className="cart-text">Optional Tip:</p>
-                    <p className="cart-text">${tipAmt}</p>
-                  </div>
-                  <div className="cost-row">
-                    <p className="cart-text bolded">Total:</p>
-                    <p className="cart-text bolded">${totalCost}</p>
-                  </div>
-                  <div className="cart-line"></div>
-
+                  <CartPriceBreakdown mealsCost={mealsCost} tax={tax} tipAmt={tipAmt} totalCost={totalCost}/>
                   {/* <div className="cost-row">
                     <p className="cardText">
                       To confirm your order, please pay ${totalCost} with Venmo
@@ -357,12 +338,15 @@ export default function CartModal(modalProps: any) {
             <div
               className={`cart-review-order-button${!checkedPaidBox ? ' cart-button-disabled' : ''}`}
               onClick={function () {
+                if (!isAuthenticated) {
+                  loginWithRedirect();
+                }
                 setAttemptedToConfirmOrder(true);
                 checkedPaidBox && submitOrder();
                 setOrderCode(dispatch, "");//makes sure previous code doesn't persist for future orders
               }}
             >
-              Confirm Order
+              {isAuthenticated ? 'Place Order' : 'Sign In To Order'}
             </div>
           </div>
           {attemptedToConfirmOrder && !checkedPaidBox ? (
