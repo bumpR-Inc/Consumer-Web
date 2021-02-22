@@ -212,6 +212,7 @@ export default function CartModal(modalProps: any) {
               location: state.address,
               menuItems: state.orders.map((meal: IMeal) => meal.pk),
               pricePaid: state.totalCost,
+              order_hash: state.orderCode
             },
             {
               headers: {
