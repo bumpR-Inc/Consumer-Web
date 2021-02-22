@@ -7,20 +7,19 @@ const useStyles = makeStyles({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    height: "1.4rem",
+    height: "1.5rem",
     minWidth: "2.5vw",
-    backgroundColor: "green",
+    backgroundColor: "#2db300",
     borderRadius: ".4rem",
     margin: ".2rem",
     paddingLeft: ".7rem",
-    paddingRight: ".7rem"
-
+    paddingRight: ".7rem",
   },
   textStyle: {
     fontFamily: "Playfair",
     fontSize: ".95rem",
     color: "white",
-  }
+  },
 });
 export default function MealPropertyTag(props : any) {
     let classes = useStyles();

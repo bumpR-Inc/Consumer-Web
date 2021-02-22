@@ -4,9 +4,16 @@ import { title } from "process";
 import React from "react";
 import texture from "../../assets/img/texture.png";
 import { theme } from "./Theme";
+import instagramLogo from "../assets/img/branding/instagram-logo.png";
 
 
 const useStyles = makeStyles({
+  igIcon: {
+    height: "2.3rem",
+    padding: ".5rem"
+    // cursor: "pointer",
+    // backgroundColor: "blue"
+  },
   container: {
     // display: "flex",
     // flexDirection: "column",
@@ -20,8 +27,10 @@ const useStyles = makeStyles({
     WebkitBoxSizing: "border-box",
   },
   copyrightAlign: {
+    justifyContent: "space-between",
     display: "flex",
-    direction: "rtl",
+    alignItems: "center",
+    // direction: "rtl",
     flexDirection: "row",
     paddingTop: "10vh",
     [theme.breakpoints.down("md")]: {
@@ -136,6 +145,14 @@ export default function AppFooter() {
           </div>
         </div>
         <div className={classes.copyrightAlign}>
+          <div>
+            <a
+              href={"https://www.instagram.com/eatgoodneighbor/"}
+              target="_blank"
+            >
+              <img className={classes.igIcon} src={instagramLogo}></img>
+            </a>
+          </div>
           <div>
             <p className={classes.text}> ©2021 Good Neighbor</p>
           </div>
