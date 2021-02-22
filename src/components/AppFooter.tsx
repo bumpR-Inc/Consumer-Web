@@ -10,7 +10,9 @@ import instagramLogo from "../assets/img/branding/instagram-logo.png";
 const useStyles = makeStyles({
   igIcon: {
     height: "2.3rem",
-    padding: ".5rem"
+    paddingLeft: "2rem",
+    paddingRight: "2rem",
+
     // cursor: "pointer",
     // backgroundColor: "blue"
   },
@@ -18,7 +20,7 @@ const useStyles = makeStyles({
     // display: "flex",
     // flexDirection: "column",
     width: "100vw",
-    minHeight: "28vh",
+    minHeight: "26vh",
     backgroundColor: theme.palette.primary.main,
     // justifyContent: "center",
     // alignItems: "center",
@@ -32,7 +34,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     // direction: "rtl",
     flexDirection: "row",
-    paddingTop: "10vh",
+    paddingTop: "5vh",
     [theme.breakpoints.down("md")]: {
       justifyContent: "center",
       paddingBottom: "2vh",
@@ -67,29 +69,33 @@ const useStyles = makeStyles({
     fontWeight: "normal",
     fontFamily: "Playfair",
     margin: "0px",
-    textAlign: "center",
+    // textAlign: "center",
     [theme.breakpoints.down("md")]: {
+      textAlign: "center",
       fontSize: "2.5em",
     },
     [theme.breakpoints.down("sm")]: {
+      textAlign: "center",
       fontSize: "4vw",
     },
   },
   titleText: {
     color: "#fff",
     fontSize: "2em",
-    paddingLeft: ".5rem",
-    paddingRight: ".5rem",
+    paddingLeft: "2rem",
+    paddingRight: "2rem",
     paddingTop: ".1rem",
     paddingBottom: ".1rem",
     fontWeight: "bold",
     fontFamily: "Playfair",
     margin: "0px",
-    textAlign: "center",
+    // textAlign: "center",
     [theme.breakpoints.down("md")]: {
+      textAlign: "center",
       fontSize: "2.5em",
     },
     [theme.breakpoints.down("sm")]: {
+      textAlign: "center",
       fontSize: "4vw",
     },
   },
