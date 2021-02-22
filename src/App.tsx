@@ -7,6 +7,11 @@ import LandingPage from "./views/LandingPage/LandingPage";
 import OrdersPage from "./views/Ordering/OrdersPage";
 import PrivacyPolicy from "./views/Misc/PrivacyPolicy";
 import AddressUpdate from "./views/Ordering/AddressUpdate";
+import OrderHistory from "./views/OrderHistory/OrderHistory";
+// import PrivacyPolicy from "./views/PrivacyPolicy";
+import TermsOfService from "./views/TermsOfService";
+
+// initFontAwesome();
 
 const App = () => {
   const { isLoading, error } = useAuth0();
@@ -21,9 +26,11 @@ const App = () => {
       <Switch>
         <Route path="/" exact component={HomePage} />
         <Route path="/landing" exact component={LandingPage} />
-        <Route path="/orders" component={OrdersPage} />
+        {/* <Route path="/orders" component={OrdersPage} /> */}
+        <Route path="/orders" component={OrderHistory} />
         <Route path="/privacy" component={PrivacyPolicy} />
         <Route path="/address" component={AddressUpdate} />
+        <Route path="/terms" component={TermsOfService} />
       </Switch>
     </Router>
   );

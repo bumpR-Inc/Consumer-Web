@@ -26,6 +26,9 @@ const useStyles = makeStyles({
 export default function CartCard(props: any) {
   const classes = useStyles();
 
+  console.log('card');
+  console.log(props);
+
   return (
     <div className="cart-card-container">
       <div className="cart-card-second-container">
@@ -35,13 +38,16 @@ export default function CartCard(props: any) {
           <div className="cart-card-price">
             ${props.meal.price} | {props.meal.restaurant_info.name}
           </div>
-          <div className="cart-card-buttons-container">
-            <div className="cart-card-buttons">
-              <div onClick={props.subtractOnClick}>-</div>
-              {props.numInCart}
-              <div onClick={props.addOnClick}>+</div>
-            </div>
-          </div>
+          {
+            !props.hideButtons &&
+            (<div className="cart-card-buttons-container">
+              <div className="cart-card-buttons">
+                <div onClick={props.subtractOnClick}>-</div>
+                {props.numInCart}
+                <div onClick={props.addOnClick}>+</div>
+              </div>
+            </div>)
+          }
         </div>
       </div>
     </div>

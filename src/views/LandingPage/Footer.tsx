@@ -10,7 +10,7 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'row',
     width: '100vw',
-    height: '17vh',
+    // height: '24vh',
     backgroundColor: theme.palette.info.main,
     justifyContent: 'center',
     alignItems: 'center',
@@ -20,6 +20,11 @@ const useStyles = makeStyles({
   },
   textWrap: {
     width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: '2%',
   },
   text: {
     color: theme.palette.primary.main,
@@ -35,6 +40,25 @@ const useStyles = makeStyles({
       fontSize: '14vw',
     },
   },
+  paperworkWrap: {
+    display: 'inline',
+  },
+  paperwork: {
+    // width: '100%',
+    color: theme.palette.primary.main,
+    fontSize: '3em',
+    fontWeight: 'normal',
+    fontFamily: 'Playfair',
+    margin: '0px',
+    textAlign: 'center',
+    display: 'inline',
+    [theme.breakpoints.down('md')]: {
+      fontSize: '3em',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '5vw',
+    },
+  },
 });
 
 export default function Footer() {
@@ -46,6 +70,11 @@ export default function Footer() {
         <h1 className={classes.text}>
           Order today!
         </h1>
+        <div className={classes.paperworkWrap}>
+          <a className={classes.paperwork} href="/privacy">Privacy Policy</a>
+          <p className={classes.paperwork}> | </p>
+          <a className={classes.paperwork} href="/terms">Terms of Service</a>        
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
-import texture from "../../assets/img/landing/decoration/pattern-big.png";
-import { privacyPolicy } from '../../assets/html/PrivacyPolicy';
+import texture from "../assets/img/texture.png";
+import { termsOfService } from '../assets/html/TermsOfService';
 
 const useStyles = makeStyles({
   container: {
@@ -26,12 +26,12 @@ const useStyles = makeStyles({
   }
 });
 
-export default function PrivacyPolicy() {
+export default function TermsOfService() {
   let classes = useStyles();
 
   return (
     <div className={classes.container}>
-      <div className={classes.policyContainer} dangerouslySetInnerHTML={{ __html: privacyPolicy}}>
+      <div className={classes.policyContainer} dangerouslySetInnerHTML={{ __html: termsOfService}}>
 
       </div>
     </div>
