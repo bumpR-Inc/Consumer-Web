@@ -137,7 +137,6 @@ export default function MenuPage() {
           submitOrderFunction={submitOrder}
         />
       </div>
-      <button onClick={callApi}>OAuth private endpoint tester</button>
       <div className="menu-buffer"></div>
     </MenuWrapper>
   );

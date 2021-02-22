@@ -5,8 +5,10 @@ import { goToMenu } from "../../state/Actions";
 import { Store } from "../../state/Store";
 import DealCarousel from "./DealCarousel";
 import Footer from "./Footer";
+import AppFooter from "../../components/AppFooter";
 import Process from "./Process";
 import Hero from "./Hero";
+// import AppFooter from "../../components/AppFooter";
 
 const useStyles = makeStyles({
   
@@ -26,7 +28,8 @@ export default function LandingPage() {
       <Hero/>
       <DealCarousel/> 
       <Process/> 
-      <Footer/> 
+        {/* <Footer/>  */}
+      <AppFooter invertColors={true}/>
     </React.Fragment>
   </div>)
   ;
