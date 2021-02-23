@@ -3,18 +3,24 @@ import { TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import React from "react";
-import { setOrderCode, clearOrderData, setTotalCost, toggleFavAction, toOrderHistory } from "../../state/Actions";
+import {
+  setOrderCode,
+  clearOrderData,
+  setTotalCost,
+  toggleFavAction,
+  toOrderHistory,
+} from "../../state/Actions";
 import { IMeal } from "../../state/interfaces";
 import { Store } from "../../state/Store";
 import CustomCheckbox from "../Input/CustomCheckbox";
 import { theme } from "../Theme";
 import CartPriceBreakdown from "./CartPriceBreakdown";
 import VenmoBtn from "./VenmoBtn";
-import { REACT_APP_BACKEND_API_URL } from '../../config';
+import { REACT_APP_BACKEND_API_URL } from "../../config";
 
 var dateFormat = require("dateformat");
 
-var QRCode = require('qrcode.react')
+var QRCode = require("qrcode.react");
 
 // const EpisodeList = React.lazy<any>(() => import("./MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 const CartList = React.lazy<any>(() => import("./CartList"));
@@ -165,12 +171,16 @@ const useStyles = makeStyles({
     textDecoration: "none",
   },
   cartContentBuffer: {
-    width: '100%',
-    height: "10vh",
-  }
+    width: "100%",
+    height: "11rem",
+    [theme.breakpoints.down("md")]: {
+      height: "17rem",
+    },
+    [theme.breakpoints.down("sm")]: {
+      height: "17rem",
+    },
+  },
 });
-
-
 
 export default function CartModal(modalProps: any) {
   var classes = useStyles();
@@ -191,7 +201,7 @@ export default function CartModal(modalProps: any) {
   };
 
   //delivery fee
-  const deliveryFee = .99
+  const deliveryFee = 0.99;
 
   //Cost math and venmo string manipulation
   var venmoLink: string =
@@ -285,69 +295,71 @@ export default function CartModal(modalProps: any) {
               <div className="cart-cards-layout">
                 <CartList {...props} />
               </div>
-              {isAuthenticated && 
-              (<div className="cart-costs">
-                <div className="center">
-                  <p className={classes.cartText}>Tip:</p>
-                  <TextField
-                    onChange={(event) => setTipAmt(Number(event.target.value))}
-                    className={classes.tip}
-                    type="number"
-                    inputProps={{
-                      min: "0",
-                      max: "2499",
-                      step: "1",
-                      className: classes.tipInput,
-                    }}
+              {isAuthenticated && (
+                <div className="cart-costs">
+                  <div className="center">
+                    <p className={classes.cartText}>Tip:</p>
+                    <TextField
+                      onChange={(event) =>
+                        setTipAmt(Number(event.target.value))
+                      }
+                      className={classes.tip}
+                      type="number"
+                      inputProps={{
+                        min: "0",
+                        max: "2499",
+                        step: "1",
+                        className: classes.tipInput,
+                      }}
+                    />
+                  </div>
+                  <CartPriceBreakdown
+                    mealsCost={mealsCost}
+                    tax={tax}
+                    deliveryFee={deliveryFee}
+                    tipAmt={tipAmt}
+                    totalCost={totalCost}
                   />
-                </div>
-                <CartPriceBreakdown
-                  mealsCost={mealsCost}
-                  tax={tax}
-                  deliveryFee={deliveryFee}
-                  tipAmt={tipAmt}
-                  totalCost={totalCost}
-                />
-                {/* <div className="cost-row">
+                  {/* <div className="cost-row">
                     <p className="cardText">
                       To confirm your order, please pay ${totalCost} with Venmo
                       below.
                     </p>
                   </div> */}
-                {/* <p>
+                  {/* <p>
                     If you were ordering the same thing on DoorDash, you'd be
                     paying ${totalCost * 2}!
                   </p> */}
-              </div>)
-              }
-              {isAuthenticated &&
-                (
-                  <div className="cart-payment-container">
-                    <p className={classes.cartText}>
-                      To pay via Venmo and confirm your order, first tap the Venmo
-                      button below from your phone, or scan the QR code below if
-                      ordering from a desktop. Then, hit "confirm order."
-                    </p>
-                    <p className={classes.cartText}>Address: {state.address}</p>
-                    <p className={classes.cartText}>
-                      Date/Time: {dateFormat(state.date, "isoDate")}, Lunch (12-2pm)
-                    </p>
-                    <VenmoBtn paymentLink={venmoLink} />
-                    <QRCode value={venmoLink} className={classes.qrCode} />
-                    <p className={classes.cartText}>
-                      Orders without verified Venmo payments will not be fulfilled.
-                    </p>
-                    {/* potential bug here: setPaidBox isn't checking actual state of button, just toggling. might be possible to offset on-off cycle causing bug. */}
-                    <div className="checkbox-row">
-                      <CustomCheckbox
-                        onChange={() => setPaidBox(!checkedPaidBox)}
-                        label="Yes, I have paid with Venmo!"
-                      />
-                    </div>
-                    <div className={classes.cartContentBuffer}></div>
+                </div>
+              )}
+              {isAuthenticated && (
+                <div className="cart-payment-container">
+                  <p className={classes.cartText}>
+                    To pay via Venmo and confirm your order, first tap the Venmo
+                    button below from your phone, or scan the QR code below if
+                    ordering from a desktop. Then, hit "confirm order."
+                  </p>
+                  <p className={classes.cartText}>Address: {state.address}</p>
+                  <p className={classes.cartText}>
+                    Date/Time: {dateFormat(state.date, "isoDate")}, Lunch
+                    (12-2pm)
+                  </p>
+                  <VenmoBtn paymentLink={venmoLink} />
+                  <QRCode value={venmoLink} className={classes.qrCode} />
+                  <p className={classes.cartText}>
+                    Orders without verified Venmo payments will not be
+                    fulfilled.
+                  </p>
+                  {/* potential bug here: setPaidBox isn't checking actual state of button, just toggling. might be possible to offset on-off cycle causing bug. */}
+                  <div className="checkbox-row">
+                    <CustomCheckbox
+                      onChange={() => setPaidBox(!checkedPaidBox)}
+                      label="Yes, I have paid with Venmo!"
+                    />
                   </div>
-                )
-              }
+                </div>
+              )}
+              <div className={classes.cartContentBuffer}></div>
             </div>
           </div>
         </div>
@@ -359,7 +371,9 @@ export default function CartModal(modalProps: any) {
           </div>
           <div
             className={`cart-review-order-button${
-              (isAuthenticated && (!checkedPaidBox || props.orders.length <= 0)) ? " cart-button-disabled" : ""
+              isAuthenticated && (!checkedPaidBox || props.orders.length <= 0)
+                ? " cart-button-disabled"
+                : ""
             }`}
             onClick={function () {
               setAttemptedToConfirmOrder(true);
@@ -375,15 +389,18 @@ export default function CartModal(modalProps: any) {
             {isAuthenticated ? "Place Order" : "Sign In To Order"}
           </div>
         </div>
-        {isAuthenticated && attemptedToConfirmOrder && (!checkedPaidBox || props.orders.length <= 0) ? (
-          !checkedPaidBox ? 
+        {isAuthenticated &&
+        attemptedToConfirmOrder &&
+        (!checkedPaidBox || props.orders.length <= 0) ? (
+          !checkedPaidBox ? (
             <p className="cart-text cart-error">
               Please pay with Venmo and select the checkbox above to order.
             </p>
-            :
+          ) : (
             <p className="cart-text cart-error">
               You must select at least one item before checking out.
             </p>
+          )
         ) : (
           <p></p>
         )}
