@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import App from "../../App";
 import CartModal from "../../components/OrderingUI/CartModal";
 import { fetchDataAction, fetchRestaurantsAction, toggleFavAction } from "../../state/Actions";
@@ -7,8 +7,9 @@ import { Store } from "../../state/Store";
 import MenuWrapper from "./Wrapper";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import axios from 'axios'
-import { SwipeableDrawer } from "@material-ui/core";
+import { CircularProgress, SwipeableDrawer, ThemeProvider } from "@material-ui/core";
 import { REACT_APP_BACKEND_API_URL } from '../../config';
+import { theme } from "../../components/Theme";
 
 const MealList = React.lazy<any>(() => import("../../components/OrderingUI/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 const MealListByRestaurant = React.lazy<any>(() => import("../../components/OrderingUI/MealListByRestaurant")); //react lazy isntead of normal importing. see suspense and fallback below
@@ -88,12 +89,16 @@ export default function MenuPage() {
 
   const { state, dispatch } = React.useContext(Store);
   const [displayModal, setDisplayModal] = React.useState(false);
+  const [fetched, setFetched] = useState<boolean>(false);
 
   React.useEffect(() => {
     // if (state.meals?.length === 0 ?? false) {
       //if state meals array is empty, run these functions to fill up state.
+    if (!fetched) {
       fetchDataAction(dispatch);
       fetchRestaurantsAction(dispatch);
+      setFetched(true);
+    }
     // }
   }); //useEffect hook is to get data as soon as user lands on the page
 
@@ -110,7 +115,13 @@ export default function MenuPage() {
       <div className="menu-full-flex-container">
         <div className="menu-constrained-container">
           <React.Fragment>
-            <React.Suspense fallback={<div>loading...</div>}>
+            <React.Suspense fallback={
+              <div style={{ 'height': '60vh', margin: 'auto'}}>
+                <ThemeProvider theme={theme}>
+                  <CircularProgress color="primary" />
+                </ThemeProvider>
+              </div>
+            }>
               <MealListByRestaurant {...props} />
             </React.Suspense>
             {

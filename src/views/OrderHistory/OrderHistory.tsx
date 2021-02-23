@@ -161,6 +161,9 @@ const useStyles = makeStyles({
     height: "5%",
     width: "100%",
   },
+  noOrders: {
+    color: theme.palette.primary.main
+  }
 });
 
 export default function Footer() {
@@ -204,25 +207,28 @@ export default function Footer() {
         // console.log(response.data[0].items_info)
 
         var orders = response.data;
-
-        for (var i = 0; i < orders.length; i++) {
-          let items_text = "";
-          for (var j = 0; j < orders[i].items_info.length; j++) {
-            if (items_text.length < 50) {
-              items_text += orders[i].items_info[j].menuItem_info.foodName;
-              if (j < orders[i].items_info.length - 1) {
-                items_text += ", ";
+        if (orders === 'No orders found for this user') {
+          setOrders([]);
+        } else {
+          for (var i = 0; i < orders.length; i++) {
+            let items_text = "";
+            for (var j = 0; j < orders[i].items_info.length; j++) {
+              if (items_text.length < 50) {
+                items_text += orders[i].items_info[j].menuItem_info.foodName;
+                if (j < orders[i].items_info.length - 1) {
+                  items_text += ", ";
+                }
+              } else {
+                items_text += "...";
+                break;
               }
-            } else {
-              items_text += "...";
-              break;
             }
+            orders[i].items_text = items_text;
           }
-          orders[i].items_text = items_text;
-        }
 
-        setOrders(orders);
-        setOrdersRecieved(true);
+          setOrders(orders);
+          setOrdersRecieved(true);
+        }
       })();
     } else {
     }
@@ -248,7 +254,7 @@ export default function Footer() {
         )}
       </div>
       <div className={classes.bodyContainer}>
-        {ordersRecieved ? (
+        {ordersRecieved && orders.length > 0? (
           <>
             {(orderSelected === -1 ||
               window.innerWidth > theme.breakpoints.values.md) && (
@@ -336,9 +342,16 @@ export default function Footer() {
             )}
           </>
         ) : (
-          <ThemeProvider theme={theme}>
+          !ordersRecieved ?
+          (<ThemeProvider theme={theme}>
             <CircularProgress color="primary" />
-          </ThemeProvider>
+          </ThemeProvider>) : 
+          (
+            <h1 className={classes.noOrders}>
+                No Orders Placed Yet  
+            </h1>   
+          )
+          
         )}
       </div>
     </div>
