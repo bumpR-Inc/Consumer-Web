@@ -5,7 +5,7 @@ import { theme } from "../Theme";
 import { Store } from "../../state/Store";
 import AddressModal from "./AddressModal";
 import DateModal from "./DateModal";
-import { toMobileUpdateAddressPage, updateAddress } from "../../state/Actions";
+import { toMobileUpdateAddressPage, toOrderHistory, updateAddress } from "../../state/Actions";
 import { SwipeableDrawer } from "@material-ui/core";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -132,6 +132,7 @@ const useStyles = makeStyles({
     fontSize: '3em',
     fontFamily: 'Playfair',
     color: theme.palette.primary.main,
+    textDecoration: 'none',
     '&:hover': {
       textDecoration: 'underline'
     }
@@ -196,7 +197,7 @@ export default function NavBar() {
             {isAuthenticated ? 
               (<>
                 <div className={classes.sideBarItem}>
-                  <a className={classes.sideBarItemText} href="/orders">Orders</a>
+                  <a className={classes.sideBarItemText} onClick={() => {toOrderHistory(dispatch)}}>Orders</a>
                 </div>
                 <div className={classes.sideBarItem}>
                   <a className={classes.sideBarItemText} onClick={() => logout({returnTo: window.location.origin})}>Log Out</a>

@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: '3%',
+    // gap: '3%',
   },
   mottoContainer: {
 
@@ -44,7 +44,7 @@ const useStyles = makeStyles({
     alignItems: 'center',
     width: "95vw",
     maxWidth: theme.breakpoints.values.md.toString() + 'px',
-    gap: "1vh",
+    // gap: "1vh",
   },
   hideMottoButtonContainer: {
     display: 'flex',
@@ -113,6 +113,7 @@ const useStyles = makeStyles({
     border: "none",
     width: "86%",
     height: "10vh",
+    margin: '1%',
 
     borderRadius: '5px',
 
@@ -168,6 +169,7 @@ const useStyles = makeStyles({
     },
   },
   addressSuggestionBox: {
+    margin: '1%',
     backgroundColor: theme.palette.info.main,
     border: "none",
     width: '100%',
@@ -201,6 +203,7 @@ const useStyles = makeStyles({
   validAddressButton: {
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.info.main,
+    margin: '1%',
     border: "none",
     width: '100%',
     padding: '2%',
@@ -228,6 +231,7 @@ const useStyles = makeStyles({
     width: '100%',
     border: "none",
     padding: '2%',
+    margin: '1%',
 
     backgroundColor: theme.palette.error.main,
     color: theme.palette.info.main,
