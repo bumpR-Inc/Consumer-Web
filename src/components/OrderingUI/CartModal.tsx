@@ -64,6 +64,7 @@ const useStyles = makeStyles({
     maxWidth: "500px",
     justifyContent: "space-evenly",
     height: "76vh",
+    // overflowY: "scroll"
     // backgroundColor: 'blue'
   },
 
@@ -165,9 +166,15 @@ const useStyles = makeStyles({
     textDecoration: "none",
   },
   cartContentBuffer: {
-    width: '100%',
-    height: "10vh",
-  }
+    width: "100%",
+    height: "10rem",
+    [theme.breakpoints.down("md")]: {
+      height: "16rem",
+    },
+    [theme.breakpoints.down("sm")]: {
+      height: "16rem",
+    },
+  },
 });
 
 
@@ -318,35 +325,36 @@ export default function CartModal(modalProps: any) {
                     paying ${totalCost * 2}!
                   </p> */}
               </div>
-              {isAuthenticated &&
-                (
-                  <div className="cart-payment-container">
-                    <p className={classes.cartText}>
-                      To pay via Venmo and confirm your order, first tap the Venmo
-                      button below from your phone, or scan the QR code below if
-                      ordering from a desktop. Then, hit "confirm order."
-                    </p>
-                    <p className={classes.cartText}>Address: {state.address}</p>
-                    <p className={classes.cartText}>
-                      Date/Time: {dateFormat(state.date, "isoDate")}, Lunch (12-2pm)
-                    </p>
-                    <VenmoBtn paymentLink={venmoLink} />
-                    <QRCode value={venmoLink} className={classes.qrCode} />
-                    <p className={classes.cartText}>
-                      Orders without verified Venmo payments will not be fulfilled.
-                    </p>
-                    {/* potential bug here: setPaidBox isn't checking actual state of button, just toggling. might be possible to offset on-off cycle causing bug. */}
-                    <div className="checkbox-row">
-                      <CustomCheckbox
-                        onChange={() => setPaidBox(!checkedPaidBox)}
-                        label="Yes, I have paid with Venmo!"
-                      />
-                    </div>
-                    <div className={classes.cartContentBuffer}></div>
+              {isAuthenticated && (
+                <div className="cart-payment-container">
+                  <p className={classes.cartText}>
+                    To pay via Venmo and confirm your order, first tap the Venmo
+                    button below from your phone, or scan the QR code from your
+                    camera app if ordering from a desktop. Then, hit "confirm
+                    order."
+                  </p>
+                  <p className={classes.cartText}>Address: {state.address}</p>
+                  <p className={classes.cartText}>
+                    Date/Time: {dateFormat(state.date, "isoDate")}, Lunch
+                    (12-2pm)
+                  </p>
+                  <VenmoBtn paymentLink={venmoLink} />
+                  <QRCode value={venmoLink} className={classes.qrCode} />
+                  <p className={classes.cartText}>
+                    Orders without verified Venmo payments will not be
+                    fulfilled.
+                  </p>
+                  {/* potential bug here: setPaidBox isn't checking actual state of button, just toggling. might be possible to offset on-off cycle causing bug. */}
+                  <div className="checkbox-row">
+                    <CustomCheckbox
+                      onChange={() => setPaidBox(!checkedPaidBox)}
+                      label="Yes, I have paid with Venmo!"
+                    />
                   </div>
-                )
-              }
+                </div>
+              )}
             </div>
+            <div className={classes.cartContentBuffer}> </div>
           </div>
         </div>
       </React.Suspense>
@@ -357,7 +365,9 @@ export default function CartModal(modalProps: any) {
           </div>
           <div
             className={`cart-review-order-button${
-              (isAuthenticated && (!checkedPaidBox || props.orders.length <= 0)) ? " cart-button-disabled" : ""
+              isAuthenticated && (!checkedPaidBox || props.orders.length <= 0)
+                ? " cart-button-disabled"
+                : ""
             }`}
             onClick={function () {
               setAttemptedToConfirmOrder(true);
@@ -373,15 +383,18 @@ export default function CartModal(modalProps: any) {
             {isAuthenticated ? "Place Order" : "Sign In To Order"}
           </div>
         </div>
-        {isAuthenticated && attemptedToConfirmOrder && (!checkedPaidBox || props.orders.length <= 0) ? (
-          !checkedPaidBox ? 
+        {isAuthenticated &&
+        attemptedToConfirmOrder &&
+        (!checkedPaidBox || props.orders.length <= 0) ? (
+          !checkedPaidBox ? (
             <p className="cart-text cart-error">
               Please pay with Venmo and select the checkbox above to order.
             </p>
-            :
+          ) : (
             <p className="cart-text cart-error">
               You must select at least one item before checking out.
             </p>
+          )
         ) : (
           <p></p>
         )}
