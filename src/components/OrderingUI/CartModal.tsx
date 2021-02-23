@@ -222,7 +222,7 @@ export default function CartModal(modalProps: any) {
   }
   venmoLink = venmoLink.concat(totalCost.toString());
   venmoLink = venmoLink.concat(
-    "&note=Thanks%20for%20your%20Good%20Neighbor%20zero%20fee%20pre-order%21%20%23"
+    "&note=Thanks%20for%20your%20Good%20Neighbor%2099%20cent%20pre-order%20meal%21%20%23"
   );
 
   //order code
@@ -335,9 +335,10 @@ export default function CartModal(modalProps: any) {
               {isAuthenticated && (
                 <div className="cart-payment-container">
                   <p className={classes.cartText}>
-                    To pay via Venmo and confirm your order, first tap the Venmo
-                    button below from your phone, or scan the QR code below if
-                    ordering from a desktop. Then, hit "confirm order."
+                    To pay via Venmo and place your order, first tap the Venmo
+                    button below from your phone, or scan the QR code from your
+                    camera app if ordering from a desktop. Then, hit "Place
+                    Order."
                   </p>
                   <p className={classes.cartText}>Address: {state.address}</p>
                   <p className={classes.cartText}>
