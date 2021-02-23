@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
 import Popover from "@material-ui/core/Popover";
 import React, { useState, PointerEvent } from "react";
 import { Store } from "../../state/Store";
@@ -7,6 +7,9 @@ import './input-style.css';
 import { theme } from "../Theme";
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { setDate } from "../../state/Actions";
+import axios from "axios";
+import { REACT_APP_BACKEND_API_URL } from "../../config";
+import { CircularProgress } from "@material-ui/core";
 
 
 interface DateModalProps {
@@ -15,6 +18,24 @@ interface DateModalProps {
 
 export default function DayInput({handleSelect}: DateModalProps) {
   const { state, dispatch } = React.useContext(Store);
+  const [ fetched, setFetched ] = useState<boolean>(false);
+  const [ days, setDays ] = useState<any[]>([]);
+  const [ month, setMonth ] = useState<Date>(state.date);
+
+  React.useEffect(() => {
+    if (!fetched) {
+      (async () => {
+        const response = await axios.get(
+          `${REACT_APP_BACKEND_API_URL}/deliveryDay/?month=${month.getMonth()+1}`,
+        );
+        // console.log(response);
+        // console.log(response.data[0].items_info)
+
+        setDays(response.data);
+        setFetched(true);     
+      })();
+    }
+  });
   
   const dateOnConfirm = (day: Date, {valid} : DayModifiers) => {
     if (valid) {
@@ -24,7 +45,19 @@ export default function DayInput({handleSelect}: DateModalProps) {
   }
 
   function valid(day: Date) {
-    return day.getDay() === 1 && day > new Date();
+    for (var i = 0; i < days.length; i++) {
+      console.log(`${days[i].date} vs ${day.toISOString()}`);
+      if (day.toISOString().includes(days[i].date) && day > new Date()) {
+        return true;
+      }
+    }
+    return false
+    // return day.getDay() === 1 && day > new Date();
+  }
+
+  function onMonthChange(date: Date) {
+    setMonth(date);
+    setFetched(false);
   }
   
   const modifiersStyles = {
@@ -44,14 +77,21 @@ export default function DayInput({handleSelect}: DateModalProps) {
     },
     
   };
-
-  return (
-    <DayPicker
-      month={state.date}
-      onDayClick={dateOnConfirm}
-      selectedDays={state.date}
-      modifiers={{ valid }}
-      modifiersStyles={modifiersStyles}
-    />
-  );
+  
+  if (fetched) {
+    return (
+      <DayPicker
+        month={month}
+        onDayClick={dateOnConfirm}
+        selectedDays={state.date}
+        modifiers={{ valid }}
+        modifiersStyles={modifiersStyles}
+        onMonthChange={onMonthChange}
+      />
+    );
+  } else {
+    return (<ThemeProvider theme={theme}>
+      <CircularProgress color="primary" />
+    </ThemeProvider>);
+  }
 }
