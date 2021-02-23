@@ -3,7 +3,7 @@ import { TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import React from "react";
-import { setOrderCode, setTotalCost, toggleFavAction } from "../../state/Actions";
+import { setOrderCode, clearOrderData, setTotalCost, toggleFavAction } from "../../state/Actions";
 import { IMeal } from "../../state/interfaces";
 import { Store } from "../../state/Store";
 import CustomCheckbox from "../Input/CustomCheckbox";
@@ -344,27 +344,37 @@ export default function CartModal(modalProps: any) {
             </div>
             <div
               className={`cart-review-order-button${
-                !checkedPaidBox ? " cart-button-disabled" : ""
+                (!checkedPaidBox || props.meals.length <= 0) ? " cart-button-disabled" : ""
               }`}
               onClick={function () {
-                if (!isAuthenticated) {
-                  loginWithRedirect();
-                }
                 setAttemptedToConfirmOrder(true);
-                checkedPaidBox && submitOrder();
-                setOrderCode(dispatch, ""); //makes sure previous code doesn't persist for future orders
+                if (checkedPaidBox && props.meals.length > 0) {
+                  if (!isAuthenticated) {
+                    loginWithRedirect();
+                  }
+                  checkedPaidBox && submitOrder();
+                  clearOrderData(dispatch);
+                  window.location.assign('/orders');
+                  // setOrderCode(dispatch, ""); //makes sure previous code doesn't persist for future orders
+                }
               }}
             >
               {isAuthenticated ? 'Place Order' : 'Sign In To Order'}
             </div>
           </div>
-          {attemptedToConfirmOrder && !checkedPaidBox ? (
+          {attemptedToConfirmOrder && (!checkedPaidBox ? (
             <p className="cart-text cart-error">
               Please pay with Venmo and select the checkbox above to order.
             </p>
           ) : (
-            <p></p>
-          )}
+            props.meals.length <= 0 ?
+              (
+                <p className="cart-text cart-error">
+                  Must have at least one item to check out.
+                </p>
+            ) : 
+            (<p></p>)
+          ))}
         </div>
       </div>
     );

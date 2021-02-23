@@ -7,6 +7,7 @@ import { Store } from "../../state/Store";
 import MenuWrapper from "./Wrapper";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import axios from 'axios'
+import { SwipeableDrawer } from "@material-ui/core";
 
 const MealList = React.lazy<any>(() => import("../../components/OrderingUI/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 const MealListByRestaurant = React.lazy<any>(() => import("../../components/OrderingUI/MealListByRestaurant")); //react lazy isntead of normal importing. see suspense and fallback below
@@ -112,16 +113,19 @@ export default function MenuPage() {
             <React.Suspense fallback={<div>loading...</div>}>
               <MealListByRestaurant {...props} />
             </React.Suspense>
-            <div className="bottom-cart-btn-wrapper">
-              <div className="cart-button-wrapper">
-                <div
-                  className="cart-button"
-                  onClick={() => setDisplayModal(!displayModal)}
-                >
-                  <h1>Cart ({state.orders.length})</h1>
+            {
+              state.orders.length > 0 && 
+              (<div className="bottom-cart-btn-wrapper">
+                <div className="cart-button-wrapper">
+                  <div
+                    className="cart-button"
+                    onClick={() => setDisplayModal(!displayModal)}
+                  >
+                    <h1>Cart ({state.orders.length})</h1>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </div>)
+            }
           </React.Fragment>
         </div>
       </div>
@@ -138,6 +142,7 @@ export default function MenuPage() {
         />
       </div>
       <div className="menu-buffer"></div>
+      
     </MenuWrapper>
   );
 }

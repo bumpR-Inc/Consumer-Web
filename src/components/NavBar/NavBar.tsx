@@ -1,11 +1,13 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { BorderBottom, BorderColor, GpsNotFixed } from "@material-ui/icons";
+import { BorderBottom, BorderColor, GpsNotFixed, Menu } from "@material-ui/icons";
 import React, { useState, MouseEvent } from "react";
 import { theme } from "../Theme";
 import { Store } from "../../state/Store";
 import AddressModal from "./AddressModal";
 import DateModal from "./DateModal";
 import { toMobileUpdateAddressPage, updateAddress } from "../../state/Actions";
+import { SwipeableDrawer } from "@material-ui/core";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const dateFormat = require("dateformat");
 
@@ -98,14 +100,50 @@ const useStyles = makeStyles({
       color: theme.palette.secondary.main,
       borderBottom: `none`,
     }, 
+  },
+  menuButton: {
+    backgroundColor: 'transparent',
+    border: 'none',
+    color: 'white',
+    outline: 'none',
+    // fontSize: '5em',
+    '&:active': {
+      backgroundColor: theme.palette.primary.dark,
+    }
+  },
+  sideBar: {
+    width: '20vw',
+    minWidth: '250px',
+    height: '100vh',
+    backgroundColor: theme.palette.info.main,
+
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '2%',
+  },
+  sideBarItem: {
+    padding: '5%',
+  },
+  sideBarItemText: {
+    fontSize: '3em',
+    fontFamily: 'Playfair',
+    color: theme.palette.primary.main,
+    '&:hover': {
+      textDecoration: 'underline'
+    }
   }
 });
 
 export default function NavBar() {
   let classes = useStyles();
   const { state, dispatch } = React.useContext(Store);
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   const [ addressAnchor, setAddressAnchor ] = useState<any>(null);
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+  const handleMenuButtonClick = () => {
+    setDrawerOpen(true);
+  }
 
   const handleAddressClick = (event: MouseEvent) => {
     if (window.innerWidth <= theme.breakpoints.values.md) {
@@ -114,6 +152,7 @@ export default function NavBar() {
       setAddressAnchor(event.currentTarget);
     }
   };
+
 
   const handleAddressClose = () => setAddressAnchor(null);
 
@@ -128,6 +167,7 @@ export default function NavBar() {
     <React.Fragment>
       <div className={classes.container}>
         <div className={classes.logoContainer}>
+          <button className={classes.menuButton} onClick={handleMenuButtonClick}><Menu/></button>
           <h1 className={classes.logo}>{theme.breakpoints.values.sm >= window.innerWidth ? 'GN.' : 'Good Neighbor.'}</h1>
         </div>
         <div className={classes.detailsContainer}>
@@ -140,7 +180,33 @@ export default function NavBar() {
       </div>
 
       <AddressModal anchor={addressAnchor} handleClose={handleAddressClose}/>
-      <DateModal anchor={dateAnchor} handleClose={handleDateClose}/>
+      <DateModal anchor={dateAnchor} handleClose={handleDateClose} />
+      {
+        drawerOpen && <SwipeableDrawer
+          anchor={'left'}
+          open={drawerOpen}
+          onClose={() => {setDrawerOpen(false)}}
+          onOpen={() => {setDrawerOpen(true)}}
+        >
+          <div className={classes.sideBar}>
+            {isAuthenticated ? 
+              (<>
+                <div className={classes.sideBarItem}>
+                  <a className={classes.sideBarItemText} href="/orders">Orders</a>
+                </div>
+                <div className={classes.sideBarItem}>
+                  <a className={classes.sideBarItemText} onClick={() => logout({returnTo: window.location.origin})}>Log Out</a>
+                </div>
+              </>) :
+              (<>
+                <div className={classes.sideBarItem}>
+                  <a className={classes.sideBarItemText} onClick={() => loginWithRedirect()}>Sign In</a>
+                </div>
+              </>)
+            }
+          </div>
+        </SwipeableDrawer>
+      }
     </React.Fragment>
   )
   ;

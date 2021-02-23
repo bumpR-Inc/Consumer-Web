@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import React from "react";
+import React, { useState, MouseEvent } from "react";
 import backgroundPreload from "../../assets/img/landing/background/landing-background-preload.jpg";
 import background from "../../assets/img/landing/background/landing-background.jpg";
 import { theme } from "../../components/Theme";
@@ -9,6 +9,7 @@ import AddressSelect from "../../components/Input/AddressSelect";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useAuth0 } from "@auth0/auth0-react";
 import { Menu } from "@material-ui/icons";
+import { SwipeableDrawer } from "@material-ui/core";
 
 const useStyles = makeStyles({
   container: {
@@ -66,6 +67,8 @@ const useStyles = makeStyles({
     flexDirection: 'row'
   },
   navBuffer: {
+    display: 'flex',
+    justifyContent: 'center'
     // flex: 1,
     // [theme.breakpoints.down('sm')]: {
     //   flex: 0,
@@ -88,7 +91,7 @@ const useStyles = makeStyles({
     color: theme.palette.info.main,
     
     [theme.breakpoints.up('xs')]: {
-      fontSize: '11vw',
+      fontSize: '8.5vw',
     },
     
     [theme.breakpoints.up('sm')]: {
@@ -97,10 +100,6 @@ const useStyles = makeStyles({
 
     [theme.breakpoints.up('lg')]: {
       fontSize: '7em',
-    },
-
-    [theme.breakpoints.down('sm')]: {
-      // textAlign: 'left',
     },
   },
   signInContainer: {
@@ -130,13 +129,62 @@ const useStyles = makeStyles({
   menuIcon: {
     color: theme.palette.info.main,
     fontSize: '3em',
+    [theme.breakpoints.up('xs')]: {
+      fontSize: '8.5vw',
+    },
+    
+    [theme.breakpoints.up('sm')]: {
+      fontSize: '3em',
+    },
+
+    // [theme.breakpoints.up('lg')]: {
+    //   fontSize: '7em',
+    // },
   },
+  menuButton: {
+    backgroundColor: 'transparent',
+    border: 'none',
+    color: 'white',
+    outline: 'none',
+    // fontSize: '5em',
+    borderRadius: '25px',
+    '&:hover': {
+      backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    }
+  },
+  sideBar: {
+    width: '20vw',
+    minWidth: '250px',
+    height: '100vh',
+    backgroundColor: theme.palette.info.main,
+
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '2%',
+  },
+  sideBarItem: {
+    padding: '5%',
+  },
+  sideBarItemText: {
+    fontSize: '3em',
+    fontFamily: 'Playfair',
+    color: theme.palette.primary.main,
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
+  }
 });
 
 export default function Hero() {
   const { state, dispatch } = React.useContext(Store);
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
   var classes = useStyles();
+
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+  const handleMenuButtonClick = () => {
+    setDrawerOpen(true);
+  }
   
   const addressOnConfirm = (address: string, geocode: any) => {
     goToMenu(dispatch, address, geocode);
@@ -148,12 +196,14 @@ export default function Hero() {
         <div className={classes.hero}>
           <div className={classes.navContainer}>
             <div className={classes.navSubContainer}>
-              <div className={classes.navBuffer}></div>
+              <div className={classes.navBuffer}>
+                <button className={classes.menuButton} onClick={handleMenuButtonClick}><Menu className={classes.menuIcon}/></button>
+              </div>
               <div className={classes.titleContainer}>
                 <h1 className={classes.title}>Good Neighbor.</h1>
               </div>
                 <div className={classes.signInContainer}>
-                  {(window.innerWidth >= theme.breakpoints.values.sm)
+                  {/* {(window.innerWidth >= theme.breakpoints.values.sm)
                     ? (
                       !isAuthenticated ?
                       (
@@ -173,10 +223,10 @@ export default function Hero() {
                         </h1>
                       )
                     ) :
-                    (
-                      <Menu className={classes.menuIcon}></Menu>
-                    )
-                  }
+                    // (
+                    //   <Menu className={classes.menuIcon}></Menu>
+                    // )
+                  } */}
               </div>
             </div>
           </div>
@@ -189,6 +239,32 @@ export default function Hero() {
         </div>
         <LazyLoadImage src={background} alt={backgroundPreload} className={classes.heroBackground}/>
       </div>
+      {
+        drawerOpen && <SwipeableDrawer
+          anchor={'left'}
+          open={drawerOpen}
+          onClose={() => {setDrawerOpen(false)}}
+          onOpen={() => {setDrawerOpen(true)}}
+        >
+          <div className={classes.sideBar}>
+            {isAuthenticated ? 
+              (<>
+                <div className={classes.sideBarItem}>
+                  <a className={classes.sideBarItemText} href="/orders">Orders</a>
+                </div>
+                <div className={classes.sideBarItem}>
+                  <a className={classes.sideBarItemText} onClick={() => logout({returnTo: window.location.origin})}>Log Out</a>
+                </div>
+              </>) :
+              (<>
+                <div className={classes.sideBarItem}>
+                  <a className={classes.sideBarItemText} onClick={() => loginWithRedirect()}>Sign In</a>
+                </div>
+              </>)
+            }
+          </div>
+        </SwipeableDrawer>
+      }
     </React.Fragment>
   );
 }

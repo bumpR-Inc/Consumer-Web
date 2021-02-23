@@ -162,3 +162,9 @@ export const setOrderCode = async (dispatch: any, orderCode: string) => {
     payload: { orderCode: orderCode },
   });
 };
+
+export const clearOrderData = async (dispatch: any) => {
+  return dispatch({
+    type: "CLEAR_ORDER_DATA",
+  })
+}

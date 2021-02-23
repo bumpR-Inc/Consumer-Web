@@ -1,7 +1,7 @@
 import React from "react";
 import { IState, IAction } from "./interfaces";
 
-const cacheState: boolean = false;
+const cacheState: boolean = true;
 const currentDate: Date = new Date();
 let initialDate: Date = new Date(currentDate.getTime());
 initialDate.setDate(currentDate.getDate() + (7 + 1 - currentDate.getDay()) % 7);
@@ -80,6 +80,14 @@ function reducer(state: IState, action: IAction): IState {
         ...state,
         date: action.payload["date"],
       };
+      break;
+    case "CLEAR_ORDER_DATA":
+      state = {
+        ...state,
+        meals: [],
+        orderCode: "",
+        totalCost: 0,
+      }
       break;
     case "SET_TOTAL_COST":
       state = {
