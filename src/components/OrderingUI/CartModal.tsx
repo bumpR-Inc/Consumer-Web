@@ -285,7 +285,8 @@ export default function CartModal(modalProps: any) {
               <div className="cart-cards-layout">
                 <CartList {...props} />
               </div>
-              <div className="cart-costs">
+              {isAuthenticated && 
+              (<div className="cart-costs">
                 <div className="center">
                   <p className={classes.cartText}>Tip:</p>
                   <TextField
@@ -317,7 +318,8 @@ export default function CartModal(modalProps: any) {
                     If you were ordering the same thing on DoorDash, you'd be
                     paying ${totalCost * 2}!
                   </p> */}
-              </div>
+              </div>)
+              }
               {isAuthenticated &&
                 (
                   <div className="cart-payment-container">
