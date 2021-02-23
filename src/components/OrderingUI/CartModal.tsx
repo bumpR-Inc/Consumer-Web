@@ -3,18 +3,24 @@ import { TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import React from "react";
-import { setOrderCode, clearOrderData, setTotalCost, toggleFavAction, toOrderHistory } from "../../state/Actions";
+import {
+  setOrderCode,
+  clearOrderData,
+  setTotalCost,
+  toggleFavAction,
+  toOrderHistory,
+} from "../../state/Actions";
 import { IMeal } from "../../state/interfaces";
 import { Store } from "../../state/Store";
 import CustomCheckbox from "../Input/CustomCheckbox";
 import { theme } from "../Theme";
 import CartPriceBreakdown from "./CartPriceBreakdown";
 import VenmoBtn from "./VenmoBtn";
-import { REACT_APP_BACKEND_API_URL } from '../../config';
+import { REACT_APP_BACKEND_API_URL } from "../../config";
 
 var dateFormat = require("dateformat");
 
-var QRCode = require('qrcode.react')
+var QRCode = require("qrcode.react");
 
 // const EpisodeList = React.lazy<any>(() => import("./MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 const CartList = React.lazy<any>(() => import("./CartList"));
@@ -64,7 +70,6 @@ const useStyles = makeStyles({
     maxWidth: "500px",
     justifyContent: "space-evenly",
     height: "76vh",
-    // overflowY: "scroll"
     // backgroundColor: 'blue'
   },
 
@@ -167,17 +172,15 @@ const useStyles = makeStyles({
   },
   cartContentBuffer: {
     width: "100%",
-    height: "10rem",
+    height: "11rem",
     [theme.breakpoints.down("md")]: {
-      height: "16rem",
+      height: "17rem",
     },
     [theme.breakpoints.down("sm")]: {
-      height: "16rem",
+      height: "17rem",
     },
   },
 });
-
-
 
 export default function CartModal(modalProps: any) {
   var classes = useStyles();
@@ -198,7 +201,7 @@ export default function CartModal(modalProps: any) {
   };
 
   //delivery fee
-  const deliveryFee = .99
+  const deliveryFee = 0.99;
 
   //Cost math and venmo string manipulation
   var venmoLink: string =
@@ -292,46 +295,49 @@ export default function CartModal(modalProps: any) {
               <div className="cart-cards-layout">
                 <CartList {...props} />
               </div>
-              <div className="cart-costs">
-                <div className="center">
-                  <p className={classes.cartText}>Tip:</p>
-                  <TextField
-                    onChange={(event) => setTipAmt(Number(event.target.value))}
-                    className={classes.tip}
-                    type="number"
-                    inputProps={{
-                      min: "0",
-                      max: "2499",
-                      step: "1",
-                      className: classes.tipInput,
-                    }}
+              {isAuthenticated && (
+                <div className="cart-costs">
+                  <div className="center">
+                    <p className={classes.cartText}>Tip:</p>
+                    <TextField
+                      onChange={(event) =>
+                        setTipAmt(Number(event.target.value))
+                      }
+                      className={classes.tip}
+                      type="number"
+                      inputProps={{
+                        min: "0",
+                        max: "2499",
+                        step: "1",
+                        className: classes.tipInput,
+                      }}
+                    />
+                  </div>
+                  <CartPriceBreakdown
+                    mealsCost={mealsCost}
+                    tax={tax}
+                    deliveryFee={deliveryFee}
+                    tipAmt={tipAmt}
+                    totalCost={totalCost}
                   />
-                </div>
-                <CartPriceBreakdown
-                  mealsCost={mealsCost}
-                  tax={tax}
-                  deliveryFee={deliveryFee}
-                  tipAmt={tipAmt}
-                  totalCost={totalCost}
-                />
-                {/* <div className="cost-row">
+                  {/* <div className="cost-row">
                     <p className="cardText">
                       To confirm your order, please pay ${totalCost} with Venmo
                       below.
                     </p>
                   </div> */}
-                {/* <p>
+                  {/* <p>
                     If you were ordering the same thing on DoorDash, you'd be
                     paying ${totalCost * 2}!
                   </p> */}
-              </div>
+                </div>
+              )}
               {isAuthenticated && (
                 <div className="cart-payment-container">
                   <p className={classes.cartText}>
                     To pay via Venmo and confirm your order, first tap the Venmo
-                    button below from your phone, or scan the QR code from your
-                    camera app if ordering from a desktop. Then, hit "confirm
-                    order."
+                    button below from your phone, or scan the QR code below if
+                    ordering from a desktop. Then, hit "confirm order."
                   </p>
                   <p className={classes.cartText}>Address: {state.address}</p>
                   <p className={classes.cartText}>
@@ -353,8 +359,8 @@ export default function CartModal(modalProps: any) {
                   </div>
                 </div>
               )}
+              <div className={classes.cartContentBuffer}></div>
             </div>
-            <div className={classes.cartContentBuffer}> </div>
           </div>
         </div>
       </React.Suspense>

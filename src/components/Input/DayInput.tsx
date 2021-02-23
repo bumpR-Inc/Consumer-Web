@@ -26,7 +26,7 @@ export default function DayInput({handleSelect}: DateModalProps) {
     if (!fetched) {
       (async () => {
         const response = await axios.get(
-          `${REACT_APP_BACKEND_API_URL}/deliveryDay/?month=${month.getMonth()+1}`,
+          `${REACT_APP_BACKEND_API_URL}/deliveryDay/?month=${month.getMonth()+1}&year=${month.getFullYear()}`,
         );
         // console.log(response);
         // console.log(response.data[0].items_info)
