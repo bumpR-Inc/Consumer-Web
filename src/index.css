@@ -222,6 +222,16 @@ h1 {
   padding: 2px;
 }
 
+@media screen and (max-width: 600px) {
+  .cart-card-title {
+    font-size: 18px;
+  }
+  
+  .cart-card-price {
+    font-size: 16px;
+  }
+}
+
 .cart-card-second-container {
   display: flex;
   justify-content: center;
