@@ -14,7 +14,7 @@ const onRedirectCallback = (appState: any) => {
   // console.log(path)
   // history.push(path);
   // );
-  window.location.assign('/',)
+  // window.location.assign('/',)
 };
 
 const RouterPage = (
