@@ -8,6 +8,7 @@ import config from "./auth_config.json";
 import history from "./utils/history";
 import { RouteComponentProps } from "@reach/router";
 import { StoreProvider } from "./state/Store";
+import HttpsRedirect from './HttpsRedirect';
 
 const onRedirectCallback = (appState: any) => {
   // const path: string = window.location.origin.split('/?')[0] + "/";
@@ -22,17 +23,19 @@ const RouterPage = (
   props: { pageComponent: JSX.Element } & RouteComponentProps
 ) => props.pageComponent;
 ReactDOM.render(
-  <Auth0Provider
-    domain={config.domain}
-    clientId={config.clientId}
-    audience={config.audience}
-    redirectUri={window.location.origin}
-    onRedirectCallback={onRedirectCallback}
-  >
-    <StoreProvider>
-      <App/>
-    </StoreProvider>
-  </Auth0Provider>,
+  <HttpsRedirect>
+    <Auth0Provider
+      domain={config.domain}
+      clientId={config.clientId}
+      audience={config.audience}
+      redirectUri={window.location.origin}
+      onRedirectCallback={onRedirectCallback}
+    >
+      <StoreProvider>
+        <App/>
+      </StoreProvider>
+    </Auth0Provider>
+  </HttpsRedirect>,
   document.getElementById("root")
 );
 
