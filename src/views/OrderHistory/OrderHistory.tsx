@@ -187,7 +187,7 @@ export default function Footer() {
       (async () => {
         console.log("hi");
         const token = await getAccessTokenSilently();
-        const response = await axios.get(`${REACT_APP_BACKEND_API_URL}/api/userOrders`, {
+        const response = await axios.get(`${REACT_APP_BACKEND_API_URL}/userOrders`, {
           headers: {
             Authorization: `Bearer ${token}`,
           }
