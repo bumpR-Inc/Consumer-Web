@@ -3,10 +3,15 @@ import { addMeal, subtractMeal } from "../../state/Actions";
 import { IMeal, IRestaurant } from "../../state/interfaces";
 import Card from "./Card";
 import CartCard from "./CartCard";
+import { theme } from "../Theme";
+import { makeStyles } from "@material-ui/core/styles";
+
 // import MealsList from "./MealsList";
 
 const MealList = React.lazy<any>(() => import("./MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 
+// const useStyles = makeStyles({
+// })
 
 export default function MealListByRestaurant(props: any): Array<JSX.Element> {
 
