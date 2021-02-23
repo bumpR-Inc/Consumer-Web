@@ -15,6 +15,8 @@ import { Store } from "../../state/Store";
 
 const dateFormat = require("dateformat");
 
+const { REACT_APP_BACKEND_API_URL } = process.env;
+
 const useStyles = makeStyles({
   container: {
     display: 'flex',
@@ -189,7 +191,7 @@ export default function Footer() {
       (async () => {
         console.log("hi");
         const token = await getAccessTokenSilently();
-        const response = await axios.get('http://localhost:3001/api/userOrders', {
+        const response = await axios.get(`${REACT_APP_BACKEND_API_URL}/userOrders`, {
           headers: {
             Authorization: `Bearer ${token}`,
           }

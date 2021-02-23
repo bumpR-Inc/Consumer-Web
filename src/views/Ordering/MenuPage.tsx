@@ -11,7 +11,7 @@ import { SwipeableDrawer } from "@material-ui/core";
 
 const MealList = React.lazy<any>(() => import("../../components/OrderingUI/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 const MealListByRestaurant = React.lazy<any>(() => import("../../components/OrderingUI/MealListByRestaurant")); //react lazy isntead of normal importing. see suspense and fallback below
-
+const { REACT_APP_BACKEND_API_URL } = process.env;
 
 export default function MenuPage() {
   //start of OAuth stuff
@@ -42,7 +42,7 @@ export default function MenuPage() {
     try {
       const token = await getAccessTokenSilently();
 
-      axios.get('http://localhost:3001/api/private', {
+      axios.get(`${REACT_APP_BACKEND_API_URL}/private`, {
         headers: {
           Authorization: `Bearer ${token}`,
         }
@@ -62,7 +62,7 @@ export default function MenuPage() {
       const token = await getAccessTokenSilently();
 
       axios
-        .post("http://localhost:3001/api/orderscreate", 
+        .post(`${REACT_APP_BACKEND_API_URL}/orderscreate`, 
         {
           restaurant: 1,//REMOVE RESTAURANT FIELDS, SHREYA REMOVING IT FROM THE BACKEND
           deliveryTime: "2021-02-15",
