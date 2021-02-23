@@ -80,7 +80,11 @@ const useStyles = makeStyles({
     cursor: 'pointer',
 
     [theme.breakpoints.down('md')]: {
-      fontSize: '3.7vw'
+      fontSize: '2.7vw'
+    },
+
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '3.5vw'
     },
 
     '&:hover': {
