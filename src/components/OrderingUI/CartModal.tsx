@@ -207,7 +207,7 @@ export default function CartModal(modalProps: any) {
   );
   var tax: number = Math.round(mealsCost * taxRate * 100) / 100; //rounding to two decimals
   //TODO: ADD TIP OPTION, MAKE RESPONSIVE, FIGURE OUT WHAT HAPPENS IF VENMO ISN'T INSTALLED, ADD CASHAPP (SHOULDN'T BE HARD)
-  var totalCost: number = mealsCost + tipAmt + tax;
+  var totalCost: number = mealsCost + tipAmt + tax + deliveryFee;
   if (totalCost != state.totalCost) {
     setTotalCost(dispatch, totalCost);
   }
@@ -304,6 +304,7 @@ export default function CartModal(modalProps: any) {
                 <CartPriceBreakdown
                   mealsCost={mealsCost}
                   tax={tax}
+                  deliveryFee={deliveryFee}
                   tipAmt={tipAmt}
                   totalCost={totalCost}
                 />
@@ -322,7 +323,7 @@ export default function CartModal(modalProps: any) {
                 <p className={classes.cartText}>
                   To pay via Venmo and confirm your order, first tap the Venmo
                   button below from your phone, or scan the QR code below if
-                  you're using a desktop. Then, hit "confirm order."
+                  ordering from a desktop. Then, hit "confirm order."
                 </p>
                 <p className={classes.cartText}>Address: {state.address}</p>
                 <p className={classes.cartText}>

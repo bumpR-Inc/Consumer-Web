@@ -11,33 +11,38 @@ import "../../index.css";
 import addImg from "../assets/img/add.png";
 
 interface CartProps {
-  mealsCost: number,
-  tax: number,
-  tipAmt: number,
-  totalCost: number,
+  mealsCost: number;
+  tax: number;
+  tipAmt: number;
+  deliveryFee: number;
+  totalCost: number;
 }
 
-export default function CartPriceBreakdown({mealsCost, tax, tipAmt, totalCost}: CartProps) {
+export default function CartPriceBreakdown({mealsCost, tax, tipAmt, deliveryFee, totalCost}: CartProps) {
   // const classes = useStyles();
 
   return (
     <>
       <div className="cart-line"></div>
       <div className="cost-row">
-          <p className="cart-text">Subtotal:</p>
-          <p className="cart-text">${mealsCost}</p>
+        <p className="cart-text">Subtotal:</p>
+        <p className="cart-text">${mealsCost}</p>
       </div>
       <div className="cost-row">
-          <p className="cart-text">Tax:</p>
-          <p className="cart-text">${tax}</p>
+        <p className="cart-text">Tax:</p>
+        <p className="cart-text">${tax}</p>
       </div>
       <div className="cost-row">
-          <p className="cart-text">Optional Tip:</p>
-          <p className="cart-text">${tipAmt}</p>
+        <p className="cart-text">Delivery Fee:</p>
+        <p className="cart-text">${deliveryFee}</p>
       </div>
       <div className="cost-row">
-          <p className="cart-text bolded">Total:</p>
-          <p className="cart-text bolded">${totalCost}</p>
+        <p className="cart-text">Optional Tip:</p>
+        <p className="cart-text">${tipAmt}</p>
+      </div>
+      <div className="cost-row">
+        <p className="cart-text bolded">Total:</p>
+        <p className="cart-text bolded">${totalCost}</p>
       </div>
       <div className="cart-line"></div>
     </>

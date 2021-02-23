@@ -185,7 +185,6 @@ export default function Footer() {
   React.useEffect(() => {
     if (isAuthenticated && !ordersRecieved) {
       (async () => {
-        console.log("hi");
         const token = await getAccessTokenSilently();
         const response = await axios.get(`${REACT_APP_BACKEND_API_URL}/userOrders`, {
           headers: {
@@ -196,6 +195,7 @@ export default function Footer() {
         // console.log(response.data[0].items_info)
         
         var orders = response.data;
+        // console.log(orders);
         
         for (var i = 0; i < orders.length; i++){
           let items_text = "";
@@ -224,60 +224,115 @@ export default function Footer() {
   return (
     <div className={classes.container}>
       <div className={classes.navContainer}>
-        {
-          (orderSelected === -1 || window.innerWidth > theme.breakpoints.values.md) ?
-          <a className={classes.navText} onClick={() => {window.location.assign('/')}}>{'< Return to Ordering Page'}</a> : 
-          <a className={classes.navText} onClick={clearOrder}>{'< Back'}</a>
-        }
+        {orderSelected === -1 ||
+        window.innerWidth > theme.breakpoints.values.md ? (
+          <a
+            className={classes.navText}
+            onClick={() => {
+              window.location.assign("/");
+            }}
+          >
+            {"< Return to Ordering Page"}
+          </a>
+        ) : (
+          <a className={classes.navText} onClick={clearOrder}>
+            {"< Back"}
+          </a>
+        )}
       </div>
       <div className={classes.bodyContainer}>
         {ordersRecieved ? (
           <>
-            { (orderSelected === -1 || window.innerWidth > theme.breakpoints.values.md) &&
-            (<div className={classes.orderListContainer}>
-              <div className={classes.orderListTitleContainer}>
-                <h1 className={classes.orderListTitle}>Order History</h1>
-              </div>
-              {
-                orders?.map((value: any, index: number) => {
+            {(orderSelected === -1 ||
+              window.innerWidth > theme.breakpoints.values.md) && (
+              <div className={classes.orderListContainer}>
+                <div className={classes.orderListTitleContainer}>
+                  <h1 className={classes.orderListTitle}>Order History</h1>
+                </div>
+                {orders?.map((value: any, index: number) => {
                   return (
-                    <div className={classes.orderListItem + (index == orderSelected ? ' ' + classes.selected : '')} onClick={() => { onOrderClick(index) }}>
-                      <h1 className={classes.orderListItemTitle + (index == orderSelected ? ' ' + classes.selected : '')}>{dateFormat(orders[index].deliveryTime, "ddd, mmmm d")}</h1>
-                      <h1 className={classes.orderListItemSubtitle + (index == orderSelected ? ' ' + classes.selected : '')}>{orders[index].items_text}</h1>
+                    <div
+                      className={
+                        classes.orderListItem +
+                        (index == orderSelected ? " " + classes.selected : "")
+                      }
+                      onClick={() => {
+                        onOrderClick(index);
+                      }}
+                    >
+                      <h1
+                        className={
+                          classes.orderListItemTitle +
+                          (index == orderSelected ? " " + classes.selected : "")
+                        }
+                      >
+                        {dateFormat(orders[index].deliveryTime, "ddd, mmmm d")}
+                      </h1>
+                      <h1
+                        className={
+                          classes.orderListItemSubtitle +
+                          (index == orderSelected ? " " + classes.selected : "")
+                        }
+                      >
+                        {orders[index].items_text}
+                      </h1>
                     </div>
                   );
-                })
-              }
-            </div>)}
-            {(orderSelected !== -1 || window.innerWidth > theme.breakpoints.values.md) &&
-              (<div className={classes.orderContainer}>
+                })}
+              </div>
+            )}
+            {(orderSelected !== -1 ||
+              window.innerWidth > theme.breakpoints.values.md) && (
+              <div className={classes.orderContainer}>
                 <div className={classes.orderDataContainer}>
                   <ScheduleIcon className={classes.orderIcon} />
-                  <h1 className={classes.orderData}>{dateFormat(orders[orderSelected].deliveryTime, "ddd, mmmm d")}</h1>
+                  <h1 className={classes.orderData}>
+                    {dateFormat(
+                      orders[orderSelected].deliveryTime,
+                      "ddd, mmmm d"
+                    )}
+                  </h1>
                 </div>
                 <div className={classes.orderDataContainer}>
                   <RoomIcon className={classes.orderIcon} />
-                  <h1 className={classes.orderData}>2216 Channing Way, Berkeley CA, 94704</h1>
+                  <h1 className={classes.orderData}>
+                    2216 Channing Way, Berkeley CA, 94704
+                  </h1>
                 </div>
-                {orders[orderSelected]?.items_info?.map((value: any, index: number) => {
-                  return (<CartCard
-                    meal={value.menuItem_info}
-                    numInCart={2}
-                    addOnClick={() => { }}
-                    subtractOnClick={() => { }}
-                    hideButtons={true}
-                  />)
-                })}
+                {orders[orderSelected]?.items_info?.map(
+                  (value: any, index: number) => {
+                    return (
+                      <CartCard
+                        meal={value.menuItem_info}
+                        numInCart={2}
+                        addOnClick={() => {}}
+                        subtractOnClick={() => {}}
+                        hideButtons={true}
+                      />
+                    );
+                  }
+                )}
                 <div className={classes.colBuffer} />
-                <CartPriceBreakdown mealsCost={9} tax={1} tipAmt={1} totalCost={orders[orderSelected].pricePaid} />
-              </div>)}
-            </>
+                <CartPriceBreakdown
+                  mealsCost={//potential bug: this is jank. this is because we don't pass in subtotal to backend.
+                    orders[orderSelected].pricePaid -
+                    (orders[orderSelected].tax +
+                    orders[orderSelected].deliveryFee +
+                    orders[orderSelected].tip)
+                  }
+                  tax={orders[orderSelected].tax}
+                  tipAmt={orders[orderSelected].tip}
+                  deliveryFee={orders[orderSelected].deliveryFee}
+                  totalCost={orders[orderSelected].pricePaid}
+                />
+              </div>
+            )}
+          </>
         ) : (
-            <ThemeProvider theme={theme}>
-              <CircularProgress color='primary'/>
-            </ThemeProvider>
-          )
-        }
+          <ThemeProvider theme={theme}>
+            <CircularProgress color="primary" />
+          </ThemeProvider>
+        )}
       </div>
     </div>
   );
