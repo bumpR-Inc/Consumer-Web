@@ -12,10 +12,9 @@ import axios from "axios";
 import { CircularProgress, ThemeProvider } from "@material-ui/core";
 import { fromOrderHistory } from "../../state/Actions";
 import { Store } from "../../state/Store";
+import { REACT_APP_BACKEND_API_URL } from '../../config';
 
 const dateFormat = require("dateformat");
-
-const { REACT_APP_BACKEND_API_URL } = process.env;
 
 const useStyles = makeStyles({
   container: {

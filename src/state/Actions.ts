@@ -1,6 +1,5 @@
 import { IAction, IMeal, IState, IRestaurant } from "./interfaces";
-
-const {REACT_APP_BACKEND_API_URL} = process.env;
+import { REACT_APP_BACKEND_API_URL } from '../config';
 
 export const fetchDataAction = async (dispatch: any) => {
   //use aync for api calls 2:06

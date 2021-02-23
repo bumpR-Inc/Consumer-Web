@@ -10,12 +10,11 @@ import CustomCheckbox from "../Input/CustomCheckbox";
 import { theme } from "../Theme";
 import CartPriceBreakdown from "./CartPriceBreakdown";
 import VenmoBtn from "./VenmoBtn";
+import { REACT_APP_BACKEND_API_URL } from '../../config';
 
 var dateFormat = require("dateformat");
 
 var QRCode = require('qrcode.react')
-
-const {REACT_APP_BACKEND_API_URL} = process.env;
 
 // const EpisodeList = React.lazy<any>(() => import("./MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 const CartList = React.lazy<any>(() => import("./CartList"));

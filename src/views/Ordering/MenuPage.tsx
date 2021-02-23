@@ -8,10 +8,10 @@ import MenuWrapper from "./Wrapper";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import axios from 'axios'
 import { SwipeableDrawer } from "@material-ui/core";
+import { REACT_APP_BACKEND_API_URL } from '../../config';
 
 const MealList = React.lazy<any>(() => import("../../components/OrderingUI/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 const MealListByRestaurant = React.lazy<any>(() => import("../../components/OrderingUI/MealListByRestaurant")); //react lazy isntead of normal importing. see suspense and fallback below
-const { REACT_APP_BACKEND_API_URL } = process.env;
 
 export default function MenuPage() {
   //start of OAuth stuff
