@@ -10,11 +10,28 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const MealList = React.lazy<any>(() => import("./MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 
-// const useStyles = makeStyles({
-// })
+const useStyles = makeStyles({
+  restaurantText: {
+    color: "#c9512b",
+    fontFamily: "Playfair",
+    fontSize: "46px",
+    padding: "10px",
+    marginTop: "5px",
+    marginBottom: "0px",
+    [theme.breakpoints.down("md")]: {
+      textAlign: "center",
+      fontSize: "34px",
+    },
+    [theme.breakpoints.down("sm")]: {
+      textAlign: "center",
+      fontSize: "34px",
+    },
+  },
+});
 
 export default function MealListByRestaurant(props: any): Array<JSX.Element> {
 
+    var classes = useStyles();
     const { meals, toggleFavAction, orders, store } = props;
     const { state, dispatch } = store;
 
@@ -26,7 +43,7 @@ export default function MealListByRestaurant(props: any): Array<JSX.Element> {
         return (
           <section key={currRestaurant.pk}>
             <div>
-              <div className="restaurant-name">{currRestaurant.name}</div>
+              <div className={classes.restaurantText}>{currRestaurant.name}</div>
               <div className="restaurant-line"></div>
               <div>
                 <section className="meal-layout">
