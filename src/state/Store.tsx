@@ -13,6 +13,7 @@ var initialState: IState = {
   address: "Set Location",
   geocode: undefined,
   landing: true,
+  orderHistory: false,
   mobileUpdateAddressPage: false,
   date: initialDate,
   restaurants: [],
@@ -101,6 +102,18 @@ function reducer(state: IState, action: IAction): IState {
         orderCode: action.payload["orderCode"],
       };
       break;
+    case "TO_ORDER_HISTORY":
+        state = {
+          ...state,
+          orderHistory: true,
+        };
+      break;
+    case "FROM_ORDER_HISTORY":
+        state = {
+          ...state,
+          orderHistory: false,
+        };
+        break;
     case "NO_CHANGE":
       state = state;
       break;

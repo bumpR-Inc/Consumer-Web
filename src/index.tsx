@@ -14,6 +14,7 @@ const onRedirectCallback = (appState: any) => {
   // console.log(path)
   // history.push(path);
   // );
+    window.history.replaceState({}, document.title, window.location.pathname);
   // window.location.assign('/',)
 };
 

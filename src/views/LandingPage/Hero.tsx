@@ -249,9 +249,9 @@ export default function Hero() {
           <div className={classes.sideBar}>
             {isAuthenticated ? 
               (<>
-                <div className={classes.sideBarItem}>
+                {/* <div className={classes.sideBarItem}>
                   <a className={classes.sideBarItemText} href="/orders">Orders</a>
-                </div>
+                </div> */}
                 <div className={classes.sideBarItem}>
                   <a className={classes.sideBarItemText} onClick={() => logout({returnTo: window.location.origin})}>Log Out</a>
                 </div>

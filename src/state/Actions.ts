@@ -170,3 +170,15 @@ export const clearOrderData = async (dispatch: any) => {
     type: "CLEAR_ORDER_DATA",
   })
 }
+
+export const toOrderHistory = async (dispatch: any) => {
+  return dispatch({
+    type: "TO_ORDER_HISTORY",
+  })
+}
+
+export const fromOrderHistory = async (dispatch: any) => {
+  return dispatch({
+    type: "FROM_ORDER_HISTORY",
+  })
+}

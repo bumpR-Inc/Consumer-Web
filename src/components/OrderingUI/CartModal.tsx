@@ -3,7 +3,7 @@ import { TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import React from "react";
-import { setOrderCode, clearOrderData, setTotalCost, toggleFavAction } from "../../state/Actions";
+import { setOrderCode, clearOrderData, setTotalCost, toggleFavAction, toOrderHistory } from "../../state/Actions";
 import { IMeal } from "../../state/interfaces";
 import { Store } from "../../state/Store";
 import CustomCheckbox from "../Input/CustomCheckbox";
@@ -364,7 +364,8 @@ export default function CartModal(modalProps: any) {
                 }
                 checkedPaidBox && submitOrder();
                 clearOrderData(dispatch);
-                window.location.assign('/orders');
+                toOrderHistory(dispatch);
+                // window.location.assign('/orders');
                 // setOrderCode(dispatch, ""); //makes sure previous code doesn't persist for future orders
               }
             }}

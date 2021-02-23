@@ -10,6 +10,8 @@ import CartPriceBreakdown from "../../components/OrderingUI/CartPriceBreakdown";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { CircularProgress, ThemeProvider } from "@material-ui/core";
+import { fromOrderHistory } from "../../state/Actions";
+import { Store } from "../../state/Store";
 
 const dateFormat = require("dateformat");
 
@@ -59,7 +61,7 @@ const useStyles = makeStyles({
     // justifyContent: 'center',
     padding: '1%',
     alignItems: 'center',
-    gap: '2%',
+    // gap: '2%',
     boxSizing: 'border-box',
     MozBoxSizing: 'border-box',
     WebkitBoxSizing: 'border-box',
@@ -82,6 +84,7 @@ const useStyles = makeStyles({
   orderListItem: {
     width: "95%",
     // height: '125px',
+    margin: '1%',
     flexShrink: 0,
     backgroundColor: 'white',
     zIndex: 2,
@@ -163,6 +166,7 @@ const useStyles = makeStyles({
 
 export default function Footer() {
   var classes = useStyles();
+  const { state, dispatch } = React.useContext(Store); //can remove "dispatch"
   const [orders, setOrders] = useState<any[]>([]);
   const [ordersRecieved, setOrdersRecieved] = useState<boolean>(false);
   const [orderSelected, selectOrder] = useState<number>(window.innerWidth > theme.breakpoints.values.md ? 0 : -1);
@@ -224,21 +228,11 @@ export default function Footer() {
   return (
     <div className={classes.container}>
       <div className={classes.navContainer}>
-        {orderSelected === -1 ||
-        window.innerWidth > theme.breakpoints.values.md ? (
-          <a
-            className={classes.navText}
-            onClick={() => {
-              window.location.assign("/");
-            }}
-          >
-            {"< Return to Ordering Page"}
-          </a>
-        ) : (
-          <a className={classes.navText} onClick={clearOrder}>
-            {"< Back"}
-          </a>
-        )}
+        {
+          (orderSelected === -1 || window.innerWidth > theme.breakpoints.values.md) ?
+          <a className={classes.navText} onClick={() => {fromOrderHistory(dispatch)}}>{'< Return to Ordering Page'}</a> : 
+          <a className={classes.navText} onClick={clearOrder}>{'< Back'}</a>
+        }
       </div>
       <div className={classes.bodyContainer}>
         {ordersRecieved ? (

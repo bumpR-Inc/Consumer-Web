@@ -27,7 +27,7 @@ const App = () => {
         <Route path="/" exact component={HomePage} />
         <Route path="/landing" exact component={LandingPage} />
         {/* <Route path="/orders" component={OrdersPage} /> */}
-        <Route path="/orders" component={OrderHistory} />
+        {/* <Route path="/orders" component={OrderHistory} /> */}
         <Route path="/privacy" component={PrivacyPolicy} />
         <Route path="/address" component={AddressUpdate} />
         <Route path="/terms" component={TermsOfService} />
