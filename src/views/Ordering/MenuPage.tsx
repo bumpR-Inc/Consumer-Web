@@ -90,11 +90,11 @@ export default function MenuPage() {
   const [displayModal, setDisplayModal] = React.useState(false);
 
   React.useEffect(() => {
-    if (state.meals?.length === 0 ?? false) {
+    // if (state.meals?.length === 0 ?? false) {
       //if state meals array is empty, run these functions to fill up state.
       fetchDataAction(dispatch);
       fetchRestaurantsAction(dispatch);
-    }
+    // }
   }); //useEffect hook is to get data as soon as user lands on the page
 
   const props: IMealProps = {
