@@ -318,30 +318,34 @@ export default function CartModal(modalProps: any) {
                     paying ${totalCost * 2}!
                   </p> */}
               </div>
-              <div className="cart-payment-container">
-                <p className={classes.cartText}>
-                  To pay via Venmo and confirm your order, first tap the Venmo
-                  button below from your phone, or scan the QR code below if
-                  ordering from a desktop. Then, hit "confirm order."
-                </p>
-                <p className={classes.cartText}>Address: {state.address}</p>
-                <p className={classes.cartText}>
-                  Date/Time: {dateFormat(state.date, "isoDate")}, Lunch (12-2pm)
-                </p>
-                <VenmoBtn paymentLink={venmoLink} />
-                <QRCode value={venmoLink} className={classes.qrCode} />
-                <p className={classes.cartText}>
-                  Orders without verified Venmo payments will not be fulfilled.
-                </p>
-                {/* potential bug here: setPaidBox isn't checking actual state of button, just toggling. might be possible to offset on-off cycle causing bug. */}
-                <div className="checkbox-row">
-                  <CustomCheckbox
-                    onChange={() => setPaidBox(!checkedPaidBox)}
-                    label="Yes, I have paid with Venmo!"
-                  />
-                </div>
-                <div className={classes.cartContentBuffer}></div>
-              </div>
+              {isAuthenticated &&
+                (
+                  <div className="cart-payment-container">
+                    <p className={classes.cartText}>
+                      To pay via Venmo and confirm your order, first tap the Venmo
+                      button below from your phone, or scan the QR code below if
+                      ordering from a desktop. Then, hit "confirm order."
+                    </p>
+                    <p className={classes.cartText}>Address: {state.address}</p>
+                    <p className={classes.cartText}>
+                      Date/Time: {dateFormat(state.date, "isoDate")}, Lunch (12-2pm)
+                    </p>
+                    <VenmoBtn paymentLink={venmoLink} />
+                    <QRCode value={venmoLink} className={classes.qrCode} />
+                    <p className={classes.cartText}>
+                      Orders without verified Venmo payments will not be fulfilled.
+                    </p>
+                    {/* potential bug here: setPaidBox isn't checking actual state of button, just toggling. might be possible to offset on-off cycle causing bug. */}
+                    <div className="checkbox-row">
+                      <CustomCheckbox
+                        onChange={() => setPaidBox(!checkedPaidBox)}
+                        label="Yes, I have paid with Venmo!"
+                      />
+                    </div>
+                    <div className={classes.cartContentBuffer}></div>
+                  </div>
+                )
+              }
             </div>
           </div>
         </div>
@@ -353,26 +357,23 @@ export default function CartModal(modalProps: any) {
           </div>
           <div
             className={`cart-review-order-button${
-              (!checkedPaidBox || props.orders.length <= 0) ? " cart-button-disabled" : ""
+              (isAuthenticated && (!checkedPaidBox || props.orders.length <= 0)) ? " cart-button-disabled" : ""
             }`}
             onClick={function () {
               setAttemptedToConfirmOrder(true);
-              if (checkedPaidBox && props.meals.length > 0) {
-                if (!isAuthenticated) {
-                  loginWithRedirect();
-                }
-                checkedPaidBox && submitOrder();
+              if (!isAuthenticated) {
+                loginWithRedirect();
+              } else if (checkedPaidBox && props.meals.length > 0) {
+                submitOrder();
                 clearOrderData(dispatch);
                 toOrderHistory(dispatch);
-                // window.location.assign('/orders');
-                // setOrderCode(dispatch, ""); //makes sure previous code doesn't persist for future orders
               }
             }}
           >
             {isAuthenticated ? "Place Order" : "Sign In To Order"}
           </div>
         </div>
-        {attemptedToConfirmOrder && (!checkedPaidBox || props.orders.length <= 0) ? (
+        {isAuthenticated && attemptedToConfirmOrder && (!checkedPaidBox || props.orders.length <= 0) ? (
           !checkedPaidBox ? 
             <p className="cart-text cart-error">
               Please pay with Venmo and select the checkbox above to order.
