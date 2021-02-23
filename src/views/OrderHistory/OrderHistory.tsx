@@ -231,6 +231,9 @@ export default function Footer() {
         }
       })();
     } else {
+      if (!isAuthenticated) {
+        fromOrderHistory(dispatch);
+      }
     }
   });
 

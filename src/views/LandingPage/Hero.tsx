@@ -36,7 +36,7 @@ const useStyles = makeStyles({
     gap: "3%",
     zIndex: 1,
 
-    filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.5))",
+    // filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.5))",
   },
   heroBackground: {
     zIndex: -1,
@@ -45,6 +45,7 @@ const useStyles = makeStyles({
     width: "100%",
     objectFit: 'cover',
     objectPosition: '18% 0%',
+    filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.5))",
   },
   navContainer: {
     flexGrow: 0
