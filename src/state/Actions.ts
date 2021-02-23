@@ -74,12 +74,13 @@ export const subtractMeal = (
   //   payload: episode,
   // };
   // return dispatch(dispatchObj);
-
-  const mealInOrders = state.orders.includes(meal);
+  const ordersPks : Array<Number> = state.orders.map((meal: IMeal) => meal.pk);
+  const mealInOrders : boolean = ordersPks.includes(meal.pk);
   let dispatchObj = {
     type: "NO_CHANGE", //extra measure so that if there's no meal in orders, you can't subtract one
     payload: meal, //don't really need because NO_CHANGE doesn't use episode
   };
+
   if (mealInOrders) {
     var idx = state.orders.findIndex((curr: IMeal) => curr.pk === meal.pk); //gets index of first instance of meal
     const ordersMinusOneMeal = state.orders;
