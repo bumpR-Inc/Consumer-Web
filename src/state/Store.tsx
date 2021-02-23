@@ -84,7 +84,7 @@ function reducer(state: IState, action: IAction): IState {
     case "CLEAR_ORDER_DATA":
       state = {
         ...state,
-        meals: [],
+        orders: [],
         orderCode: "",
         totalCost: 0,
       }

@@ -351,7 +351,7 @@ export default function CartModal(modalProps: any) {
           </div>
           <div
             className={`cart-review-order-button${
-              !checkedPaidBox ? " cart-button-disabled" : ""
+              (!checkedPaidBox || props.orders.length <= 0) ? " cart-button-disabled" : ""
             }`}
             onClick={function () {
               setAttemptedToConfirmOrder(true);
@@ -369,10 +369,15 @@ export default function CartModal(modalProps: any) {
             {isAuthenticated ? "Place Order" : "Sign In To Order"}
           </div>
         </div>
-        {attemptedToConfirmOrder && !checkedPaidBox ? (
-          <p className="cart-text cart-error">
-            Please pay with Venmo and select the checkbox above to order.
-          </p>
+        {attemptedToConfirmOrder && (!checkedPaidBox || props.orders.length <= 0) ? (
+          !checkedPaidBox ? 
+            <p className="cart-text cart-error">
+              Please pay with Venmo and select the checkbox above to order.
+            </p>
+            :
+            <p className="cart-text cart-error">
+              You must select at least one item before checking out.
+            </p>
         ) : (
           <p></p>
         )}
