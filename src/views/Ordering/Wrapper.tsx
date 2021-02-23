@@ -3,18 +3,33 @@ import { Store } from "../../state/Store";
 // import "../../index.css";
 import NavBar from "../../components/NavBar/NavBar";
 import AppFooter from "../../components/AppFooter";
+import { makeStyles } from "@material-ui/core";
+import { theme } from "../../components/Theme";
 
 const EpisodeList = React.lazy<any>(() => import("../../components/OrderingUI/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 
+const useStyles = makeStyles({
+  bodyContainer: {
+    height: '92vh',   
+    overflow: 'scroll',
+      
+    [theme.breakpoints.down('sm')]: {
+      height: '88vh'
+    }
+  },
+});
+
 export default function MenuWrapper(props: any): JSX.Element {
   const { state, dispatch } = React.useContext(Store); //can remove "dispatch"
-  console.log(state);
+  const classes = useStyles();  
 
   return (
     <React.Fragment>
       <NavBar/>
-      {props.children}
-      <AppFooter/>
+      <div className={classes.bodyContainer}>
+        {props.children}
+        <AppFooter/>
+      </div>
     </React.Fragment>
   );
 }
