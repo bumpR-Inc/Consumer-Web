@@ -34,6 +34,7 @@
     "react-day-picker": "^7.4.8",
     "react-dom": "^17.0.1",
     "react-double-marquee": "^1.0.7",
+    "react-https-redirect": "^1.1.0",
     "react-lazy-load-image-component": "^1.5.1",
     "react-lines-ellipsis": "^0.14.1",
     "react-marquee-slider": "^1.1.2",
