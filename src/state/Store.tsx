@@ -1,7 +1,7 @@
 import React from "react";
 import { IState, IAction } from "./interfaces";
 
-const cacheState: boolean = true;
+const cacheState: boolean = false;
 const currentDate: Date = new Date();
 let initialDate: Date = new Date(currentDate.getTime());
 initialDate.setDate(currentDate.getDate() + (7 + 1 - currentDate.getDay()) % 7);

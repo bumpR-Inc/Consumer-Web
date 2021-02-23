@@ -15,7 +15,9 @@ var dateFormat = require("dateformat");
 
 var QRCode = require('qrcode.react')
 
-const EpisodeList = React.lazy<any>(() => import("./MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
+const {REACT_APP_BACKEND_API_URL} = process.env;
+
+// const EpisodeList = React.lazy<any>(() => import("./MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 const CartList = React.lazy<any>(() => import("./CartList"));
 
 const useStyles = makeStyles({
@@ -246,7 +248,7 @@ export default function CartModal(modalProps: any) {
       const token = await getAccessTokenSilently();
       axios
         .post(
-          "http://localhost:3001/api/orderscreate",
+          `${REACT_APP_BACKEND_API_URL}/orderscreate`,
           {
             deliveryTime: reformattedLunchTime, //  example: 2006-10-25 14:30:59"
             location: state.address,

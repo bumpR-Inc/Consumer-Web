@@ -1,8 +1,10 @@
 import { IAction, IMeal, IState, IRestaurant } from "./interfaces";
 
+const {REACT_APP_BACKEND_API_URL} = process.env;
+
 export const fetchDataAction = async (dispatch: any) => {
   //use aync for api calls 2:06
-  const URL = "http://localhost:3001/api/menuItems/";
+  const URL = `${REACT_APP_BACKEND_API_URL}/menuItems/`;
   const data = await fetch(URL); //fetches URL
   const dataJSON = await data.json(); //convert to json
   return dispatch({
@@ -15,7 +17,7 @@ export const fetchDataAction = async (dispatch: any) => {
 //unused as of 1/9/2021. TODO: implement fully
 export const fetchRestaurantsAction = async (dispatch: any) => {
   //use aync for api calls 2:06
-  const URL = "http://localhost:3001/api/restaurants/";
+  const URL = `${REACT_APP_BACKEND_API_URL}/restaurants/`;
   const data = await fetch(URL); //fetches URL
   const dataJSON = await data.json(); //convert to json
   return dispatch({
