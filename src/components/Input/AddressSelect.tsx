@@ -301,7 +301,7 @@ export default function AddressSelect({ landing, miniButton, onConfirm }: Addres
                     // {history.push("https://goodneighborsubs.typeform.com/to/PgA4qzJo")}
                   }>
                   <h1 className={classes.hideMottoButton}>
-                    View Selection
+                    View Nearby Selection
                     {/* Coming Soon! */}
                   </h1>
                   </div>

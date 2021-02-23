@@ -7,6 +7,12 @@ import deal1 from "../../assets/img/landing/deals/deal1.png";
 import deal2 from "../../assets/img/landing/deals/deal2.png";
 import deal3 from "../../assets/img/landing/deals/deal3.png";
 import deal4 from "../../assets/img/landing/deals/deal4.png";
+import deal5 from "../../assets/img/landing/deals/deal5.png";
+import deal6 from "../../assets/img/landing/deals/deal6.png";
+import deal7 from "../../assets/img/landing/deals/deal7.png";
+import deal8 from "../../assets/img/landing/deals/deal8.png";
+import deal9 from "../../assets/img/landing/deals/deal9.png";
+import deal10 from "../../assets/img/landing/deals/deal10.png";
 import Marquee, { Motion, randomIntFromInterval } from "react-marquee-slider";
 
 const useStyles = makeStyles({
@@ -88,7 +94,7 @@ export default function DealCarousel() {
   let classes = useStyles();
   const [speedChange, setSpeedChange] = useState<number>(0);
 
-  let deals: string[] = [deal1, deal2, deal3, deal4, deal1, deal2, deal3, deal4];
+  let deals: string[] = [deal1, deal2, deal3, deal4, deal5, deal6, deal7, deal8, deal9, deal10];
 
   return (
     <div className={classes.container}>
