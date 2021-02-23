@@ -2,5 +2,4 @@
   "domain": "goodneighbor.us.auth0.com",
   "clientId": "AOnREGAppbKNWd7rAB57IFfn4RL5mFuz",
   "audience": "https://goodneighbor.us.auth0.com/api/v2/",
-  "apiOrigin": "http://localhost:3001"
 }
