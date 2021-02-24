@@ -222,7 +222,7 @@ export default function CartModal(modalProps: any) {
   }
   venmoLink = venmoLink.concat(totalCost.toString());
   venmoLink = venmoLink.concat(
-    "&note=Thanks%20for%20your%20Good%20Neighbor%2099%20cent%20pre-order%20meal%21%20%23"
+    "&note=www.goodneighbor.delivery:%20Pre-ordered%20lunches%20delivered%20on%20Mondays%20for%2099%20cents%21%20%23"
   );
 
   //order code
