@@ -48,7 +48,8 @@ const useStyles = makeStyles({
     filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.5))",
   },
   navContainer: {
-    flexGrow: 0
+    flexGrow: 0,
+    // backgroundColor: 'red',
   },
   addressContainer: {
     flexGrow: 4,
@@ -69,20 +70,26 @@ const useStyles = makeStyles({
   },
   navBuffer: {
     display: 'flex',
-    justifyContent: 'center'
-    // flex: 1,
-    // [theme.breakpoints.down('sm')]: {
-    //   flex: 0,
-    // },
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    // backgroundColor: 'blue',
+    flex: 1,
+    [theme.breakpoints.down('sm')]: {
+      // flex: 0,
+    },
   },
   titleContainer: {
+    // display: 'flex',
+    // alignItems: 'flex-start',
+    // justifyContent: 'flex-start',
     width: '100%',
     // paddingLeft: '2%',
     flex: 2,
     [theme.breakpoints.down('sm')]: {
-      flex: 4,
+      flex: 6,
       paddingTop: '2%'
     },
+    // backgroundColor: 'red',
   },
   title: {
     fontFamily: 'Playfair-Bold',
@@ -102,17 +109,23 @@ const useStyles = makeStyles({
     [theme.breakpoints.up('lg')]: {
       fontSize: '7em',
     },
+
+    [theme.breakpoints.down('sm')]: {
+      textAlign: 'left'
+    },
   },
   signInContainer: {
+    // backgroundColor: 'green',
     // zIndex: 1,
     // width: '100%',
     // top: 0,
-    // flex: 1,
+    flex: 1,
     // display: 'flex',
     // justifyContent: 'flex-end',
-    // [theme.breakpoints.down('sm')]: {
-    //   alignItems: 'center',
-    // },
+    [theme.breakpoints.down('sm')]: {
+      // alignItems: 'center',
+      flex: 0
+    },
   },
   signIn: {
     fontFamily: 'Playfair Display',
