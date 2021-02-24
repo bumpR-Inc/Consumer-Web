@@ -106,6 +106,16 @@ export const goToMenu = async (
   });
 };
 
+export const fromMenu = async (
+  dispatch: any,
+) => {
+  return dispatch({
+    //redirects to menu page, while settign the address and geocode
+    type: "FROM_MENU",
+    payload: { },
+  });
+};
+
 export const updateAddress = async (
   dispatch: any,
   address: string,

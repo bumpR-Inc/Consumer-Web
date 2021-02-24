@@ -71,13 +71,14 @@ const useStyles = makeStyles({
     display: 'inline',
     fontFamily: 'Brush',
     fontSize: '3em',
-    lineHeight: '1em',
+    lineHeight: '0em',
     textAlign: 'center',
     color: theme.palette.primary.main,
   },
   cardDescription: {
     fontSize: '2em',
     fontFamily: 'Playfair',
+    marginTop: '10px',
     color: theme.palette.secondary.main,
   }
 });
@@ -111,9 +112,9 @@ export default function Process() {
 
   return (
     <div className={classes.container}>
-      <Card image={step1image} number={1} title={'you schedule your lunch'} description={'Use our website to schedule a delicous lunch in advance, all without extra fees.'}/>
-      <Card image={step2image} number={2} title={'local restaurant prepares food'} description={'We provide a simplified preperation process for local restaurants, and negotiate large-order discounts to save you money.'}/>
-      <Card image={step3image} number={3} title={'we deliver!'} description={'We plan super efficient routes so you don’t pay for delivery. Then our associates follow the route to bring the meal to you.'}/>
+      <Card image={step1image} number={1} title={'schedule meal by sunday midnight'} description={'By Midnight the previous Sunday, use our website to schedule Monday\'s Lunch, for just 99¢ delivery, no extra fees!'}/>
+      <Card image={step2image} number={2} title={'local restaurant prepares food'} description={'We provide a simplified preparation process for local restaurants, and negotiate bulk discounts to save you money.'}/>
+      <Card image={step3image} number={3} title={'we deliver lunchtime monday!'} description={'We plan super efficient routes so you don’t pay for delivery. Then our associates follow the route to bring the meal to you.'}/>
     </div>
   );
 }

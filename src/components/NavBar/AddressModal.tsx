@@ -80,7 +80,7 @@ export default function AddressModal({anchor, handleClose}: AddressModalProps) {
             horizontal: 'right',
           }}
         >
-          <AddressSelect landing={false} miniButton={true} onConfirm={addressOnConfirm} />
+          <AddressSelect landing={false} miniButton={true} onConfirm={addressOnConfirm} onSkipAddresPickerConfirm={()=>{}} />
         </Popover>
         :<Dialog
         open={Boolean(anchor)}
@@ -91,7 +91,7 @@ export default function AddressModal({anchor, handleClose}: AddressModalProps) {
             style={{'margin': '0px', width: '100%'}}
       >
         <div className={classes.dialogCard}>
-              <AddressSelect landing={false} miniButton={true} onConfirm={addressOnConfirm} />
+              <AddressSelect landing={false} miniButton={true} onConfirm={addressOnConfirm} onSkipAddresPickerConfirm={()=>{}} />
         </div>
       </Dialog>
         }

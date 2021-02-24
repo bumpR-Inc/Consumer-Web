@@ -249,9 +249,10 @@ interface AddressSelectProps {
   landing: boolean,
   miniButton: boolean,
   onConfirm: (address: string, geocode: any) => void
+  onSkipAddresPickerConfirm: () => void,
 }
 
-export default function AddressSelect({ landing, miniButton, onConfirm }: AddressSelectProps) {  
+export default function AddressSelect({ landing, miniButton, onConfirm, onSkipAddresPickerConfirm }: AddressSelectProps) {  
   let history = useHistory();
   let classes = useStyles();
   let [addressState, handleAddressChange] = useState<string>('');
@@ -259,6 +260,7 @@ export default function AddressSelect({ landing, miniButton, onConfirm }: Addres
   let [validAddress, setValidAddress] = useState<boolean>(false);
   let [coveredAddress, setCoveredAddress] = useState<boolean>(false);
   let [showMotto, setShowMotto] = useState<boolean>(landing);
+  const { state } = React.useContext(Store);
 
   let setGeocode = (latLng: any) => {
     console.log(latLng);
@@ -297,11 +299,16 @@ export default function AddressSelect({ landing, miniButton, onConfirm }: Addres
               {showMotto
                 ? (
                   <div className={classes.hideMottoButtonContainer} onClick={() =>
-                    setShowMotto(false)
-                    // {history.push("https://goodneighborsubs.typeform.com/to/PgA4qzJo")}
+                    {
+                      if (state.geocode) {
+                          onSkipAddresPickerConfirm();
+                        } else {
+                        setShowMotto(false);
+                      }
+                    }
                   }>
                   <h1 className={classes.hideMottoButton}>
-                    View Nearby Selection
+                    View Lunch Menu
                     {/* Coming Soon! */}
                   </h1>
                   </div>

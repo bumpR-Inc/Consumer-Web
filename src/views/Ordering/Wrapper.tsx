@@ -5,6 +5,7 @@ import NavBar from "../../components/NavBar/NavBar";
 import AppFooter from "../../components/AppFooter";
 import { makeStyles } from "@material-ui/core";
 import { theme } from "../../components/Theme";
+import OrderCountdown from "../../components/OrderCountdown";
 
 const EpisodeList = React.lazy<any>(() => import("../../components/OrderingUI/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 
@@ -30,6 +31,7 @@ export default function MenuWrapper(props: any): JSX.Element {
         {props.children}
         <AppFooter/>
       </div>
+      <OrderCountdown/>
     </React.Fragment>
   );
 }
