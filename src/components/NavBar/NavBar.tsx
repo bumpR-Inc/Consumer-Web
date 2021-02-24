@@ -5,7 +5,7 @@ import { theme } from "../Theme";
 import { Store } from "../../state/Store";
 import AddressModal from "./AddressModal";
 import DateModal from "./DateModal";
-import { toMobileUpdateAddressPage, toOrderHistory, updateAddress } from "../../state/Actions";
+import { fromMenu, toMobileUpdateAddressPage, toOrderHistory, updateAddress } from "../../state/Actions";
 import { SwipeableDrawer } from "@material-ui/core";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -173,14 +173,14 @@ export default function NavBar() {
       <div className={classes.container}>
         <div className={classes.logoContainer}>
           <button className={classes.menuButton} onClick={handleMenuButtonClick}><Menu/></button>
-          <h1 className={classes.logo}>{theme.breakpoints.values.sm >= window.innerWidth ? 'GN.' : 'Good Neighbor.'}</h1>
+          <h1 className={classes.logo} onClick={() => {fromMenu(dispatch)}}>{theme.breakpoints.values.sm >= window.innerWidth ? 'GN.' : 'Good Neighbor.'}</h1>
         </div>
         <div className={classes.detailsContainer}>
           <div className={classes.detailsWrap}>
             <h1 className={`${classes.details} + ${classes.detailsTo}`}> Lunch on </h1>
             <button onClick={handleDateClick} className={classes.details}>{dateFormat(state.date, "DDD, mmmm d")}</button>
             <h1 className={`${classes.details} + ${classes.detailsTo}`}> to </h1>
-            <button onClick={handleAddressClick} className={classes.details}>{state.address.split(',')[0]}</button>          </div>
+            <button onClick={handleAddressClick} className={classes.details}>{state.address?.split(',')[0]}</button>          </div>
         </div>
       </div>
 

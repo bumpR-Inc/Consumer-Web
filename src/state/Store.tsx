@@ -57,6 +57,12 @@ function reducer(state: IState, action: IAction): IState {
         landing: false,
       };
       break;
+    case "FROM_MENU":
+      state = {
+        ...state,
+        landing: true
+      }
+      break;
     case "TO_MOBILE_UPDATE_ADDRESS_PAGE":
       state = {
         ...state,

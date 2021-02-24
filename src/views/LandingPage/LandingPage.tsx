@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { theme } from "../../components/Theme";
 import { goToMenu } from "../../state/Actions";
 import { Store } from "../../state/Store";
@@ -8,6 +8,11 @@ import Footer from "./Footer";
 import AppFooter from "../../components/AppFooter";
 import Process from "./Process";
 import Hero from "./Hero";
+import { Fade, Snackbar } from "@material-ui/core";
+import Alert from '@material-ui/lab/Alert';
+import { Schedule } from "@material-ui/icons";
+import Countdown, { zeroPad } from 'react-countdown';
+import OrderCountdown from "../../components/OrderCountdown";
 // import AppFooter from "../../components/AppFooter";
 
 const useStyles = makeStyles({
@@ -29,8 +34,9 @@ export default function LandingPage() {
       <DealCarousel/> 
       <Process/> 
         {/* <Footer/>  */}
-      <AppFooter invertColors={true}/>
-    </React.Fragment>
+        <AppFooter invertColors={true} />
+        <OrderCountdown/>
+    </React.Fragment>``
   </div>)
   ;
 }

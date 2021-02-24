@@ -232,7 +232,7 @@ export default function Hero() {
             </div>
           </div>
           <div className={classes.addressContainer}>
-            <AddressSelect landing={true} miniButton={false} onConfirm={addressOnConfirm} />
+            <AddressSelect landing={true} miniButton={false} onConfirm={addressOnConfirm} onSkipAddresPickerConfirm={() => {addressOnConfirm(state.address, state.geocode)}}/>
           </div>
           <div className={classes.bufferContainer}>
 

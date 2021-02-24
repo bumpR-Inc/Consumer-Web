@@ -61,7 +61,7 @@ export default function DealCarousel() {
   return (
     <div className={classes.container}>
       <div className={classes.addressContainer}>
-        <AddressSelect landing={false} miniButton={false} onConfirm={update}/>
+        <AddressSelect landing={false} miniButton={false} onConfirm={update} onSkipAddresPickerConfirm={() => {}}/>
       </div>
 
       <div className={classes.returnContainer}>
