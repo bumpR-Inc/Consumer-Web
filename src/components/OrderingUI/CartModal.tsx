@@ -226,7 +226,10 @@ export default function CartModal(modalProps: any) {
   );
 
   //order code
-  if (state.orderCode == "") {
+  if (
+    state.orderCode == "" ||
+    (typeof state.orderCode == "undefined")//this is to mitigate a bug that Justin saw on his device
+  ) {
     var newOrderCode = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890123456789";
     for (var i = 0; i < 5; i++)
