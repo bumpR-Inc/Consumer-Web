@@ -71,7 +71,7 @@ const useStyles = makeStyles({
     display: 'inline',
     fontFamily: 'Brush',
     fontSize: '3em',
-    lineHeight: '0em',
+    lineHeight: '1em',
     textAlign: 'center',
     color: theme.palette.primary.main,
   },
