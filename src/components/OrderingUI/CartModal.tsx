@@ -258,19 +258,27 @@ export default function CartModal(modalProps: any) {
         dateFormat(state.date, "isoDate") + " 12:30:00";
       // console.log(reformattedLunchTime);
       const token = await getAccessTokenSilently();
+      const post_body = {
+        deliveryTime: reformattedLunchTime, //  example: 2006-10-25 14:30:59"
+        location: state.address,
+        menuItems: state.orders.map((meal: IMeal) => meal.pk),
+        pricePaid: state.totalCost,
+        order_hash: state.orderCode,
+        tip: tipAmt,
+        tax: tax,
+        deliveryFee: deliveryFee,
+      };
+
+      window.analytics.track('SUBMIT_ORDER_ATTEMPTED', {
+        host: window.location.hostname,
+        state: state,
+        post_body: post_body
+      });
+
       axios
         .post(
           `${REACT_APP_BACKEND_API_URL}/orderscreate`,
-          {
-            deliveryTime: reformattedLunchTime, //  example: 2006-10-25 14:30:59"
-            location: state.address,
-            menuItems: state.orders.map((meal: IMeal) => meal.pk),
-            pricePaid: state.totalCost,
-            order_hash: state.orderCode,
-            tip: tipAmt,
-            tax: tax,
-            deliveryFee: deliveryFee,
-          },
+          post_body,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -278,9 +286,21 @@ export default function CartModal(modalProps: any) {
           }
         )
         .then((response) => {
+          window.analytics.track('SUBMITTED_ORDER', {
+            host: window.location.hostname,
+            state: state,
+            response: response
+          });
+
           console.log(response);
         });
     } catch (error) {
+      window.analytics.track('SUBMITTED_FAILED', {
+        host: window.location.hostname,
+        state: state,
+        error: error
+      });
+
       console.log(
         "Error in submitting post request for order, might not be signed in."
       );
@@ -304,7 +324,15 @@ export default function CartModal(modalProps: any) {
                     <p className={classes.cartText}>Tip:</p>
                     <TextField
                       onChange={(event) =>
+                      {
+                        window.analytics.track('CHANGE_TIP_FROM_CART', {
+                          host: window.location.hostname,
+                          state: state,
+                          cart: state.orders,
+                          tip: event.target.value
+                        });
                         setTipAmt(Number(event.target.value))
+                      }
                       }
                       className={classes.tip}
                       type="number"
@@ -357,7 +385,15 @@ export default function CartModal(modalProps: any) {
                   {/* potential bug here: setPaidBox isn't checking actual state of button, just toggling. might be possible to offset on-off cycle causing bug. */}
                   <div className="checkbox-row">
                     <CustomCheckbox
-                      onChange={() => setPaidBox(!checkedPaidBox)}
+                      onChange={() => {
+                        window.analytics.track('PAID_BOX_CHANGED_FROM_CART', {
+                          host: window.location.hostname,
+                          state: state,
+                          cart: state.orders,
+                          paid: !checkedPaidBox
+                        });
+                        setPaidBox(!checkedPaidBox)
+                      }}
                       label="Yes, I have paid with Venmo!"
                     />
                   </div>
@@ -382,6 +418,11 @@ export default function CartModal(modalProps: any) {
             onClick={function () {
               setAttemptedToConfirmOrder(true);
               if (!isAuthenticated) {
+                window.analytics.track('CART_LOG_IN', {
+                  host: window.location.hostname,
+                  state: state,
+                  cart: state.orders,
+                });
                 loginWithRedirect();
               } else if (checkedPaidBox && props.meals.length > 0) {
                 submitOrder();

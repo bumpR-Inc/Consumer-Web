@@ -65,7 +65,15 @@ export default function DealCarousel() {
       </div>
 
       <div className={classes.returnContainer}>
-        <button className={classes.return} onClick={() => { fromMobileUpdateAddressPage(dispatch) }}>Return To Orders</button>
+        <button className={classes.return} onClick={() => {
+          window.analytics.track('ADDRESS_UPDATE_CLOSED', {
+            host: window.location.hostname,
+            state: state,
+            address: state.address,
+            geocode: state.geocode,
+          });
+          fromMobileUpdateAddressPage(dispatch);
+        }}>Return To Orders</button>
       </div>
       {/* <div className={classes.policyContainer} dangerouslySetInnerHTML={{ __html: privacyPolicy}}>
 

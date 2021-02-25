@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import "../../index.css";
 import addImg from "../../assets/img/ui/add.png";
 import MealPropertyTag from "./MealPropertyTag";
+import { Store } from "../../state/Store";
 
 const useStyles = makeStyles({
   root: {
@@ -25,6 +26,7 @@ const useStyles = makeStyles({
 export default function MediaCard(props: any) {
   const classes = useStyles();
   const MAX_SUMMARY_LENGTH = 120;
+  const { state } = React.useContext(Store);
 
   var limitedSummary = props.meal.description; //prevents overflow, limits description length of the meal. TODO 1/8: ADD DESCRIPTION TO BACKEND!
   //UNCOMMENT THE BOTTOM 4 LINES IF YOU WANT TO LIMIT MEAL DESCRIPTION/SUMMARY TO CERTAIN NUMBER OF CHARS INSTEAD OF HAVING POTENTIALLY INFINITE OVERFLOW
@@ -49,7 +51,15 @@ export default function MediaCard(props: any) {
         </CardContent>
       </div>
       <div className="card-bottom-flex-container">
-        <Button onClick={props.addOnClick}>
+        <Button onClick={() => {
+          window.analytics.track('ADDED_TO_CART_FROM_MENU', {
+            host: window.location.hostname,
+            state: state,
+            meal: props.meal,
+            cart: state.orders
+          });
+          props.addOnClick();
+        }}>
           <img src={addImg} className="cardAddBtn" />
         </Button>
         <div>

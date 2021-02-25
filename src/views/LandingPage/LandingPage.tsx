@@ -27,6 +27,14 @@ export default function LandingPage() {
     goToMenu(dispatch, address, geocode);
   }
 
+  
+  useEffect(() => {
+    window.analytics.track('LANDING_PAGE_OPENED', {
+      host: window.location.hostname,
+      state: state
+    });
+  }, []);
+
   return (
   <div>
     <React.Fragment>

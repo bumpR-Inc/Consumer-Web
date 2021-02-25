@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import "../../index.css";
 import addImg from "../assets/img/add.png";
+import { Store } from "../../state/Store";
 
 const useStyles = makeStyles({
   root: {
@@ -25,6 +26,7 @@ const useStyles = makeStyles({
 
 export default function CartCard(props: any) {
   const classes = useStyles();
+  const { state } = React.useContext(Store);
 
   console.log('card');
   console.log(props);
@@ -42,9 +44,25 @@ export default function CartCard(props: any) {
             !props.hideButtons &&
             (<div className="cart-card-buttons-container">
               <div className="cart-card-buttons">
-                <div onClick={props.subtractOnClick}>-</div>
+                <div onClick={() => {
+                  window.analytics.track('SUB_QUANTITY_FROM_CART', {
+                    host: window.location.hostname,
+                    state: state,
+                    cart: state.orders,
+                    meal: props.meal
+                  });
+                  props.subtractOnClick();
+                }}>-</div>
                 {props.numInCart}
-                <div onClick={props.addOnClick}>+</div>
+                <div onClick={() => {
+                  window.analytics.track('ADD_QUANTITY_FROM_CART', {
+                    host: window.location.hostname,
+                    state: state,
+                    cart: state.orders,
+                    meal: props.meal
+                  });
+                  props.addOnClick();
+                }}>+</div>
               </div>
             </div>)
           }

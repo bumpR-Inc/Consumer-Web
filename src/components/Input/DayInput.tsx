@@ -39,6 +39,13 @@ export default function DayInput({handleSelect}: DateModalProps) {
   
   const dateOnConfirm = (day: Date, {valid} : DayModifiers) => {
     if (valid) {
+      window.analytics.track('DATE_CONFIRMED', {
+        host: window.location.hostname,
+        state: state,
+        address: state.address,
+        geocode: state.geocode,
+        landing: state.landing
+      });
       setDate(dispatch, day);
       handleSelect();
     }    

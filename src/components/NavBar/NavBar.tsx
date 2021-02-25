@@ -151,6 +151,12 @@ export default function NavBar() {
   }
 
   const handleAddressClick = (event: MouseEvent) => {
+    window.analytics.track('ADDRESS_UPDATE_OPENED', {
+      host: window.location.hostname,
+      state: state,
+      address: state.address,
+      geocode: state.geocode,
+    });
     if (window.innerWidth <= theme.breakpoints.values.md) {
       toMobileUpdateAddressPage(dispatch);
     } else {
@@ -159,21 +165,47 @@ export default function NavBar() {
   };
 
 
-  const handleAddressClose = () => setAddressAnchor(null);
+  const handleAddressClose = () => {
+    window.analytics.track('ADDRESS_UPDATE_CLOSED', {
+      host: window.location.hostname,
+      state: state,
+      address: state.address,
+      geocode: state.geocode,
+    });
+    setAddressAnchor(null);
+  };
 
   const [ dateAnchor, setDateAnchor ] = useState<any>(null);
 
   const handleDateClick = (event: MouseEvent) => {
+    window.analytics.track('DATE_UPDATE_OPENED', {
+      host: window.location.hostname,
+      state: state,
+      date: state.date
+    });
     setDateAnchor(event.currentTarget);
   };
-  const handleDateClose = () => setDateAnchor(null);
+  const handleDateClose = () => {
+    window.analytics.track('DATE_UPDATE_CLOSED', {
+      host: window.location.hostname,
+      state: state,
+      date: state.date
+    });
+    setDateAnchor(null);
+  };
 
   return (
     <React.Fragment>
       <div className={classes.container}>
         <div className={classes.logoContainer}>
           <button className={classes.menuButton} onClick={handleMenuButtonClick}><Menu/></button>
-          <h1 className={classes.logo} onClick={() => {fromMenu(dispatch)}}>{theme.breakpoints.values.sm >= window.innerWidth ? 'GN.' : 'Good Neighbor.'}</h1>
+          <h1 className={classes.logo} onClick={() => {
+            window.analytics.track('TO_LANDING_FROM_MENU', {
+              host: window.location.hostname,
+              state: state
+            });
+            fromMenu(dispatch)
+          }}>{theme.breakpoints.values.sm >= window.innerWidth ? 'GN.' : 'Good Neighbor.'}</h1>
         </div>
         <div className={classes.detailsContainer}>
           <div className={classes.detailsWrap}>
@@ -197,15 +229,36 @@ export default function NavBar() {
             {isAuthenticated ? 
               (<>
                 <div className={classes.sideBarItem}>
-                  <a className={classes.sideBarItemText} onClick={() => {toOrderHistory(dispatch)}}>Orders</a>
+                  <a className={classes.sideBarItemText} onClick={() => {
+                    window.analytics.track('HAMBURGER_TO_ORDER_HISTORY', {
+                      host: window.location.hostname,
+                      state: state,
+                      landing: state.landing
+                    });
+                    toOrderHistory(dispatch);
+                  }}>Orders</a>
                 </div>
                 <div className={classes.sideBarItem}>
-                  <a className={classes.sideBarItemText} onClick={() => logout({returnTo: window.location.origin})}>Log Out</a>
+                  <a className={classes.sideBarItemText} onClick={() => {
+                    window.analytics.track('HAMBURGER_MENU_LOG_OUT', {
+                      host: window.location.hostname,
+                      state: state,
+                      landing: state.landing
+                    });
+                    logout({ returnTo: window.location.origin });
+                  }}>Log Out</a>
                 </div>
               </>) :
               (<>
                 <div className={classes.sideBarItem}>
-                  <a className={classes.sideBarItemText} onClick={() => loginWithRedirect()}>Sign In</a>
+                  <a className={classes.sideBarItemText} onClick={() => {
+                    window.analytics.track('HAMBURGER_MENU_LOG_IN', {
+                      host: window.location.hostname,
+                      state: state,
+                      landing: state.landing
+                    });
+                    loginWithRedirect();
+                  }}>Sign In</a>
                 </div>
               </>)
             }

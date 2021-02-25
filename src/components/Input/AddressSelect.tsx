@@ -277,6 +277,11 @@ export default function AddressSelect({ landing, miniButton, onConfirm, onSkipAd
   }
 
   let handleAddressSelect = (address: string) => {
+    window.analytics.track('ADDRESS_FILLED_IN', {
+      host: window.location.hostname,
+      state: state,
+      landing: state.landing
+    });
     handleAddressChange(address);
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
@@ -300,6 +305,11 @@ export default function AddressSelect({ landing, miniButton, onConfirm, onSkipAd
                 ? (
                   <div className={classes.hideMottoButtonContainer} onClick={() =>
                     {
+                      window.analytics.track('VIEW_MENU_BUTTON_CLICKED', {
+                        host: window.location.hostname,
+                        state: state,
+                        to_address_select: !state.geocode
+                      });
                       if (state.geocode) {
                           onSkipAddresPickerConfirm();
                         } else {
@@ -332,7 +342,16 @@ export default function AddressSelect({ landing, miniButton, onConfirm, onSkipAd
                           ? (
                             !miniButton
                               ? (<CheckCircle className = { classes.validIcon } ></CheckCircle>)
-                              : (<button className={classes.validAddressButtonNavbar} onClick={() => onConfirm(addressState, geocode)}>
+                            : (<button className={classes.validAddressButtonNavbar} onClick={() => {
+                              window.analytics.track('ADDRESS_CONFIRMED', {
+                                host: window.location.hostname,
+                                state: state,
+                                address: state.address,
+                                geocode: state.geocode,
+                                landing: state.landing
+                              });
+                              onConfirm(addressState, geocode)
+                            }}>
                                   <CheckCircle className={classes.validIconNavbar}></CheckCircle>
                                 </button>)
                           )
@@ -373,7 +392,16 @@ export default function AddressSelect({ landing, miniButton, onConfirm, onSkipAd
                   (
                     (coveredAddress) ? 
                       (
-                        <button className={classes.validAddressButton} onClick={() => onConfirm(addressState, geocode)}>
+                      <button className={classes.validAddressButton} onClick={() => {
+                        window.analytics.track('ADDRESS_CONFIRMED', {
+                          host: window.location.hostname,
+                          state: state,
+                          address: state.address,
+                          geocode: state.geocode,
+                          landing: state.landing
+                        });
+                        onConfirm(addressState, geocode)
+                      }}>
                           {landing ? 'View Menu' : 'Update Address'}
                         </button>
                       )

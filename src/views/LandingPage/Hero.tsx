@@ -197,10 +197,22 @@ export default function Hero() {
 
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
   const handleMenuButtonClick = () => {
+    window.analytics.track('HAMBURGER_MENU_BUTTON_CLICKED', {
+      host: window.location.hostname,
+      state: state,
+      to_address_select: !state.geocode,
+      landing: true
+    });
     setDrawerOpen(true);
   }
   
   const addressOnConfirm = (address: string, geocode: any) => {
+    window.analytics.track('CONFIRM_ADDRESS_FROM_LANDING', {
+      host: window.location.hostname,
+      state: state,
+      address: address,
+      geocode: geocode,
+    });
     goToMenu(dispatch, address, geocode);
   }
 
@@ -267,12 +279,26 @@ export default function Hero() {
                   <a className={classes.sideBarItemText} href="/orders">Orders</a>
                 </div> */}
                 <div className={classes.sideBarItem}>
-                  <a className={classes.sideBarItemText} onClick={() => logout({returnTo: window.location.origin})}>Log Out</a>
+                  <a className={classes.sideBarItemText} onClick={() => {
+                    window.analytics.track('HAMBURGER_MENU_LOG_OUT', {
+                      host: window.location.hostname,
+                      state: state,
+                      landing: state.landing
+                    });
+                    logout({ returnTo: window.location.origin });
+                  }}>Log Out</a>
                 </div>
               </>) :
               (<>
                 <div className={classes.sideBarItem}>
-                  <a className={classes.sideBarItemText} onClick={() => loginWithRedirect()}>Sign In</a>
+                  <a className={classes.sideBarItemText} onClick={() => {
+                    window.analytics.track('HAMBURGER_MENU_LOG_IN', {
+                      host: window.location.hostname,
+                      state: state,
+                      landing: state.landing
+                    });
+                    loginWithRedirect();
+                  }}>Sign In</a>
                 </div>
               </>)
             }

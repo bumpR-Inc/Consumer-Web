@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import React from "react";
 import { theme } from "../../components/Theme";
@@ -169,6 +169,14 @@ const useStyles = makeStyles({
 export default function Footer() {
   var classes = useStyles();
   const { state, dispatch } = React.useContext(Store); //can remove "dispatch"
+
+  useEffect(() => {
+    window.analytics.track('ORDER_HISTORY_PAGE_OPENNED', {
+      host: window.location.hostname,
+      state: state,
+    });
+  }, []);
+
   const [orders, setOrders] = useState<any[]>([]);
   const [ordersRecieved, setOrdersRecieved] = useState<boolean>(false);
   const [orderSelected, selectOrder] = useState<number>(
@@ -244,9 +252,13 @@ export default function Footer() {
         window.innerWidth > theme.breakpoints.values.md ? (
           <a
             className={classes.navText}
-            onClick={() => {
-              fromOrderHistory(dispatch);
-            }}
+              onClick={() => {
+                window.analytics.track('TO_MENU_FROM_ORDER_HISTORY', {
+                  host: window.location.hostname,
+                  state: state,
+                });
+                fromOrderHistory(dispatch);
+              }}
           >
             {"< Return to Ordering Page"}
           </a>
@@ -273,6 +285,12 @@ export default function Footer() {
                         (index == orderSelected ? " " + classes.selected : "")
                       }
                       onClick={() => {
+                        window.analytics.track('ORDER_HISTORY_ORDER_CLICKED', {
+                          host: window.location.hostname,
+                          state: state,
+                          order_index: index,
+                          orders: orders,
+                        });
                         onOrderClick(index);
                       }}
                     >

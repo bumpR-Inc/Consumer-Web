@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import App from "../../App";
 import CartModal from "../../components/OrderingUI/CartModal";
 import { fetchDataAction, fetchRestaurantsAction, toggleFavAction } from "../../state/Actions";
@@ -22,72 +22,18 @@ export default function MenuPage() {
     getAccessTokenWithPopup,
   } = useAuth0();
 
-  // const callApi = async () => {
-  //   try {
-  //     const token = await getAccessTokenSilently();
+  const { state, dispatch } = React.useContext(Store);
 
-  //     const response = await fetch(`http://localhost:3001/api/private`, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
+  useEffect(() => {
+    window.analytics.track('MENU_PAGE_OPENED', {
+      host: window.location.hostname,
+      state: state,
+    });
+  }, []);
 
-  //     const responseData = await response.json();
-  //     console.log(responseData);
-  //   } catch (error) {
-  //     console.log("Error in using auth token to hit private endpoint.");
-  //   }
-  // };
-  const callApi = async () => {
-
-    try {
-      const token = await getAccessTokenSilently();
-
-      axios.get(`${REACT_APP_BACKEND_API_URL}/private`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        }
-      })
-      .then((response) => {console.log(response);
-      })
-
-    } catch (error) {
-      console.log("Error in using auth token to hit private endpoint.");
-    }
-  };
-  //end of OAuth test stuff
-
-  //start of OAuth-enabled function to submit order
-  const submitOrder = async () => {
-    try {
-      const token = await getAccessTokenSilently();
-
-      axios
-        .post(`${REACT_APP_BACKEND_API_URL}/orderscreate`, 
-        {
-          restaurant: 1,//REMOVE RESTAURANT FIELDS, SHREYA REMOVING IT FROM THE BACKEND
-          deliveryTime: "2021-02-15",
-          location: "address placeholder",
-          menuItems: [1],
-          pricePaid: 10.00
-        }, 
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-        )
-        .then((response) => {
-          console.log(response);
-        });
-    } catch (error) {
-      console.log("Error in submitting post request for order");
-    }
-  };
 
   //end of OAuth-enabled function to submit order
 
-  const { state, dispatch } = React.useContext(Store);
   const [displayModal, setDisplayModal] = React.useState(false);
   const [fetched, setFetched] = useState<boolean>(false);
 
@@ -130,7 +76,14 @@ export default function MenuPage() {
                 <div className="cart-button-wrapper">
                   <div
                     className="cart-button"
-                    onClick={() => setDisplayModal(!displayModal)}
+                    onClick={() => {
+                      window.analytics.track('CART_OPENED', {
+                        host: window.location.hostname,
+                        state: state,
+                        cart: state.orders
+                      });
+                      setDisplayModal(!displayModal)
+                    }}
                   >
                     <h1>Cart ({state.orders.length})</h1>
                   </div>
@@ -143,13 +96,26 @@ export default function MenuPage() {
       {/* helps shade background, and makes it so that if you click background it closes modal. */}
       <div
         className={`Overlay ${displayModal ? "Show" : "Hide"}`}
-        onClick={() => setDisplayModal(!displayModal)}
+        onClick={() => {
+          window.analytics.track('CART_CLOSED', {
+            host: window.location.hostname,
+            state: state,
+            cart: state.orders
+          });
+          setDisplayModal(!displayModal);
+        }}
       />
       <div>
         <CartModal
-          closeFunction={() => setDisplayModal(false)}
+          closeFunction={() => {
+            window.analytics.track('CART_CLOSED', {
+              host: window.location.hostname,
+              state: state,
+              cart: state.orders
+            });
+            setDisplayModal(false);
+          }}
           displayModal={displayModal}
-          submitOrderFunction={submitOrder}
         />
       </div>
       <div className="menu-buffer"></div>

@@ -3,19 +3,23 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { Auth0Provider } from "@auth0/auth0-react";
+import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 import config from "./auth_config.json";
 import history from "./utils/history";
 import { RouteComponentProps } from "@reach/router";
 import { StoreProvider } from "./state/Store";
 import HttpsRedirect from './HttpsRedirect';
 
+declare global {
+  interface Window { analytics: any; }
+}
+
 const onRedirectCallback = (appState: any) => {
   // const path: string = window.location.origin.split('/?')[0] + "/";
   // console.log(path)
   // history.push(path);
   // );
-    window.history.replaceState({}, document.title, window.location.pathname);
+  window.history.replaceState({}, document.title, window.location.pathname);
   // window.location.assign('/',)
 };
 
