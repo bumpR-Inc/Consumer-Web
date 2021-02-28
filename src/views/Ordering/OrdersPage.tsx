@@ -1,6 +1,6 @@
 import React from "react";
 import { Store } from "../../state/Store";
-import { IMeal } from "../../state/interfaces";
+import { IMenuItem } from "../../state/interfaces";
 import { toggleFavAction } from "../../state/Actions";
 import VenmoBtn from "../../components/OrderingUI/VenmoBtn";
 import Wrapper from "./Wrapper";
@@ -15,20 +15,20 @@ export default function OrdersPage(): JSX.Element {
   var venmoLink: string = "venmo://paycharge?txn=pay&recipients=GN-delivery&amount=";//partial, still need more parameters
 
   const props = {
-    meals: state.orders, //do this instead of state.episodes for just the orders
+    menuItems: state.orders, //do this instead of state.episodes for just the orders
     store: { state, dispatch },
     toggleFavAction,
     orders: state.orders,
     //bascially looping over favorites, and if we click on unfavorite, then we get rid of it
   };
 
-  //calculates cost of meals
+  //calculates cost of menuItems
   const taxRate : number = .0725
-  var mealsCost = props.orders.reduce((accumulator : number, currentMeal : IMeal) => accumulator + (currentMeal.price), 0);
-  var tax : number = Math.round(mealsCost * taxRate * 100) / 100 //rounding to two decimals
+  var menuItemsCost = props.orders.reduce((accumulator : number, currentMeal : IMenuItem) => accumulator + (currentMeal.price), 0);
+  var tax : number = Math.round(menuItemsCost * taxRate * 100) / 100 //rounding to two decimals
   var tip : number = 0
   //TODO: ADD TIP OPTION, MAKE RESPONSIVE, FIGURE OUT WHAT HAPPENS IF VENMO ISN'T INSTALLED, ADD CASHAPP (SHOULDN'T BE HARD)
-  var totalCost : number = mealsCost + tip + tax
+  var totalCost : number = menuItemsCost + tip + tax
   venmoLink = venmoLink.concat(totalCost.toString());
   venmoLink = venmoLink.concat(
     "&note=Thanks%20for%20your%20Good%20Neighbor%20zero%20fee%20pre-order%21"
@@ -41,7 +41,7 @@ export default function OrdersPage(): JSX.Element {
           <CartList {...props} />
         </div>
         {console.log({ venmoLink })}
-        <p>Subtotal: ${mealsCost}</p>
+        <p>Subtotal: ${menuItemsCost}</p>
         <p>Tax: ${tax}</p>
         <p>Optional Tip: ${tip}</p>
         <p>To confirm your order, please pay ${totalCost} with Venmo below.</p>

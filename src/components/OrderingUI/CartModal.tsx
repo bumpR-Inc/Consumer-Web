@@ -10,7 +10,7 @@ import {
   toggleFavAction,
   toOrderHistory,
 } from "../../state/Actions";
-import { IMeal } from "../../state/interfaces";
+import { IAddIn, IMenuItem, IOrderItem } from "../../state/interfaces";
 import { Store } from "../../state/Store";
 import CustomCheckbox from "../Input/CustomCheckbox";
 import { theme } from "../Theme";
@@ -192,14 +192,6 @@ export default function CartModal(modalProps: any) {
     false
   ); //for tracking state of checkbox at bottom
 
-  const props = {
-    meals: state.orders, //do this instead of state.episodes for just the orders
-    store: { state, dispatch },
-    toggleFavAction,
-    orders: state.orders,
-    //bascially looping over favorites, and if we click on unfavorite, then we get rid of it
-  };
-
   //delivery fee
   const deliveryFee = 0.99;
 
@@ -207,16 +199,16 @@ export default function CartModal(modalProps: any) {
   var venmoLink: string =
     "venmo://paycharge?txn=pay&recipients=GN-delivery&amount="; //partial, still need more parameters
 
-  //calculates cost of meals
+  //calculates cost of menuItems
   const taxRate: number = 0.095;
-  var mealsCost = props.orders.reduce(
-    (accumulator: number, currentMeal: IMeal) =>
-      accumulator + currentMeal.price,
+  var menuItemsCost = state.orders.reduce(
+    (accumulator: number, item: IOrderItem) =>
+      accumulator + item.menuItem.price + item.add_ins.reduce((acc2: number, addIn: IAddIn) => acc2 + addIn.price, 0),
     0
   );
-  var tax: number = Math.round(mealsCost * taxRate * 100) / 100; //rounding to two decimals
+  var tax: number = Math.round(menuItemsCost * taxRate * 100) / 100; //rounding to two decimals
   //TODO: ADD TIP OPTION, MAKE RESPONSIVE, FIGURE OUT WHAT HAPPENS IF VENMO ISN'T INSTALLED, ADD CASHAPP (SHOULDN'T BE HARD)
-  var totalCost: number = mealsCost + tipAmt + tax + deliveryFee;
+  var totalCost: number = menuItemsCost + tipAmt + tax + deliveryFee;
   if (totalCost != state.totalCost) {
     setTotalCost(dispatch, totalCost);
   }
@@ -261,7 +253,12 @@ export default function CartModal(modalProps: any) {
       const post_body = {
         deliveryTime: reformattedLunchTime, //  example: 2006-10-25 14:30:59"
         location: state.address,
-        menuItems: state.orders.map((meal: IMeal) => meal.pk),
+        menuItems: state.orders.map((item: IOrderItem) => {
+          return {
+            menuItem: item.menuItem.pk,
+            addIns: item.add_ins.map((value: IAddIn) => value.pk)
+          };
+        }),
         pricePaid: state.totalCost,
         order_hash: state.orderCode,
         tip: tipAmt,
@@ -316,7 +313,7 @@ export default function CartModal(modalProps: any) {
             {/* <div className="cart-content-container"> */}
             <div className="cart-content">
               <div className="cart-cards-layout">
-                <CartList {...props} />
+                <CartList />
               </div>
               {isAuthenticated && (
                 <div className="cart-costs">
@@ -345,7 +342,7 @@ export default function CartModal(modalProps: any) {
                     />
                   </div>
                   <CartPriceBreakdown
-                    mealsCost={mealsCost}
+                    menuItemsCost={menuItemsCost}
                     tax={tax}
                     deliveryFee={deliveryFee}
                     tipAmt={tipAmt}
@@ -411,7 +408,7 @@ export default function CartModal(modalProps: any) {
           </div>
           <div
             className={`cart-review-order-button${
-              isAuthenticated && (!checkedPaidBox || props.orders.length <= 0)
+              isAuthenticated && (!checkedPaidBox || state.orders.length <= 0)
                 ? " cart-button-disabled"
                 : ""
             }`}
@@ -424,7 +421,7 @@ export default function CartModal(modalProps: any) {
                   cart: state.orders,
                 });
                 loginWithRedirect();
-              } else if (checkedPaidBox && props.meals.length > 0) {
+              } else if (checkedPaidBox && state.menuItems.length > 0) {
                 submitOrder();
                 clearOrderData(dispatch);
                 toOrderHistory(dispatch);
@@ -436,7 +433,7 @@ export default function CartModal(modalProps: any) {
         </div>
         {isAuthenticated &&
         attemptedToConfirmOrder &&
-        (!checkedPaidBox || props.orders.length <= 0) ? (
+        (!checkedPaidBox || state.orders.length <= 0) ? (
           !checkedPaidBox ? (
             <p className="cart-text cart-error">
               Please pay with Venmo and select the checkbox above to order.

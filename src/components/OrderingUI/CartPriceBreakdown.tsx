@@ -11,16 +11,16 @@ import "../../index.css";
 import addImg from "../assets/img/add.png";
 
 interface CartProps {
-  mealsCost: number;
+  menuItemsCost: number;
   tax: number;
   tipAmt: number;
   deliveryFee: number;
   totalCost: number;
 }
 
-export default function CartPriceBreakdown({mealsCost, tax, tipAmt, deliveryFee, totalCost}: CartProps) {
+export default function CartPriceBreakdown({menuItemsCost, tax, tipAmt, deliveryFee, totalCost}: CartProps) {
   // const classes = useStyles();
-  var roundedMealsCost = Math.round(mealsCost * 100) / 100;
+  var roundedMealsCost = Math.round(menuItemsCost * 100) / 100;
   var roundedTax = Math.round(tax * 100) / 100;
   var roundedDeliveryFee = Math.round(deliveryFee * 100) / 100;
   var roundedTipAmt = Math.round(tipAmt * 100) / 100;

@@ -1,4 +1,4 @@
-import { IAction, IMeal, IState, IRestaurant } from "./interfaces";
+import { IAction, IMenuItem, IState, IRestaurant, IOrderItem, getUniqueOrderItemIdentifier } from "./interfaces";
 import { REACT_APP_BACKEND_API_URL } from '../config';
 
 export const fetchDataAction = async (dispatch: any) => {
@@ -29,16 +29,16 @@ export const fetchRestaurantsAction = async (dispatch: any) => {
 export const toggleFavAction = (
   state: IState,
   dispatch: any,
-  meal: IMeal | any
+  menuItem: IMenuItem | any
 ): IAction => {
-  const mealInFav = state.orders.includes(meal);
+  const menuItemInFav = state.orders.includes(menuItem);
   let dispatchObj = {
     type: "ADD_FAV",
-    payload: meal,
+    payload: menuItem,
   };
-  if (mealInFav) {
+  if (menuItemInFav) {
     const favWithoutMeal = state.orders.filter(
-      (fav: IMeal) => fav.pk != meal.pk
+      (fav: IOrderItem) => fav.menuItem.pk != menuItem.pk
     ); //filter method removes obj if attribute is true
     dispatchObj = {
       type: "REMOVE_FAV",
@@ -48,25 +48,44 @@ export const toggleFavAction = (
   return dispatch(dispatchObj);
 };
 
-//need to fix and find a way to associate number of meals with each meal TODO/fix/bug. maybe can just add meal and then in the favs/order screen just combine the duplicates?
-export const addMeal = (
-  state: IState,
+export const openMealModal = (
   dispatch: any,
-  meal: IMeal | any
+  menuItem: IMenuItem | any
 ): IAction => {
-  // const episodeInFav = state.orders.includes(episode);
   let dispatchObj = {
-    type: "ADD_MEAL",
-    payload: meal,
+    type: "OPEN_MEAL_MODAL",
+    payload: menuItem,
   };
   return dispatch(dispatchObj);
 };
 
-//need to fix and find a way to associate number of meals with each meal TODO/fix/bug. maybe can just add meal and then in the favs/order screen just combine the duplicates?
+export const closeMealModal = (
+  dispatch: any,
+): IAction => {
+  let dispatchObj = {
+    type: "CLOSE_MEAL_MODAL",
+  };
+  return dispatch(dispatchObj);
+};
+
+//need to fix and find a way to associate number of menuItems with each menuItem TODO/fix/bug. maybe can just add menuItem and then in the favs/order screen just combine the duplicates?
+export const addOrderItem = (
+  dispatch: any,
+  item: IOrderItem | any
+): IAction => {
+  // const episodeInFav = state.orders.includes(episode);
+  let dispatchObj = {
+    type: "ADD_ORDER_ITEM",
+    payload: item,
+  };
+  return dispatch(dispatchObj);
+};
+
+//need to fix and find a way to associate number of menuItems with each menuItem TODO/fix/bug. maybe can just add menuItem and then in the favs/order screen just combine the duplicates?
 export const subtractMeal = (
   state: IState,
   dispatch: any,
-  meal: IMeal | any
+  item: IOrderItem | any
 ): IAction => {
   // const episodeInFav = state.orders.includes(episode);
   // let dispatchObj = {
@@ -74,17 +93,17 @@ export const subtractMeal = (
   //   payload: episode,
   // };
   // return dispatch(dispatchObj);
-  const ordersPks : Array<Number> = state.orders.map((meal: IMeal) => meal.pk);
-  const mealInOrders : boolean = ordersPks.includes(meal.pk);
+  const orderItemIdentifiers : Array<String> = state.orders.map((item: IOrderItem) => getUniqueOrderItemIdentifier(item));
+  const menuItemInOrders : boolean = orderItemIdentifiers.includes(getUniqueOrderItemIdentifier(item));
   let dispatchObj = {
-    type: "NO_CHANGE", //extra measure so that if there's no meal in orders, you can't subtract one
-    payload: meal, //don't really need because NO_CHANGE doesn't use episode
+    type: "NO_CHANGE", //extra measure so that if there's no menuItem in orders, you can't subtract one
+    payload: item, //don't really need because NO_CHANGE doesn't use episode
   };
 
-  if (mealInOrders) {
-    var idx = state.orders.findIndex((curr: IMeal) => curr.pk === meal.pk); //gets index of first instance of meal
+  if (menuItemInOrders) {
+    var idx = state.orders.findIndex((curr: IOrderItem) => getUniqueOrderItemIdentifier(curr) === getUniqueOrderItemIdentifier(item)); //gets index of first instance of menuItem
     const ordersMinusOneMeal = state.orders;
-    ordersMinusOneMeal.splice(idx, 1); //removes first intance of the passed in meal
+    ordersMinusOneMeal.splice(idx, 1); //removes first intance of the passed in menuItem
 
     dispatchObj = {
       type: "SUBTRACT_MEAL",

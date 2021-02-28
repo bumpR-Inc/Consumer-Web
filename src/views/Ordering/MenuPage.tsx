@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import App from "../../App";
 import CartModal from "../../components/OrderingUI/CartModal";
-import { fetchDataAction, fetchRestaurantsAction, toggleFavAction } from "../../state/Actions";
-import { IMealProps } from "../../state/interfaces";
+import { closeMealModal, fetchDataAction, fetchRestaurantsAction, toggleFavAction } from "../../state/Actions";
+import { IMenuItemProps } from "../../state/interfaces";
 import { Store } from "../../state/Store";
 import MenuWrapper from "./Wrapper";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
@@ -10,6 +10,7 @@ import axios from 'axios'
 import { CircularProgress, SwipeableDrawer, ThemeProvider } from "@material-ui/core";
 import { REACT_APP_BACKEND_API_URL } from '../../config';
 import { theme } from "../../components/Theme";
+import MealModal from "../../components/OrderingUI/MealModal";
 
 const MealList = React.lazy<any>(() => import("../../components/OrderingUI/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 const MealListByRestaurant = React.lazy<any>(() => import("../../components/OrderingUI/MealListByRestaurant")); //react lazy isntead of normal importing. see suspense and fallback below
@@ -38,8 +39,8 @@ export default function MenuPage() {
   const [fetched, setFetched] = useState<boolean>(false);
 
   React.useEffect(() => {
-    // if (state.meals?.length === 0 ?? false) {
-      //if state meals array is empty, run these functions to fill up state.
+    // if (state.menuItems?.length === 0 ?? false) {
+      //if state menuItems array is empty, run these functions to fill up state.
     if (!fetched) {
       fetchDataAction(dispatch);
       fetchRestaurantsAction(dispatch);
@@ -48,8 +49,8 @@ export default function MenuPage() {
     // }
   }); //useEffect hook is to get data as soon as user lands on the page
 
-  const props: IMealProps = {
-    meals: state.meals,
+  const props: IMenuItemProps = {
+    menuItems: state.menuItems,
     store: { state, dispatch },
     toggleFavAction: toggleFavAction,
     orders: state.orders,
@@ -93,6 +94,12 @@ export default function MenuPage() {
           </React.Fragment>
         </div>
       </div>
+
+      { state.menuItemInModal && 
+        <MealModal handleClose={() => {closeMealModal(dispatch)}}/>
+      }
+
+
       {/* helps shade background, and makes it so that if you click background it closes modal. */}
       <div
         className={`Overlay ${displayModal ? "Show" : "Hide"}`}
@@ -128,11 +135,11 @@ export default function MenuPage() {
 //   const { state, dispatch } = React.useContext(Store);
 
 //   React.useEffect(() => {
-//     state.meals.length === 0 && fetchDataAction(dispatch); //if state episodes array is empty, run this function
+//     state.menuItems.length === 0 && fetchDataAction(dispatch); //if state episodes array is empty, run this function
 //   }); //useEffect hook is to get data as soon as user lands on the page
 
-//   const props: IMealProps = {
-//     meals: state.meals,
+//   const props: IMenuItemProps = {
+//     menuItems: state.menuItems,
 //     store: { state, dispatch },
 //     toggleFavAction: toggleFavAction,
 //     orders: state.orders,
@@ -143,7 +150,7 @@ export default function MenuPage() {
 //         <React.Fragment>
 //           <React.Suspense fallback={<div>loading...</div>}>
 //             <div className="restaurant-name">Punjabi Dhaba</div>
-//             <section className="meal-layout">
+//             <section className="menuItem-layout">
 //               <MealList {...props} />
 //             </section>
 //           </React.Suspense>

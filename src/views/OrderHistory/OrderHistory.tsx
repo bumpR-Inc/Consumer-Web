@@ -220,10 +220,10 @@ export default function Footer() {
         } else {
           for (var i = 0; i < orders.length; i++) {
             let items_text = "";
-            for (var j = 0; j < orders[i].items_info.length; j++) {
+            for (var j = 0; j < orders[i].order_items.length; j++) {
               if (items_text.length < 50) {
-                items_text += orders[i].items_info[j].menuItem_info.foodName;
-                if (j < orders[i].items_info.length - 1) {
+                items_text += orders[i].order_items[j].menuItem.foodName;
+                if (j < orders[i].order_items.length - 1) {
                   items_text += ", ";
                 }
               } else {
@@ -333,11 +333,11 @@ export default function Footer() {
                     2216 Channing Way, Berkeley CA, 94704
                   </h1>
                 </div>
-                {orders[orderSelected]?.items_info?.map(
+                {orders[orderSelected]?.order_items?.map(
                   (value: any, index: number) => {
                     return (
                       <CartCard
-                        meal={value.menuItem_info}
+                        item={value}
                         numInCart={2}
                         addOnClick={() => {}}
                         subtractOnClick={() => {}}
@@ -348,7 +348,7 @@ export default function Footer() {
                 )}
                 <div className={classes.colBuffer} />
                 <CartPriceBreakdown
-                  mealsCost={//potential bug, jank since we don't pass in subtotal to the backend.
+                  menuItemsCost={//potential bug, jank since we don't pass in subtotal to the backend.
                     orders[orderSelected].pricePaid -
                     (orders[orderSelected].tax +
                     orders[orderSelected].tip +
@@ -577,16 +577,16 @@ export default function Footer() {
 //           }
 //         });
 //         // console.log(response);
-//         // console.log(response.data[0].items_info)
+//         // console.log(response.data[0].order_items)
         
 //         var orders = response.data;
 //         // console.log(orders);
         
 //         for (var i = 0; i < orders.length; i++){
 //           let items_text = "";
-//           for (var j = 0; j < orders[i].items_info.length; j++){
+//           for (var j = 0; j < orders[i].order_items.length; j++){
 //             if (items_text.length < 50) {
-//               items_text += orders[i].items_info[j].menuItem_info.foodName;
+//               items_text += orders[i].order_items[j].menuItem.foodName;
 //               if (j < orders[i].items_info.length - 1) {
 //                 items_text += ", ";
 //               }
@@ -678,7 +678,7 @@ export default function Footer() {
 //                   (value: any, index: number) => {
 //                     return (
 //                       <CartCard
-//                         meal={value.menuItem_info}
+//                         menuItem={value.menuItem}
 //                         numInCart={2}
 //                         addOnClick={() => {}}
 //                         subtractOnClick={() => {}}
@@ -689,7 +689,7 @@ export default function Footer() {
 //                 )}
 //                 <div className={classes.colBuffer} />
 //                 <CartPriceBreakdown
-//                   mealsCost={//potential bug: this is jank. this is because we don't pass in subtotal to backend.
+//                   menuItemsCost={//potential bug: this is jank. this is because we don't pass in subtotal to backend.
 //                     orders[orderSelected].pricePaid -
 //                     (orders[orderSelected].tax +
 //                     orders[orderSelected].deliveryFee +

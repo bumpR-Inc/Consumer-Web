@@ -12,6 +12,7 @@ import motto from "../../assets/img/landing/motto.png";
 import { theme } from "../Theme";
 import { Store } from "../../state/Store";
 import { useHistory } from "react-router-dom";
+import { updateAddress } from "../../state/Actions";
 
 const thresh: number = 12;
 
@@ -260,7 +261,7 @@ export default function AddressSelect({ landing, miniButton, onConfirm, onSkipAd
   let [validAddress, setValidAddress] = useState<boolean>(false);
   let [coveredAddress, setCoveredAddress] = useState<boolean>(false);
   let [showMotto, setShowMotto] = useState<boolean>(landing);
-  const { state } = React.useContext(Store);
+  const { dispatch, state } = React.useContext(Store);
 
   let setGeocode = (latLng: any) => {
     console.log(latLng);
@@ -355,7 +356,9 @@ export default function AddressSelect({ landing, miniButton, onConfirm, onSkipAd
                                   <CheckCircle className={classes.validIconNavbar}></CheckCircle>
                                 </button>)
                           )
-                            : (<Cancel className={classes.invalidIcon}></Cancel>)
+                        : (<Cancel className={classes.invalidIcon} onClick={() => {
+                          updateAddress(dispatch, "Set Location", null);
+                          }}></Cancel>)
                         ))
                       }
                     </div>

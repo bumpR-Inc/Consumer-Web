@@ -5,8 +5,8 @@
 export type Dispatch = React.Dispatch<IAction>;
 
 export interface IState {
-  meals: Array<IMeal>;
-  orders: Array<IMeal>;
+  menuItems: Array<IMenuItem>;
+  orders: Array<IOrderItem>;
   address?: string;
   geocode?: any;
   landing: boolean;
@@ -16,19 +16,55 @@ export interface IState {
   restaurants: Array<IRestaurant>;
   totalCost: number;
   orderCode: string;
+  menuItemInModal?: any,
 }
 
 export interface IAction {
   type: string;
-  payload: Array<IMeal> | any; //personally, could change to any or somehting else I htink
+  payload: Array<IMenuItem> | any; //personally, could change to any or somehting else I htink
 }
 
-export interface IMeal {
+export interface IOrderItem {
+  menuItem: IMenuItem,
+  add_ins: Array<IAddIn>
+}
+
+export const getUniqueOrderItemIdentifier = (item: IOrderItem) => {
+  const addInPks = item.add_ins.map((add_in: IAddIn) => add_in.pk);
+  return item.menuItem.pk.toString() + "_" + addInPks.sort().join("_");
+}
+
+export const compareOrderItems = (i1: IOrderItem, i2: IOrderItem) => {
+  return i1.menuItem.pk == i2.menuItem.pk && compareAddIns(i1.add_ins, i2.add_ins);
+} 
+
+function compareAddIns(_arr1: Array<IAddIn>, _arr2: Array<IAddIn>) {
+  if (
+    !Array.isArray(_arr1)
+    || !Array.isArray(_arr2)
+    || _arr1.length !== _arr2.length
+    ) {
+      return false;
+    }
+  
+  // .concat() to not mutate arguments
+  const arr1 = _arr1.concat().sort();
+  const arr2 = _arr2.concat().sort();
+  
+  for (let i = 0; i < arr1.length; i++) {
+      if (arr1[i] !== arr2[i]) {
+          return false;
+       }
+  }
+  
+  return true;
+}
+
+export interface IMenuItem {
   pk: number;
   foodName: string;
   description: string;
-  restaurant: number;
-  restaurant_info: {
+  restaurant: {
     pk: number;
     name: string;
     location: string;
@@ -36,10 +72,17 @@ export interface IMeal {
     generic_quota_status: boolean;
     quota: number;
   };
+  add_ins: Array<IAddIn>;
   dietaryRestrictions: string;
   picture_url: string;
   price: number;
   popularity: number;
+}
+
+export interface IAddIn {
+  pk: number;
+  name: string;
+  price: number;
 }
 
 export interface IRestaurant {
@@ -51,10 +94,10 @@ export interface IRestaurant {
   quota: number;
 }
 
-export interface IMealProps {
-  meals: Array<IMeal>;
+export interface IMenuItemProps {
+  menuItems: Array<IMenuItem>;
   store: { state: IState; dispatch: Dispatch };
-  toggleFavAction: (state: IState, dispatch: any, meal: IMeal) => IAction;
-  orders: Array<IMeal>;
+  toggleFavAction: (state: IState, dispatch: any, menuItem: IMenuItem) => IAction;
+  orders: Array<IMenuItem>;
   restaurants: Array<IRestaurant>;
 }

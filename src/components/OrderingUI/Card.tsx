@@ -28,23 +28,18 @@ export default function MediaCard(props: any) {
   const MAX_SUMMARY_LENGTH = 120;
   const { state } = React.useContext(Store);
 
-  var limitedSummary = props.meal.description; //prevents overflow, limits description length of the meal. TODO 1/8: ADD DESCRIPTION TO BACKEND!
-  //UNCOMMENT THE BOTTOM 4 LINES IF YOU WANT TO LIMIT MEAL DESCRIPTION/SUMMARY TO CERTAIN NUMBER OF CHARS INSTEAD OF HAVING POTENTIALLY INFINITE OVERFLOW
-  // if (limitedSummary != null && limitedSummary.length >= MAX_SUMMARY_LENGTH) {//if there's an empty string the first condition prevents error
-  //   limitedSummary = limitedSummary.substring(0, MAX_SUMMARY_LENGTH);
-  //   limitedSummary += "...";
-  // }
+  var limitedSummary = props.menuItem.description;
 
   return (
     <Card className={classes.root}>
       <div>
         <CardMedia
           className={classes.media}
-          image={props.meal.picture_url}
-          title={props.meal.name}
+          image={props.menuItem.picture_url}
+          title={props.menuItem.name}
         />
         <CardContent className={classes.cardContent}>
-          <div className="cardTitle">{props.meal.foodName}</div>
+          <div className="cardTitle">{props.menuItem.foodName}</div>
           <div className="cardTextContainer">
             <div className="cardText">{limitedSummary}</div>
           </div>
@@ -55,7 +50,7 @@ export default function MediaCard(props: any) {
           window.analytics.track('ADDED_TO_CART_FROM_MENU', {
             host: window.location.hostname,
             state: state,
-            meal: props.meal,
+            menuItem: props.menuItem,
             cart: state.orders
           });
           props.addOnClick();
@@ -63,10 +58,10 @@ export default function MediaCard(props: any) {
           <img src={addImg} className="cardAddBtn" />
         </Button>
         <div>
-          <p className="cardPrice">${props.meal.price}</p>
+          <p className="cardPrice">${props.menuItem.price}</p>
 
         </div>
-        {props.meal.dietaryRestrictions == "Vegetarian" ? <MealPropertyTag text={props.meal.dietaryRestrictions}/> : <p></p>}
+        {props.menuItem.dietaryRestrictions == "Vegetarian" ? <MealPropertyTag text={props.menuItem.dietaryRestrictions}/> : <p></p>}
       </div>
     </Card>
   );

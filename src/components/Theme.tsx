@@ -29,6 +29,12 @@ export const theme = createMuiTheme({
       main: '#FFFBF5',
     }
     
-  }
+  },
+  typography: {
+    fontSize: 18,
+    fontFamily: [
+      'Playfair',
+    ].join(','),
+  },
   
 });

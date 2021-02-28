@@ -8,7 +8,7 @@ initialDate.setDate(currentDate.getDate() + (7 + 1 - currentDate.getDay()) % 7);
 
 
 var initialState: IState = {
-  meals: [],
+  menuItems: [],
   orders: [],
   address: "Set Location",
   geocode: undefined,
@@ -18,7 +18,8 @@ var initialState: IState = {
   date: initialDate,
   restaurants: [],
   totalCost: 0, 
-  orderCode: ""//filled in cartmodal
+  orderCode: "",//filled in cartmodal,
+  menuItemInModal: undefined,
 };
 
 var localState = localStorage.getItem("state");
@@ -32,7 +33,7 @@ export const Store = React.createContext<IState | any>(initialState);
 function reducer(state: IState, action: IAction): IState {
   switch (action.type) {
     case "FETCH_DATA":
-      state = { ...state, meals: action.payload };
+      state = { ...state, menuItems: action.payload };
       break;
     case "FETCH_RESTAURANTS":
       state = { ...state, restaurants: action.payload };
@@ -43,7 +44,7 @@ function reducer(state: IState, action: IAction): IState {
     case "REMOVE_FAV":
       state = { ...state, orders: action.payload };
       break;
-    case "ADD_MEAL":
+    case "ADD_ORDER_ITEM":
       state = { ...state, orders: [...state.orders, action.payload] };
       break;
     case "SUBTRACT_MEAL":
@@ -63,6 +64,12 @@ function reducer(state: IState, action: IAction): IState {
         landing: true
       }
       break;
+    case "OPEN_MEAL_MODAL":
+        state = { ...state, menuItemInModal: action.payload };
+      break;
+    case "CLOSE_MEAL_MODAL":
+        state = { ...state, menuItemInModal: undefined };
+        break;
     case "TO_MOBILE_UPDATE_ADDRESS_PAGE":
       state = {
         ...state,

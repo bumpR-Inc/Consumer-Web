@@ -1,6 +1,6 @@
 import React from "react";
-import { addMeal, subtractMeal } from "../../state/Actions";
-import { IMeal, IRestaurant } from "../../state/interfaces";
+import { addOrderItem, subtractMeal } from "../../state/Actions";
+import { IMenuItem, IRestaurant } from "../../state/interfaces";
 import Card from "./Card";
 import CartCard from "./CartCard";
 import { theme } from "../Theme";
@@ -32,13 +32,13 @@ const useStyles = makeStyles({
 export default function MealListByRestaurant(props: any): Array<JSX.Element> {
 
     var classes = useStyles();
-    const { meals, toggleFavAction, orders, store } = props;
+    const { menuItems, toggleFavAction, orders, store } = props;
     const { state, dispatch } = store;
 
     return state.restaurants.map((currRestaurant: IRestaurant) => {
-        var mealsByRestaurant : Array<IRestaurant> = [];
-        mealsByRestaurant = state.meals.filter(
-          (curr: IMeal) => curr.restaurant_info.name === currRestaurant.name
+        var menuItemsByRestaurant : Array<IRestaurant> = [];
+        menuItemsByRestaurant = state.menuItems.filter(
+          (curr: IMenuItem) => curr.restaurant.name === currRestaurant?.name
         );
         return (
           <section key={currRestaurant.pk}>
@@ -46,8 +46,8 @@ export default function MealListByRestaurant(props: any): Array<JSX.Element> {
               <div className={classes.restaurantText}>{currRestaurant.name}</div>
               <div className="restaurant-line"></div>
               <div>
-                <section className="meal-layout">
-                  <MealList {...props} mealsByRestaurant={mealsByRestaurant} />
+                <section className="menuItem-layout">
+                  <MealList {...props} menuItemsByRestaurant={menuItemsByRestaurant} />
                 </section>
               </div>
             </div>
