@@ -15,7 +15,7 @@ import { IAddIn, IOrderItem } from "../../state/interfaces";
 const useStyles = makeStyles({
   root: {
     width: 500,
-    height: 300,
+    height: 295,
   },
   media: {
     height: 210,
@@ -50,44 +50,54 @@ export default function CartCard({item, hideButtons, numInCart, subtractOnClick,
   return (
     <div className="cart-card-container">
       <div className="cart-card-second-container">
-        <img className="cart-card-img" src={item.menuItem.picture_url}></img>
+        <div>
+          <img className="cart-card-img" src={item.menuItem.picture_url}></img>
+        </div>
         <div className="cart-card-content">
           <div className="cart-card-title">{item.menuItem.foodName}</div>
           <div className="cart-card-price">
             ${item.menuItem.price} | {item.menuItem.restaurant.name}
           </div>
-          {
-            item.add_ins.length > 0 && 
-            <div className="cart-card-price">
-              {add_ins}
-            </div>
-          }
-          {
-            !hideButtons &&
-            (<div className="cart-card-buttons-container">
+          {item.add_ins.length > 0 && (
+            <div className="cart-card-price">{add_ins}</div>
+          )}
+        </div>
+        <div>
+          {!hideButtons && (
+            <div className="cart-card-buttons-container">
               <div className="cart-card-buttons">
-                <div onClick={() => {
-                  window.analytics.track('SUB_QUANTITY_FROM_CART', {
-                    host: window.location.hostname,
-                    state: state,
-                    cart: state.orders,
-                    menuItem: item.menuItem
-                  });
-                  subtractOnClick();
-                }}>-</div>
-                {numInCart}
-                <div onClick={() => {
-                  window.analytics.track('ADD_QUANTITY_FROM_CART', {
-                    host: window.location.hostname,
-                    state: state,
-                    cart: state.orders,
-                    menuItem: item.menuItem
-                  });
-                  addOnClick();
-                }}>+</div>
+                <div
+                  onClick={() => {
+                    window.analytics.track("SUB_QUANTITY_FROM_CART", {
+                      host: window.location.hostname,
+                      state: state,
+                      cart: state.orders,
+                      menuItem: item.menuItem,
+                    });
+                    subtractOnClick();
+                  }}
+                >
+                  -
+                </div>
+                <div>
+                  {numInCart}
+                </div>
+                <div
+                  onClick={() => {
+                    window.analytics.track("ADD_QUANTITY_FROM_CART", {
+                      host: window.location.hostname,
+                      state: state,
+                      cart: state.orders,
+                      menuItem: item.menuItem,
+                    });
+                    addOnClick();
+                  }}
+                >
+                  +
+                </div>
               </div>
-            </div>)
-          }
+            </div>
+          )}
         </div>
       </div>
     </div>

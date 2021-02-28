@@ -65,7 +65,8 @@ const useStyles = makeStyles({
     fontSize: '2em',
     [theme.breakpoints.down('xs')]: {
       fontSize: '1.7em'
-    }
+    },
+    cursor: "pointer"
   }
 });
 
