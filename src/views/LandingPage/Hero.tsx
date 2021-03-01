@@ -156,6 +156,7 @@ const useStyles = makeStyles({
     // },
   },
   menuButton: {
+    cursor: 'pointer',
     backgroundColor: 'transparent',
     border: 'none',
     color: 'white',
