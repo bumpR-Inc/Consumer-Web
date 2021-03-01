@@ -1,6 +1,7 @@
 import React from "react";
 import { IState, IAction } from "./interfaces";
 
+const currentSchemaVersion: number = 0;
 const cacheState: boolean = true;
 const currentDate: Date = new Date();
 let initialDate: Date = new Date(currentDate.getTime());
@@ -23,9 +24,14 @@ var initialState: IState = {
 };
 
 var localState = localStorage.getItem("state");
-if (localState != null && cacheState) {
+var stateSchemaVersion: number = parseInt(localStorage.getItem("stateSchemeVersion") ?? "-1");
+if (localState != null && cacheState && stateSchemaVersion === currentSchemaVersion) {
   initialState = JSON.parse(localState);
   initialState.date = new Date(JSON.parse(localState).date);
+} else {
+  localStorage.setItem("stateSchemeVersion", currentSchemaVersion.toString());
+  var stateStringified = JSON.stringify(initialState);
+  localStorage.setItem("state", stateStringified);
 }
 
 export const Store = React.createContext<IState | any>(initialState);

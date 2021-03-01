@@ -290,6 +290,9 @@ export default function CartModal(modalProps: any) {
           });
 
           console.log(response);
+
+          clearOrderData(dispatch);
+          toOrderHistory(dispatch);
         });
     } catch (error) {
       window.analytics.track('SUBMITTED_FAILED', {
@@ -423,8 +426,6 @@ export default function CartModal(modalProps: any) {
                 loginWithRedirect();
               } else if (checkedPaidBox && state.menuItems.length > 0) {
                 submitOrder();
-                clearOrderData(dispatch);
-                toOrderHistory(dispatch);
               }
             }}
           >
