@@ -357,8 +357,8 @@ export default function AddressSelect({ landing, miniButton, onConfirm, onSkipAd
                                 </button>)
                           )
                         : (<Cancel className={classes.invalidIcon} onClick={() => {
-                          updateAddress(dispatch, "Set Location", null);
-                          }}></Cancel>)
+                            handleAddressChange('');
+;                          }}></Cancel>)
                         ))
                       }
                     </div>
