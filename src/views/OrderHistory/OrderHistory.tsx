@@ -330,7 +330,7 @@ export default function Footer() {
                 <div className={classes.orderDataContainer}>
                   <RoomIcon className={classes.orderIcon} />
                   <h1 className={classes.orderData}>
-                    2216 Channing Way, Berkeley CA, 94704
+                    {orders[orderSelected].location}
                   </h1>
                 </div>
                 {orders[orderSelected]?.order_items?.map(
