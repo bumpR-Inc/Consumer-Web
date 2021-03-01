@@ -19,231 +19,231 @@ const thresh: number = 12;
 const useStyles = makeStyles({
   container: {
     // backgroundColor: 'green',
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
     // gap: '3%',
   },
-  mottoContainer: {
-
-  },
+  mottoContainer: {},
   motto: {
-    height: 'auto',
-    width: '90vw',
-    maxWidth: '800px',
+    height: "auto",
+    width: "90vw",
+    maxWidth: "800px",
 
-    [theme.breakpoints.down('sm')]: {
-      width: '95vw',
-    }
+    [theme.breakpoints.down("sm")]: {
+      width: "95vw",
+    },
   },
   addressContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     width: "95vw",
-    maxWidth: theme.breakpoints.values.md.toString() + 'px',
+    maxWidth: theme.breakpoints.values.md.toString() + "px",
     // gap: "1vh",
   },
   hideMottoButtonContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    cursor: "pointer",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
 
     backgroundColor: theme.palette.info.main,
     border: "none",
     height: "100%",
-    width: '80%',
-    boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.5)',
+    width: "80%",
+    boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.5)",
 
-    borderRadius: '25px',
+    borderRadius: "25px",
 
-    '&:hover': {
-      color: 'black',
+    "&:hover": {
+      color: "black",
     },
   },
   addressInputContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
 
     backgroundColor: theme.palette.info.main,
     border: "none",
     height: "10vh",
-    width: '100%',
-    boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.5)',
+    width: "100%",
+    boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.5)",
 
-    borderRadius: '5px',
+    borderRadius: "5px",
   },
   mottoHideButton: {
-    '&hover': {
+    "&hover": {
       color: theme.palette.primary.main,
-    }
+    },
   },
   pinIconContainer: {
     width: "7%",
-    display: 'flex',
-    justifyContent: 'center',
-    [theme.breakpoints.down('sm')]: {
-      width: '10%',
+    display: "flex",
+    justifyContent: "center",
+    [theme.breakpoints.down("sm")]: {
+      width: "10%",
     },
   },
   pinIcon: {
     color: theme.palette.secondary.main,
-    fontSize: '3em',
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '2em',
+    fontSize: "3em",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "2em",
     },
   },
   hideMottoButton: {
-    fontFamily: 'Playfair-Bold',
-    fontSize: '4em',
+    fontFamily: "Playfair-Bold",
+    fontSize: "4em",
     color: theme.palette.secondary.main,
-    
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '2.5em',
+
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "2.5em",
     },
   },
   address: {
-    outline: 'none',
-    backgroundColor: 'transparent',
+    outline: "none",
+    backgroundColor: "transparent",
     border: "none",
     width: "86%",
     height: "10vh",
-    margin: '1%',
+    margin: "1%",
 
-    borderRadius: '5px',
+    borderRadius: "5px",
 
-    fontFamily: 'Playfair Display',
-    fontSize: '4em',
+    fontFamily: "Playfair Display",
+    fontSize: "4em",
     color: theme.palette.secondary.main,
 
-    MozBoxSizing: 'border-box',
-    WebkitBoxSizing: 'border-box',
-    boxSizing: 'border-box',
+    MozBoxSizing: "border-box",
+    WebkitBoxSizing: "border-box",
+    boxSizing: "border-box",
 
-    [theme.breakpoints.down('sm')]: {
-      width: '80%',
-      fontSize: '2.5em',
+    [theme.breakpoints.down("sm")]: {
+      width: "80%",
+      fontSize: "2.5em",
     },
   },
   validityIconContainer: {
-    height: '100%',
+    height: "100%",
     width: "7%",
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    [theme.breakpoints.down('sm')]: {
-      width: '10%',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    [theme.breakpoints.down("sm")]: {
+      width: "10%",
     },
   },
   loadingIcon: {
     color: theme.palette.primary.main,
-    fontSize: '3em',
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '2em',
+    fontSize: "3em",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "2em",
     },
   },
   validIcon: {
     color: theme.palette.success.main,
-    fontSize: '3em',
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '2em',
+    fontSize: "3em",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "2em",
     },
   },
   validIconNavbar: {
     color: theme.palette.info.main,
-    fontSize: '2em',
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '2em',
+    fontSize: "2em",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "2em",
     },
   },
   invalidIcon: {
     color: theme.palette.error.main,
-    fontSize: '3em',
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '2em',
+    fontSize: "3em",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "2em",
     },
   },
   addressSuggestionBox: {
-    margin: '1%',
+    cursor: "pointer",
+    margin: "1%",
     backgroundColor: theme.palette.info.main,
     border: "none",
-    width: '100%',
-    borderRadius: '5px',
-    boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.5)',
+    width: "100%",
+    borderRadius: "5px",
+    boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.5)",
 
-    MozBoxSizing: 'border-box',
-    WebkitBoxSizing: 'border-box',
-    boxSizing: 'border-box',
+    MozBoxSizing: "border-box",
+    WebkitBoxSizing: "border-box",
+    boxSizing: "border-box",
     "&hover": {
-      backgroundColor: 'pink',
-    }
+      backgroundColor: "pink",
+    },
   },
   addressSuggestionItem: {
-    fontFamily: 'Playfair Display',
+    fontFamily: "Playfair Display",
     color: theme.palette.secondary.main,
-    fontSize: '4em',
-    padding: '2%',
-    width: '100%',
-    MozBoxSizing: 'border-box',
-    WebkitBoxSizing: 'border-box',
-    boxSizing: 'border-box',
+    fontSize: "4em",
+    padding: "2%",
+    width: "100%",
+    MozBoxSizing: "border-box",
+    WebkitBoxSizing: "border-box",
+    boxSizing: "border-box",
 
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '2.5em',
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "2.5em",
     },
   },
   heroBuffer: {
-    flex: 1
+    flex: 1,
   },
   validAddressButton: {
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.info.main,
-    margin: '1%',
+    margin: "1%",
     border: "none",
-    width: '100%',
-    padding: '2%',
-    borderRadius: '5px',
-    fontFamily: 'Playfair Display',
-    fontSize: '4em',
-    boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.5)',
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '2.5em',
+    width: "100%",
+    padding: "2%",
+    borderRadius: "5px",
+    fontFamily: "Playfair Display",
+    fontSize: "4em",
+    boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.5)",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "2.5em",
     },
   },
   validAddressButtonNavbar: {
     backgroundColor: theme.palette.success.main,
     border: "none",
-    height: '100%',
-    width: '100%',
+    height: "100%",
+    width: "100%",
     "&:hover": {
       backgroundColor: theme.palette.success.dark,
-    }
+    },
   },
   invalidAddressLink: {
-    width: '100%',
+    width: "100%",
   },
   invalidAddressButton: {
-    width: '100%',
+    width: "100%",
     border: "none",
-    padding: '2%',
-    margin: '1%',
+    padding: "2%",
+    margin: "1%",
 
     backgroundColor: theme.palette.error.main,
     color: theme.palette.info.main,
-    borderRadius: '5px',
-    fontFamily: 'Playfair Display',
-    fontSize: '4em',
-    boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.5)',
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '2.5em',
+    borderRadius: "5px",
+    fontFamily: "Playfair Display",
+    fontSize: "4em",
+    boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.5)",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "2.5em",
     },
-  }
+  },
 });
 
 interface AddressSelectProps {

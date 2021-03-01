@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     height: 188,
   },
   cardContent: {
-    height: 45,
+    height: 50,
     // backgroundColor: "#FFFBF5",
   },
 });

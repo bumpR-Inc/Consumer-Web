@@ -37,6 +37,7 @@ const useStyles = makeStyles({
     }
   },
   logo: {
+    cursor: 'pointer',
     fontFamily: 'Playfair',
     color: theme.palette.info.main,
     margin: '4%',
