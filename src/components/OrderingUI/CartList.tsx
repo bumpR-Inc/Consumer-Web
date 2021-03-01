@@ -72,7 +72,6 @@ export default function CartList(props: any): Array<JSX.Element> {
   if (Object.keys(uniques).length > 0) {
     return Object.keys(uniques).map((key: string) => {
       return (
-        <section key={key}>
           <CartCard
             item={uniques[key].item}
             numInCart={uniques[key].quantity}
@@ -82,7 +81,6 @@ export default function CartList(props: any): Array<JSX.Element> {
             }}
             subtractOnClick={() => {subtractMeal(state, dispatch, uniques[key].item)}}
           />
-        </section>
       );
     }); //
   } else {

@@ -315,9 +315,7 @@ export default function CartModal(modalProps: any) {
           <div className={classes.cartContentContainer}>
             {/* <div className="cart-content-container"> */}
             <div className="cart-content">
-              <div className="cart-cards-layout">
-                <CartList />
-              </div>
+              <CartList />
               {isAuthenticated && (
                 <div className="cart-costs">
                   <div className="center">
