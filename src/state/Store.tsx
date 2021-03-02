@@ -6,6 +6,10 @@ const cacheState: boolean = true;
 const currentDate: Date = new Date();
 let initialDate: Date = new Date(currentDate.getTime());
 initialDate.setDate(currentDate.getDate() + (7 + 1 - currentDate.getDay()) % 7);
+initialDate.setHours(0);
+initialDate.setMinutes(0);
+initialDate.setSeconds(0);
+initialDate.setMilliseconds(0);
 
 
 var initialState: IState = {
@@ -28,6 +32,9 @@ var stateSchemaVersion: number = parseInt(localStorage.getItem("stateSchemeVersi
 if (localState != null && cacheState && stateSchemaVersion === currentSchemaVersion) {
   initialState = JSON.parse(localState);
   initialState.date = new Date(JSON.parse(localState).date);
+  if (initialState.date <= new Date()) {
+    initialState.date = initialDate
+  }
 } else {
   localStorage.setItem("stateSchemeVersion", currentSchemaVersion.toString());
   var stateStringified = JSON.stringify(initialState);

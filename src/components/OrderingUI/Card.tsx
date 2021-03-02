@@ -8,19 +8,66 @@ import "../../index.css";
 import addImg from "../../assets/img/ui/add.png";
 import MealPropertyTag from "./MealPropertyTag";
 import { Store } from "../../state/Store";
+import { theme } from "../Theme";
 
 const useStyles = makeStyles({
   root: {
-    width: 300,
-    height: 330,
+    width: '40vw',
+    maxWidth: '300px'
   },
   media: {
     height: 188,
+    [theme.breakpoints.down('sm')]: {
+      height: 135
+    }
   },
   cardContent: {
-    height: 50,
+    height: 100,
     // backgroundColor: "#FFFBF5",
+
+    [theme.breakpoints.down('sm')]: {
+      height: 170
+    }
   },
+  cardTitle: {
+    fontSize: '2.5em',
+    fontFamily: 'Playfair',
+    color: '#c9512b',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '2em'
+    },
+  },
+  cardTextContainer: {
+    // maxHeight: '38px',
+    // overflowY: 'scroll',
+  },
+  cartText: {
+    fontSize: '1.5em',
+    fontFamily: "Playfair",
+    color: '#272727',
+    letterSpacing: '.02em',
+
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1.7em'
+    },
+
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1.17em'
+    }
+  },
+  cardBottomFlexContainer: {
+    display: 'flex',
+    direction: 'rtl',
+    alignItems: 'center'
+  },
+  cardAddButton: {
+    height: '40px'
+  }, 
+  cardPrice: {
+    fontSize: '18px',
+    fontFamily: 'Playfair',
+    color: '#c9512b'
+  }
 });
 
 export default function MediaCard(props: any) {
@@ -39,13 +86,13 @@ export default function MediaCard(props: any) {
           title={props.menuItem.name}
         />
         <CardContent className={classes.cardContent}>
-          <div className="cardTitle">{props.menuItem.foodName}</div>
-          <div className="cardTextContainer">
-            <div className="cardText">{limitedSummary}</div>
+          <div className={classes.cardTitle}>{props.menuItem.foodName}</div>
+          <div className={classes.cardTextContainer}>
+            <div className={classes.cartText}>{limitedSummary}</div>
           </div>
         </CardContent>
       </div>
-      <div className="card-bottom-flex-container">
+      <div className={classes.cardBottomFlexContainer}>
         <Button onClick={() => {
           window.analytics.track('ADDED_TO_CART_FROM_MENU', {
             host: window.location.hostname,
@@ -55,13 +102,13 @@ export default function MediaCard(props: any) {
           });
           props.addOnClick();
         }}>
-          <img src={addImg} className="cardAddBtn" />
+          <img src={addImg} className={classes.cardAddButton} />
         </Button>
         <div>
-          <p className="cardPrice">${props.menuItem.price}</p>
+          <p className={classes.cardPrice}>${props.menuItem.price}</p>
 
         </div>
-        {props.menuItem.dietaryRestrictions == "Vegetarian" ? <MealPropertyTag text={props.menuItem.dietaryRestrictions}/> : <p></p>}
+        {props.menuItem.dietaryRestrictions == "Vegetarian" ? <MealPropertyTag text={"Veg"}/> : <p></p>}
       </div>
     </Card>
   );

@@ -11,6 +11,7 @@ import { CircularProgress, SwipeableDrawer, ThemeProvider } from "@material-ui/c
 import { REACT_APP_BACKEND_API_URL } from '../../config';
 import { theme } from "../../components/Theme";
 import MealModal from "../../components/OrderingUI/MealModal";
+import OrderCountdown from "../../components/OrderCountdown";
 
 const MealList = React.lazy<any>(() => import("../../components/OrderingUI/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 const MealListByRestaurant = React.lazy<any>(() => import("../../components/OrderingUI/MealListByRestaurant")); //react lazy isntead of normal importing. see suspense and fallback below
@@ -89,7 +90,11 @@ export default function MenuPage() {
                     <h1>Cart ({state.orders.length})</h1>
                   </div>
                 </div>
-              </div>)
+                </div>)
+            }
+            {
+              (window.innerWidth > theme.breakpoints.values.sm || state.orders.length <= 0) &&
+              <OrderCountdown/>
             }
           </React.Fragment>
         </div>

@@ -349,16 +349,6 @@ export default function CartModal(modalProps: any) {
                     tipAmt={tipAmt}
                     totalCost={totalCost}
                   />
-                  {/* <div className="cost-row">
-                    <p className="cardText">
-                      To confirm your order, please pay ${totalCost} with Venmo
-                      below.
-                    </p>
-                  </div> */}
-                  {/* <p>
-                    If you were ordering the same thing on DoorDash, you'd be
-                    paying ${totalCost * 2}!
-                  </p> */}
                 </div>
               )}
               {isAuthenticated && (

@@ -31,7 +31,6 @@ export default function MenuWrapper(props: any): JSX.Element {
         {props.children}
         <AppFooter/>
       </div>
-      <OrderCountdown/>
     </React.Fragment>
   );
 }
