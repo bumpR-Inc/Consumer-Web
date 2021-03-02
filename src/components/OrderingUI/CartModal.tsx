@@ -321,17 +321,15 @@ export default function CartModal(modalProps: any) {
                   <div className="center">
                     <p className={classes.cartText}>Tip:</p>
                     <TextField
-                      onChange={(event) =>
-                      {
-                        window.analytics.track('CHANGE_TIP_FROM_CART', {
+                      onChange={(event) => {
+                        window.analytics.track("CHANGE_TIP_FROM_CART", {
                           host: window.location.hostname,
                           state: state,
                           cart: state.orders,
-                          tip: event.target.value
+                          tip: event.target.value,
                         });
-                        setTipAmt(Number(event.target.value))
-                      }
-                      }
+                        setTipAmt(Number(event.target.value));
+                      }}
                       className={classes.tip}
                       type="number"
                       inputProps={{
@@ -361,8 +359,13 @@ export default function CartModal(modalProps: any) {
                   </p>
                   <p className={classes.cartText}>Address: {state.address}</p>
                   <p className={classes.cartText}>
-                    Date/Time: {dateFormat(state.date, "isoDate")}, Lunch
-                    (12-2pm)
+                    Date/Time: {dateFormat(state.date, "isoDate")}
+                  </p>
+                  <p className={classes.cartText}>
+                    Dinner (6pm-8pm) for Bunz and Seniore's
+                  </p>
+                  <p className={classes.cartText}>
+                    Lunch (12pm-2pm) for all other options
                   </p>
                   <VenmoBtn paymentLink={venmoLink} />
                   <QRCode value={venmoLink} className={classes.qrCode} />
@@ -374,13 +377,13 @@ export default function CartModal(modalProps: any) {
                   <div className="checkbox-row">
                     <CustomCheckbox
                       onChange={() => {
-                        window.analytics.track('PAID_BOX_CHANGED_FROM_CART', {
+                        window.analytics.track("PAID_BOX_CHANGED_FROM_CART", {
                           host: window.location.hostname,
                           state: state,
                           cart: state.orders,
-                          paid: !checkedPaidBox
+                          paid: !checkedPaidBox,
                         });
-                        setPaidBox(!checkedPaidBox)
+                        setPaidBox(!checkedPaidBox);
                       }}
                       label="Yes, I have paid with Venmo!"
                     />
@@ -406,7 +409,7 @@ export default function CartModal(modalProps: any) {
             onClick={function () {
               setAttemptedToConfirmOrder(true);
               if (!isAuthenticated) {
-                window.analytics.track('CART_LOG_IN', {
+                window.analytics.track("CART_LOG_IN", {
                   host: window.location.hostname,
                   state: state,
                   cart: state.orders,
