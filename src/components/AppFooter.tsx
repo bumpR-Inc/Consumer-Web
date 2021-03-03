@@ -117,7 +117,7 @@ const useStyles = makeStyles({
   },
   inverted: {
     color: theme.palette.primary.main,
-    backgroundColor: theme.palette.info.main
+    backgroundColor: theme.palette.secondary.main
   },
 });
 

@@ -17,6 +17,7 @@ import { theme } from "../Theme";
 import CartPriceBreakdown from "./CartPriceBreakdown";
 import VenmoBtn from "./VenmoBtn";
 import { REACT_APP_BACKEND_API_URL } from "../../config";
+import Loading from "../Loading";
 
 var dateFormat = require("dateformat");
 
@@ -28,13 +29,13 @@ const CartList = React.lazy<any>(() => import("./CartList"));
 const useStyles = makeStyles({
   tip: {
     width: "12%",
-    color: theme.palette.secondary.main,
+    color: theme.palette.info.main,
     colorSecondary: theme.palette.primary.main,
     underline: theme.palette.primary.main,
   },
   tipInput: {
     fontFamily: "Playfair",
-    color: theme.palette.secondary.main,
+    color: theme.palette.info.main,
     colorSecondary: theme.palette.primary.main,
     fontSize: "1.3em",
     padding: "2%",
@@ -187,6 +188,7 @@ export default function CartModal(modalProps: any) {
   const { state, dispatch } = React.useContext(Store);
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const [checkedPaidBox, setPaidBox] = React.useState(false); //for tracking state of checkbox at bottom
+  const [orderInProgress, setOrderInProgress] = React.useState(false); //for tracking if order button is clicked
   const [tipAmt, setTipAmt] = React.useState(0); //for tracking tip
   const [attemptedToConfirmOrder, setAttemptedToConfirmOrder] = React.useState(
     false
@@ -246,6 +248,7 @@ export default function CartModal(modalProps: any) {
   //start of OAuth-enabled function to submit order
   const submitOrder = async () => {
     try {
+      setOrderInProgress(true);
       var reformattedLunchTime =
         dateFormat(state.date, "isoDate") + " 12:30:00";
       // console.log(reformattedLunchTime);
@@ -283,6 +286,8 @@ export default function CartModal(modalProps: any) {
           }
         )
         .then((response) => {
+          setOrderInProgress(false);
+
           window.analytics.track('SUBMITTED_ORDER', {
             host: window.location.hostname,
             state: state,
@@ -295,6 +300,8 @@ export default function CartModal(modalProps: any) {
           toOrderHistory(dispatch);
         });
     } catch (error) {
+      setOrderInProgress(false);
+
       window.analytics.track('SUBMITTED_FAILED', {
         host: window.location.hostname,
         state: state,
@@ -416,11 +423,17 @@ export default function CartModal(modalProps: any) {
                 });
                 loginWithRedirect();
               } else if (checkedPaidBox && state.menuItems.length > 0) {
-                submitOrder();
+                if (!orderInProgress) {
+                  submitOrder();
+                }
               }
             }}
           >
-            {isAuthenticated ? "Place Order" : "Sign In To Order"}
+            {isAuthenticated ? (
+              !orderInProgress ? 
+                "Place Order" :
+                <Loading primary={false}/>
+            ) : "Sign In To Order"}
           </div>
         </div>
         {isAuthenticated &&

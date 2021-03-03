@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   dialog: {
   },
   dialogCard: {
-    background: theme.palette.info.main,
+    background: theme.palette.secondary.main,
     padding: '6%',
     paddingTop: '6%',
     paddingBottom: '6%',
@@ -42,7 +42,7 @@ const useStyles = makeStyles({
     borderRadius: '10px'
   },
   dialogDescription: {
-    color: theme.palette.secondary.main,
+    color: theme.palette.info.main,
     fontSize: '2em',
     fontFamily: 'Playfair',
     marginTop: '1vw',
@@ -60,7 +60,7 @@ const useStyles = makeStyles({
     border: 'none',
     borderRadius: '20px',
     outline: 'none',
-    color: theme.palette.info.main,
+    color: theme.palette.secondary.main,
     fontFamily: 'Playfair',
     fontSize: '2em',
     [theme.breakpoints.down('xs')]: {

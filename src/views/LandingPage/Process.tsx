@@ -33,7 +33,7 @@ const useStyles = makeStyles({
     height: '400px',
     minWidth: '300px',
     width: '20vw',
-    backgroundColor: theme.palette.info.main,
+    backgroundColor: theme.palette.secondary.main,
     borderRadius: '5px',
     display: 'flex',
     flexDirection: 'column',
@@ -79,7 +79,7 @@ const useStyles = makeStyles({
     fontSize: '2em',
     fontFamily: 'Playfair',
     marginTop: '10px',
-    color: theme.palette.secondary.main,
+    color: theme.palette.info.main,
   }
 });
 

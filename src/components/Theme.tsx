@@ -15,7 +15,7 @@ export const theme = createMuiTheme({
       main: '#C9512B',
       dark: '#B04A29'
     },
-    secondary: { // grey
+    info: { // grey
       main: '#545453',
     },
     error: { // red
@@ -25,7 +25,7 @@ export const theme = createMuiTheme({
       main: '#428D36',
       dark: '#337129'
     },
-    info: { // off-white 
+    secondary: { // off-white 
       main: '#FFFBF5',
     }
     

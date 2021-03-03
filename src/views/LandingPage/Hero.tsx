@@ -96,7 +96,7 @@ const useStyles = makeStyles({
     margin: '0px !important',
     textAlign: 'center',
     // fontSize: '5em',
-    color: theme.palette.info.main,
+    color: theme.palette.secondary.main,
     
     [theme.breakpoints.up('xs')]: {
       fontSize: '8.5vw',
@@ -131,7 +131,7 @@ const useStyles = makeStyles({
     fontFamily: 'Playfair Display',
     textAlign: 'right',
     fontSize: '3em',
-    color: theme.palette.info.main,
+    color: theme.palette.secondary.main,
     margin: '6%',
     "&:hover": {
       textDecoration: 'underline',
@@ -141,7 +141,7 @@ const useStyles = makeStyles({
     },
   },
   menuIcon: {
-    color: theme.palette.info.main,
+    color: theme.palette.secondary.main,
     fontSize: '3em',
     [theme.breakpoints.up('xs')]: {
       fontSize: '8.5vw',
@@ -171,7 +171,7 @@ const useStyles = makeStyles({
     width: '20vw',
     minWidth: '250px',
     height: '100vh',
-    backgroundColor: theme.palette.info.main,
+    backgroundColor: theme.palette.secondary.main,
 
     display: 'flex',
     flexDirection: 'column',

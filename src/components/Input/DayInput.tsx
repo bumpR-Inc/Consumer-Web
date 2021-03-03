@@ -1,4 +1,3 @@
-import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
 import Popover from "@material-ui/core/Popover";
 import React, { useState, PointerEvent } from "react";
 import { Store } from "../../state/Store";
@@ -10,6 +9,7 @@ import { setDate } from "../../state/Actions";
 import axios from "axios";
 import { REACT_APP_BACKEND_API_URL } from "../../config";
 import { CircularProgress } from "@material-ui/core";
+import Loading from "../Loading";
 
 
 interface DateModalProps {
@@ -97,8 +97,6 @@ export default function DayInput({handleSelect}: DateModalProps) {
       />
     );
   } else {
-    return (<ThemeProvider theme={theme}>
-      <CircularProgress color="primary" />
-    </ThemeProvider>);
+    return (<Loading primary={true}/>);
   }
 }

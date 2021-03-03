@@ -39,7 +39,7 @@ const useStyles = makeStyles({
   logo: {
     cursor: 'pointer',
     fontFamily: 'Playfair',
-    color: theme.palette.info.main,
+    color: theme.palette.secondary.main,
     margin: '4%',
     fontSize: '4em',
     fontWeight: 'bold',
@@ -54,7 +54,7 @@ const useStyles = makeStyles({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    backgroundColor: theme.palette.info.main,
+    backgroundColor: theme.palette.secondary.main,
     filter: 'drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.25))',
     boxSizing: "border-box",
     MozBoxSizing: "border-box",
@@ -89,8 +89,8 @@ const useStyles = makeStyles({
     },
 
     '&:hover': {
-      color: theme.palette.secondary.main,
-      borderBottom: `solid 2px ${theme.palette.secondary.main}`,
+      color: theme.palette.info.main,
+      borderBottom: `solid 2px ${theme.palette.info.main}`,
     }, 
 
     '&:focus': {
@@ -98,11 +98,11 @@ const useStyles = makeStyles({
     } 
   },
   detailsTo: {
-    color: theme.palette.secondary.main,
+    color: theme.palette.info.main,
     borderBottom: 'none',
 
     '&:hover': {
-      color: theme.palette.secondary.main,
+      color: theme.palette.info.main,
       borderBottom: `none`,
     }, 
   },
@@ -120,7 +120,7 @@ const useStyles = makeStyles({
     width: '20vw',
     minWidth: '250px',
     height: '100vh',
-    backgroundColor: theme.palette.info.main,
+    backgroundColor: theme.palette.secondary.main,
 
     display: 'flex',
     flexDirection: 'column',

@@ -44,7 +44,7 @@ export default function LandingPage() {
         {/* <Footer/>  */}
         <AppFooter invertColors={true} />
         <OrderCountdown/>
-    </React.Fragment>``
+    </React.Fragment>
   </div>)
   ;
 }

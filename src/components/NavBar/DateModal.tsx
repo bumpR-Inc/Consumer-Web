@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     height: '100%',
   },
   dialogCard: {
-    background: theme.palette.info.main,
+    background: theme.palette.secondary.main,
     padding: '7vw',
     display: 'flex',
     flexDirection: 'column',

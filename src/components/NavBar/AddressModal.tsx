@@ -30,7 +30,7 @@ const useStyles = makeStyles({
     minWidth: '100vw',
   },
   dialogCard: {
-    background: theme.palette.info.main,
+    background: theme.palette.secondary.main,
     padding: '7vw',
     display: 'flex',
     flexDirection: 'column',

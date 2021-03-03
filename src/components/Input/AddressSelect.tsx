@@ -52,7 +52,7 @@ const useStyles = makeStyles({
     justifyContent: "center",
     alignItems: "center",
 
-    backgroundColor: theme.palette.info.main,
+    backgroundColor: theme.palette.secondary.main,
     border: "none",
     height: "100%",
     width: "80%",
@@ -70,7 +70,7 @@ const useStyles = makeStyles({
     justifyContent: "center",
     alignItems: "center",
 
-    backgroundColor: theme.palette.info.main,
+    backgroundColor: theme.palette.secondary.main,
     border: "none",
     height: "10vh",
     width: "100%",
@@ -92,7 +92,7 @@ const useStyles = makeStyles({
     },
   },
   pinIcon: {
-    color: theme.palette.secondary.main,
+    color: theme.palette.info.main,
     fontSize: "3em",
     [theme.breakpoints.down("sm")]: {
       fontSize: "2em",
@@ -101,7 +101,7 @@ const useStyles = makeStyles({
   hideMottoButton: {
     fontFamily: "Playfair-Bold",
     fontSize: "4em",
-    color: theme.palette.secondary.main,
+    color: theme.palette.info.main,
 
     [theme.breakpoints.down("sm")]: {
       fontSize: "2.5em",
@@ -119,7 +119,7 @@ const useStyles = makeStyles({
 
     fontFamily: "Playfair Display",
     fontSize: "4em",
-    color: theme.palette.secondary.main,
+    color: theme.palette.info.main,
 
     MozBoxSizing: "border-box",
     WebkitBoxSizing: "border-box",
@@ -155,7 +155,7 @@ const useStyles = makeStyles({
     },
   },
   validIconNavbar: {
-    color: theme.palette.info.main,
+    color: theme.palette.secondary.main,
     fontSize: "2em",
     [theme.breakpoints.down("sm")]: {
       fontSize: "2em",
@@ -171,7 +171,7 @@ const useStyles = makeStyles({
   addressSuggestionBox: {
     cursor: "pointer",
     margin: "1%",
-    backgroundColor: theme.palette.info.main,
+    backgroundColor: theme.palette.secondary.main,
     border: "none",
     width: "100%",
     borderRadius: "5px",
@@ -186,7 +186,7 @@ const useStyles = makeStyles({
   },
   addressSuggestionItem: {
     fontFamily: "Playfair Display",
-    color: theme.palette.secondary.main,
+    color: theme.palette.info.main,
     fontSize: "4em",
     padding: "2%",
     width: "100%",
@@ -203,7 +203,7 @@ const useStyles = makeStyles({
   },
   validAddressButton: {
     backgroundColor: theme.palette.primary.main,
-    color: theme.palette.info.main,
+    color: theme.palette.secondary.main,
     margin: "1%",
     border: "none",
     width: "100%",
@@ -235,7 +235,7 @@ const useStyles = makeStyles({
     margin: "1%",
 
     backgroundColor: theme.palette.error.main,
-    color: theme.palette.info.main,
+    color: theme.palette.secondary.main,
     borderRadius: "5px",
     fontFamily: "Playfair Display",
     fontSize: "4em",

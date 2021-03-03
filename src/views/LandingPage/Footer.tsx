@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     flexDirection: 'row',
     width: '100vw',
     // height: '24vh',
-    backgroundColor: theme.palette.info.main,
+    backgroundColor: theme.palette.secondary.main,
     justifyContent: 'center',
     alignItems: 'center',
     boxSizing: 'border-box',
