@@ -26,7 +26,9 @@ const useStyles = makeStyles({
     padding: '2%'
   },
   image: {
-    height: '100px'
+    height: '100px',
+    width: '125px',
+    objectFit: 'cover'
   },
   detailContainer: {
     flex: 1,

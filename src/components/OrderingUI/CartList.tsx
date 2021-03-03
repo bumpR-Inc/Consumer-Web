@@ -34,41 +34,9 @@ export default function CartList(props: any): Array<JSX.Element> {
         quantity: 1,
         item: state.orders[i]
       }
-      // // uniques[ifier].quantity = 1;
-      // uniques[identidentifier].item = state.orders[i];
     }
   }
-  // console.log(state.orders);
-  // const menuItemsPks = state.orders.map((menuItem: IOrderItem) => menuItem.menuItem.pk);
-  // const uniqueMealsPks = Array.from(new Set<any>(menuItemsPks));
-  // const uniqueMealsArray = state.menuItems.filter((curr: IMenuItem) =>
-  //   uniqueMealsPks.includes(curr.pk)
-  // ); //Important: converts array to set, removing duplicates and then convert back to array
-
-  // const uniqueMealsArray = uniqueMealsPks.map(())
-
-  // var uniqueMealsArray: Array<IMenuItem> = [];
-  // var seenPks: Array<Number> = [];
-  // var ordersIndex = 0
-  // while (ordersIndex < orders.length) {
-  //   var currMeal: IMenuItem = orders[ordersIndex];
-  //   // if (!seenPks.includes(currMeal.pk)) {
-  //     uniqueMealsArray.concat(currMeal);
-  //     seenPks.concat(ordersIndex);
-  //   // }
-  //   ordersIndex = ordersIndex + 1;
-  // }
-
-  // const uniqueMealsArray = Array.from(new Set<IMenuItem>(orders)); //Important: converts array to set, removing duplicates and then convert back to array
-  // const uniqueMealsArray : Array<IMenuItem> = [] //Important: converts array to set, removing duplicates and then convert back to array
-
-  // const uniqueMealsArray = Array.from(new Set<IMenuItem>(orders)); //og Important: converts array to set, removing duplicates and then convert back to array
-  // var seenPks: Array<Number> = [];
-  // for (var currMeal in uniqueMealsArray) {
-  //   currMeal;
-  // }
-
-  //bug: if cache is turned to true in store, in creates differing verisons of the same item with the same key so menuItems can show up multiple times in cart.
+  
   if (Object.keys(uniques).length > 0) {
     return Object.keys(uniques).map((key: string) => {
       return (
