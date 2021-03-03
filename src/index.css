@@ -80,6 +80,12 @@ h1 {
     url("./assets/fonts/MightyBrush.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "BrushNum";
+  src: local("BrushNum"),
+    url("./assets/fonts/Rustico-Regular.otf") format("truetype");
+}
+
 /* @font-face {
   font-family: "Playfair-Bold";
   src: local("Playfair-Bold"),

@@ -62,7 +62,7 @@ const useStyles = makeStyles({
   },
   cardNumber: {
     display: 'inline',
-    fontFamily: 'Rustico',
+    fontFamily: 'BrushNum',
     fontSize: '4em',
     textAlign: 'center',
     color: theme.palette.primary.main,
