@@ -22,9 +22,10 @@ var initialState: IState = {
   mobileUpdateAddressPage: false,
   date: initialDate,
   restaurants: [],
-  totalCost: 0, 
-  orderCode: "",//filled in cartmodal,
+  totalCost: 0,
+  orderCode: "", //filled in cartmodal,
   menuItemInModal: undefined,
+  referralCode: "",//filled in cartmodal
 };
 
 var localState = localStorage.getItem("state");
@@ -74,15 +75,15 @@ function reducer(state: IState, action: IAction): IState {
     case "FROM_MENU":
       state = {
         ...state,
-        landing: true
-      }
+        landing: true,
+      };
       break;
     case "OPEN_MEAL_MODAL":
-        state = { ...state, menuItemInModal: action.payload };
+      state = { ...state, menuItemInModal: action.payload };
       break;
     case "CLOSE_MEAL_MODAL":
-        state = { ...state, menuItemInModal: undefined };
-        break;
+      state = { ...state, menuItemInModal: undefined };
+      break;
     case "TO_MOBILE_UPDATE_ADDRESS_PAGE":
       state = {
         ...state,
@@ -114,7 +115,7 @@ function reducer(state: IState, action: IAction): IState {
         orders: [],
         orderCode: "",
         totalCost: 0,
-      }
+      };
       break;
     case "SET_TOTAL_COST":
       state = {
@@ -129,17 +130,23 @@ function reducer(state: IState, action: IAction): IState {
       };
       break;
     case "TO_ORDER_HISTORY":
-        state = {
-          ...state,
-          orderHistory: true,
-        };
+      state = {
+        ...state,
+        orderHistory: true,
+      };
       break;
     case "FROM_ORDER_HISTORY":
-        state = {
-          ...state,
-          orderHistory: false,
-        };
-        break;
+      state = {
+        ...state,
+        orderHistory: false,
+      };
+      break;
+    case "SET_REFERRAL_CODE":
+      state = {
+        ...state,
+        referralCode: action.payload["referralCode"],
+      };
+      break;
     case "NO_CHANGE":
       state = state;
       break;

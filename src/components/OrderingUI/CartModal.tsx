@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { TextField } from "@material-ui/core";
+import { setRef, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import React from "react";
@@ -9,6 +9,7 @@ import {
   setTotalCost,
   toggleFavAction,
   toOrderHistory,
+  setReferralCode
 } from "../../state/Actions";
 import { IAddIn, IMenuItem, IOrderItem } from "../../state/interfaces";
 import { Store } from "../../state/Store";
@@ -18,6 +19,7 @@ import CartPriceBreakdown from "./CartPriceBreakdown";
 import VenmoBtn from "./VenmoBtn";
 import { REACT_APP_BACKEND_API_URL } from "../../config";
 import Loading from "../Loading";
+import { ContactSupportOutlined } from "@material-ui/icons";
 
 var dateFormat = require("dateformat");
 
@@ -37,7 +39,7 @@ const useStyles = makeStyles({
     fontFamily: "Playfair",
     color: theme.palette.info.main,
     colorSecondary: theme.palette.primary.main,
-    fontSize: "1.3em",
+    fontSize: "1.25em",
     padding: "2%",
     width: "100%",
     min: "0",
@@ -186,16 +188,16 @@ const useStyles = makeStyles({
 export default function CartModal(modalProps: any) {
   var classes = useStyles();
   const { state, dispatch } = React.useContext(Store);
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { isAuthenticated, loginWithRedirect, logout, getAccessTokenSilently } = useAuth0();
   const [checkedPaidBox, setPaidBox] = React.useState(false); //for tracking state of checkbox at bottom
   const [orderInProgress, setOrderInProgress] = React.useState(false); //for tracking if order button is clicked
   const [tipAmt, setTipAmt] = React.useState(0); //for tracking tip
   const [attemptedToConfirmOrder, setAttemptedToConfirmOrder] = React.useState(
     false
   ); //for tracking state of checkbox at bottom
-
-  //delivery fee
-  const deliveryFee = 0.99;
+  const [validRefCode, setValidRefCode] = React.useState("");//if validRefCode != "", then it applies and user gets the discount. If validRefCode is "", then no valid ref code for discount.
+  const [deliveryFee, setDeliveryFee] = React.useState(.99);//set to 0 if validRefCode != ""
+  const [alreadyUsedReferral, setAlreadyUsedReferral] = React.useState(undefined);//hides referral code entry section if true
 
   //Cost math and venmo string manipulation
   var venmoLink: string =
@@ -235,12 +237,84 @@ export default function CartModal(modalProps: any) {
   }
   venmoLink = venmoLink.concat(state.orderCode);
 
-  const {
-    getAccessTokenSilently,
-    loginWithPopup,
-    getAccessTokenWithPopup,
-  } = useAuth0();
 
+  //referral code functions
+  //get user's referral code from backend
+  const getReferralCode = async () => {
+    try {
+      const token = await getAccessTokenSilently();
+
+      await axios.get(
+        `${REACT_APP_BACKEND_API_URL}/referralCode`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      ).then((response) => {
+        setReferralCode(dispatch, response.data)
+      })
+      // console.log(response.data);
+    } catch (error) {
+      console.log("Error in getting referral code.");
+    }
+  }
+  //gets and sets self referralcode in store
+  if (state.referralCode == "" && isAuthenticated) {
+    getReferralCode();
+  } else if (!isAuthenticated) {//need to reset if switching between user accounts
+    if (state.referralCode != "") {
+      setReferralCode(dispatch, "");
+    }
+  }
+
+    const validateReferralCode = async (refCode: string) => {
+      try {
+        const token = await getAccessTokenSilently();
+        await axios
+          .get(`${REACT_APP_BACKEND_API_URL}/validReferralCode/${refCode}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            if (response.data.valid) {
+              setValidRefCode(refCode);
+              setDeliveryFee(0);
+            }
+            console.log(response);
+          });
+        // console.log(response.data);
+      } catch (error) {
+        console.log("Error in validating referral code.");
+      }
+    };
+
+  //checks to see whether this user already used ref code.
+  const checkIfAlreadyUsedReferral = async () => {
+    try {
+      const token = await getAccessTokenSilently();
+
+      await axios
+        .get(`${REACT_APP_BACKEND_API_URL}/referralCodeUsed`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setAlreadyUsedReferral(response.data);
+          console.log()
+        });
+      // console.log(response.data);
+    } catch (error) {
+      console.log("Error in getting referral code.");
+    }
+  };
+
+  if (alreadyUsedReferral == undefined) {
+    checkIfAlreadyUsedReferral();
+  }
+  
   //for isoTime, use "isoTime string with dateFormat"
   //  var reformattedLunchTime = dateFormat(state.date, "isoDate") + " 12:30:00";
   //  console.log(reformattedLunchTime);
@@ -267,6 +341,8 @@ export default function CartModal(modalProps: any) {
         tip: tipAmt,
         tax: tax,
         deliveryFee: deliveryFee,
+        referralDiscount: .99 - deliveryFee,//jank, potential bug
+        referral: validRefCode,
       };
 
       window.analytics.track('SUBMIT_ORDER_ATTEMPTED', {
@@ -340,9 +416,6 @@ export default function CartModal(modalProps: any) {
                       className={classes.tip}
                       type="number"
                       inputProps={{
-                        min: "0",
-                        max: "2499",
-                        step: "1",
                         className: classes.tipInput,
                       }}
                     />
@@ -354,6 +427,35 @@ export default function CartModal(modalProps: any) {
                     tipAmt={tipAmt}
                     totalCost={totalCost}
                   />
+                  {alreadyUsedReferral ? (
+                    <p></p>
+                  ) : (
+                    <div className="center">
+                      <p className={classes.cartText}>
+                        1st Time Referral Code (Optional):
+                      </p>
+                      <TextField
+                        onChange={(event) => {
+                          var currReferralCode: string = String(
+                            event.target.value
+                          );
+                          if (currReferralCode.length != 0) {
+                            //hardcoded value, which is kind of bad
+                            validateReferralCode(currReferralCode);
+                            if (validRefCode != "") {
+                              setDeliveryFee(0);
+                            }
+                          }
+                          // setTipAmt(Number(event.target.value));
+                        }}
+                        className={classes.tip}
+                        type="text"
+                        inputProps={{
+                          className: classes.tipInput,
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
               )}
               {isAuthenticated && (
@@ -361,8 +463,7 @@ export default function CartModal(modalProps: any) {
                   <p className={classes.cartText}>
                     To pay via Venmo and place your order, first tap the Venmo
                     button below from your phone, or scan the QR code from your
-                    camera app if ordering from a desktop. Then, hit "Place
-                    Order."
+                    camera app (not the Venmo app). Then, hit "Place Order."
                   </p>
                   <p className={classes.cartText}>Address: {state.address}</p>
                   <p className={classes.cartText}>
@@ -430,10 +531,14 @@ export default function CartModal(modalProps: any) {
             }}
           >
             {isAuthenticated ? (
-              !orderInProgress ? 
-                "Place Order" :
-                <Loading primary={false}/>
-            ) : "Sign In To Order"}
+              !orderInProgress ? (
+                "Place Order"
+              ) : (
+                <Loading primary={false} />
+              )
+            ) : (
+              "Sign In To Order"
+            )}
           </div>
         </div>
         {isAuthenticated &&
