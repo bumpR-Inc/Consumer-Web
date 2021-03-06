@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { addOrderItem, subtractMeal } from "../../state/Actions";
 import { IMenuItem, IRestaurant } from "../../state/interfaces";
 import Card from "./Card";
@@ -40,8 +40,8 @@ export default function MealListByRestaurant(props: any): Array<JSX.Element> {
         menuItemsByRestaurant = state.menuItems.filter(
           (curr: IMenuItem) => curr.restaurant.name === currRestaurant?.name
         );
-        return (
-          <section key={currRestaurant.pk}>
+      return (
+        <section key={currRestaurant.pk}>
             <div>
               <div className={classes.restaurantText}>{currRestaurant.name}</div>
               <div className="restaurant-line"></div>

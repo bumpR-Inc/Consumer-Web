@@ -13,6 +13,7 @@ import { theme } from "../../components/Theme";
 import MealModal from "../../components/OrderingUI/MealModal";
 import OrderCountdown from "../../components/OrderCountdown";
 import Loading from "../../components/Loading";
+import RestaurantList from "../../components/OrderingUI/RestaurantList";
 
 const MealList = React.lazy<any>(() => import("../../components/OrderingUI/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 const MealListByRestaurant = React.lazy<any>(() => import("../../components/OrderingUI/MealListByRestaurant")); //react lazy isntead of normal importing. see suspense and fallback below
@@ -69,6 +70,7 @@ export default function MenuPage() {
                 <Loading primary={true}/>
               </div>
             }>
+              <RestaurantList />
               <MealListByRestaurant {...props} />
             </React.Suspense>
             {
