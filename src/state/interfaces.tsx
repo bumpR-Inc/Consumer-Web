@@ -17,6 +17,7 @@ export interface IState {
   totalCost: number;
   orderCode: string;
   menuItemInModal?: any,
+  referralCode: string,
 }
 
 export interface IAction {
