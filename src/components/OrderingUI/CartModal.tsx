@@ -453,11 +453,11 @@ export default function CartModal(modalProps: any) {
                         </p>
                         <TextField
                           onChange={(event) => {
-                            window.analytics.track('UPDATE_REFERRAL_CODE', {
-                              host: window.location.hostname,
-                              state: state,
-                              event: event
-                            });
+                            // window.analytics.track('UPDATE_REFERRAL_CODE', {
+                            //   host: window.location.hostname,
+                            //   state: state,
+                            //   event: event
+                            // });
                             var currReferralCode: string = String(
                               event.target.value
                             );
