@@ -2,18 +2,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useEffect, useState } from "react";
 
 import React from "react";
-import { theme } from "../../components/Theme";
+import { theme } from "../../../components/Theme";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import RoomIcon from "@material-ui/icons/Room";
-import CartCard from "../../components/OrderingUI/CartCard";
-import CartPriceBreakdown from "../../components/OrderingUI/CartPriceBreakdown";
+import CartCard from "../../../components/OrderingUI/CartCard";
+import CartPriceBreakdown from "../../../components/OrderingUI/CartPriceBreakdown";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { CircularProgress, ThemeProvider } from "@material-ui/core";
-import { fromOrderHistory } from "../../state/Actions";
-import { Store } from "../../state/Store";
-import { REACT_APP_BACKEND_API_URL } from '../../config';
-import Loading from "../../components/Loading";
+import { fromOrderHistory } from "../../../state/Actions";
+import { Store } from "../../../state/Store";
+import { REACT_APP_BACKEND_API_URL } from '../../../config';
+import Loading from "../../../components/Loading";
 
 const dateFormat = require("dateformat");
 

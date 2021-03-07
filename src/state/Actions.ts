@@ -223,3 +223,11 @@ export const setReferralCode = async (dispatch: any, referralCode : string) => {
     payload: { referralCode: referralCode },
   });
 };
+
+
+export const setReferralModal = async (dispatch: any, referralModal : boolean) => {
+  return dispatch({
+    type: "SET_REFERRAL_MODAL",
+    payload: { referralModal: referralModal },
+  });
+};

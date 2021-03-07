@@ -1,11 +1,11 @@
 import { makeStyles } from "@material-ui/core/styles";
-import texture from "../../assets/img/landing/decoration/pattern-big.png";
-import { privacyPolicy } from '../../assets/html/PrivacyPolicy';
-import AddressSelect from "../../components/Input/AddressSelect";
-import { theme } from "../../components/Theme";
-import { Store } from "../../state/Store";
+import texture from "../../../assets/img/landing/decoration/pattern-big.png";
+import { privacyPolicy } from '../../../assets/html/PrivacyPolicy';
+import AddressSelect from "../../../components/Input/AddressSelect";
+import { theme } from "../../../components/Theme";
+import { Store } from "../../../state/Store";
 import React from "react";
-import { updateAddress, fromMobileUpdateAddressPage } from "../../state/Actions";
+import { updateAddress, fromMobileUpdateAddressPage } from "../../../state/Actions";
 
 const useStyles = makeStyles({
   container: {

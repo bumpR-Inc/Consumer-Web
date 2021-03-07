@@ -5,7 +5,7 @@ import { theme } from "../Theme";
 import { Store } from "../../state/Store";
 import AddressModal from "./AddressModal";
 import DateModal from "./DateModal";
-import { fromMenu, toMobileUpdateAddressPage, toOrderHistory, updateAddress } from "../../state/Actions";
+import { fromMenu, setReferralModal, toMobileUpdateAddressPage, toOrderHistory, updateAddress } from "../../state/Actions";
 import { SwipeableDrawer } from "@material-ui/core";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -272,6 +272,15 @@ export default function NavBar() {
                   </a>
                 </div>
                 <div className={classes.sideBarItem}>
+                  <a onClick={() => {
+                    setReferralModal(dispatch, true);
+                  }}
+                    className={classes.sideBarItemText}
+                  >
+                    Referral Code
+                  </a>
+                </div>
+                <div className={classes.sideBarItem}>
                   <a
                     className={classes.sideBarItemText}
                     onClick={() => {
@@ -284,13 +293,6 @@ export default function NavBar() {
                     }}
                   >
                     Log Out
-                  </a>
-                </div>
-                <div className={classes.sideBarItem}>
-                  <a
-                    className={classes.sideBarItemText}
-                  >
-                    Your Referral Code: {state.referralCode}
                   </a>
                 </div>
               </>

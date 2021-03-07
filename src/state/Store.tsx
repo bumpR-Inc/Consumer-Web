@@ -26,6 +26,7 @@ var initialState: IState = {
   orderCode: "", //filled in cartmodal,
   menuItemInModal: undefined,
   referralCode: "",//filled in cartmodal
+  referralModal: false,//filled in cartmodal
 };
 
 var localState = localStorage.getItem("state");
@@ -146,6 +147,12 @@ function reducer(state: IState, action: IAction): IState {
         ...state,
         referralCode: action.payload["referralCode"],
       };
+      break;
+    case "SET_REFERRAL_MODAL":
+      state = {
+        ...state,
+        referralModal: action.payload['referralModal'],
+      }
       break;
     case "NO_CHANGE":
       state = state;
