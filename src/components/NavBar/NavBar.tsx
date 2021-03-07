@@ -273,6 +273,10 @@ export default function NavBar() {
                 </div>
                 <div className={classes.sideBarItem}>
                   <a onClick={() => {
+                    window.analytics.track('OPENNED_REFERRAL_MODAL', {
+                      host: window.location.hostname,
+                      state: state,
+                    });
                     setReferralModal(dispatch, true);
                   }}
                     className={classes.sideBarItemText}

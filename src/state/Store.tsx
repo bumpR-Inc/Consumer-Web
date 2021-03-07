@@ -1,7 +1,7 @@
 import React from "react";
 import { IState, IAction } from "./interfaces";
 
-const currentSchemaVersion: number = 0;
+const currentSchemaVersion: number = 3;
 const cacheState: boolean = true;
 const currentDate: Date = new Date();
 let initialDate: Date = new Date(currentDate.getTime());

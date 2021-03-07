@@ -9,7 +9,8 @@ import {
   setTotalCost,
   toggleFavAction,
   toOrderHistory,
-  setReferralCode
+  setReferralCode,
+  setReferralModal
 } from "../../state/Actions";
 import { IAddIn, IMenuItem, IOrderItem } from "../../state/interfaces";
 import { Store } from "../../state/Store";
@@ -386,6 +387,7 @@ export default function CartModal(modalProps: any) {
           console.log(response);
 
           clearOrderData(dispatch);
+          setReferralModal(dispatch, true);
           toOrderHistory(dispatch);
         });
     } catch (error) {
@@ -451,6 +453,11 @@ export default function CartModal(modalProps: any) {
                         </p>
                         <TextField
                           onChange={(event) => {
+                            window.analytics.track('UPDATE_REFERRAL_CODE', {
+                              host: window.location.hostname,
+                              state: state,
+                              event: event
+                            });
                             var currReferralCode: string = String(
                               event.target.value
                             );

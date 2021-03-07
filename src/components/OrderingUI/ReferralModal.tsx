@@ -95,7 +95,13 @@ export default function MealModal({ handleClose }: ReferralModal) {
             <p className={classes.dialogDescription}>Send this to your friends to recieve free delivery cashback every time someone submits an order with your code! Click below to send add your friends contact information, and we will let them know you are referring them. </p>
            
             
-            <button className={classes.addButton} onClick={() => {history.push("https://forms.gle/w55UZsFbG5FQKLEY9")}}>
+            <button className={classes.addButton} onClick={() => {
+              window.analytics.track('OPENNED_REFERRAL_FORM', {
+                host: window.location.hostname,
+                state: state,
+              });
+              history.push("https://forms.gle/w55UZsFbG5FQKLEY9")
+            }}>
               Refer Friends For $</button>
             {/* <DayInput handleSelect={handleClose}/> */}
           </div>
