@@ -354,7 +354,8 @@ export default function Footer() {
                     orders[orderSelected].pricePaid -
                     (orders[orderSelected].tax +
                       orders[orderSelected].tip +
-                      orders[orderSelected].deliveryFee)
+                      orders[orderSelected].deliveryFee) +
+                      orders[orderSelected].referralDiscount
                   }
                   tax={orders[orderSelected].tax}
                   tipAmt={orders[orderSelected].tip}

@@ -53,7 +53,7 @@ export default function CartPriceBreakdown({menuItemsCost, tax, tipAmt, delivery
       {(!isNaN(roundedDiscount) && roundedDiscount != 0) ? (
         <div className="cost-row">
           <p className="cart-text">Referral Discount</p>
-          <p className="cart-text">${roundedDiscount * -1}</p>
+          <p className="cart-text">-${roundedDiscount}</p>
         </div>
       ) : (
         <p></p>
