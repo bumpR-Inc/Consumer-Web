@@ -68,15 +68,10 @@ export default function CartCard({item, hideButtons, numInCart, subtractOnClick,
   const classes = useStyles();
   const { state } = React.useContext(Store);
 
-  console.log('card');
-  // console.log(props);
-
   let add_ins: string = "";
   if (item.add_ins.length > 0) {
     add_ins = item.add_ins.map((value: IAddIn) => "+" + value.name + " ($" + value.price + ")").join(", ");
   }
-
-  console.log(item);
 
   return (
     <div className={classes.card}>

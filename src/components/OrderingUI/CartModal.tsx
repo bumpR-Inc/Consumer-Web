@@ -296,7 +296,6 @@ export default function CartModal(modalProps: any) {
               setDiscount(0);
             }
             setRefCodeMsg(response.data.message)
-            console.log(response);
           });
         // console.log(response.data);
       } catch (error) {

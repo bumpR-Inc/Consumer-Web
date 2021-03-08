@@ -60,8 +60,6 @@ export default function CartPriceBreakdown({menuItemsCost, tax, tipAmt, delivery
       )
       }
 
-      {console.log("meme")}
-      {console.log(typeof (roundedDiscount))}
       <div className="cost-row">
         <p className="cart-text bolded">Total:</p>
         <p className="cart-text bolded">${roundedTotalCost}</p>

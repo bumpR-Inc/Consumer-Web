@@ -26,7 +26,6 @@ export default function CartList(props: any): Array<JSX.Element> {
   let uniques: IUnique = {};
   for (var i = 0; i < state.orders.length; i++) {
     const identifier = getUniqueOrderItemIdentifier(state.orders[i]);
-    console.log(i);
     if (identifier in uniques) {
       uniques[identifier].quantity = uniques[identifier].quantity + 1;
     } else {
@@ -40,7 +39,7 @@ export default function CartList(props: any): Array<JSX.Element> {
   if (Object.keys(uniques).length > 0) {
     return Object.keys(uniques).map((key: string) => {
       return (
-          <CartCard
+        <CartCard
             item={uniques[key].item}
             numInCart={uniques[key].quantity}
             addOnClick={() => {
