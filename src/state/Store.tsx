@@ -1,20 +1,8 @@
 import React from "react";
 import { IState, IAction } from "./interfaces";
 
-const currentSchemaVersion: number = 3;
+const currentSchemaVersion: number = 4;
 const cacheState: boolean = true;
-const currentDate: Date = new Date();
-let initialDate: Date = new Date(currentDate.getTime());
-initialDate.setDate(currentDate.getDate() + (7 + 2 - currentDate.getDay()) % 7);
-// if (initialDate.getDate() === (new Date()).getDate()) {
-//   initialDate.setDate(initialDate.getDate() + 7);
-// }
-
-initialDate.setHours(0);
-initialDate.setMinutes(0);
-initialDate.setSeconds(0);
-initialDate.setMilliseconds(0);
-
 
 var initialState: IState = {
   menuItems: [],
@@ -24,7 +12,7 @@ var initialState: IState = {
   landing: true,
   orderHistory: false,
   mobileUpdateAddressPage: false,
-  date: initialDate,
+  date: new Date(),
   restaurants: [],
   totalCost: 0,
   orderCode: "", //filled in cartmodal,
@@ -38,13 +26,6 @@ var stateSchemaVersion: number = parseInt(localStorage.getItem("stateSchemeVersi
 if (localState != null && cacheState && stateSchemaVersion === currentSchemaVersion) {
   initialState = JSON.parse(localState);
   initialState.date = new Date(JSON.parse(localState).date);
-  // console.log('dates');
-  // console.log(initialState.date);
-  // console.log(new Date());
-  // console.log(initialDate);
-  if (initialState.date <= new Date()) {
-    initialState.date = initialDate
-  }
 } else {
   localStorage.setItem("stateSchemeVersion", currentSchemaVersion.toString());
   var stateStringified = JSON.stringify(initialState);
@@ -56,7 +37,7 @@ export const Store = React.createContext<IState | any>(initialState);
 function reducer(state: IState, action: IAction): IState {
   switch (action.type) {
     case "FETCH_DATA":
-      state = { ...state, menuItems: action.payload.meals, date: action.payload.date };
+      state = { ...state, menuItems: action.payload.meals, date: state.date <= new Date() ? action.payload.date : state.date};
       break;
     case "FETCH_RESTAURANTS":
       state = { ...state, restaurants: action.payload };

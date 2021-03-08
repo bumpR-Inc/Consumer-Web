@@ -13,6 +13,9 @@ export const fetchDataAction = async (dispatch: any) => {
   data = await fetch(URL); //fetches URL
   const nextDeliveryDay = await data.json(); //convert to json
   const date = new Date(nextDeliveryDay[0].date);
+  console.log(date)
+  date.setHours(date.getHours() + 7); // due to pst conversion
+  console.log(date)
   
   const payload = {
     meals: mealData,
