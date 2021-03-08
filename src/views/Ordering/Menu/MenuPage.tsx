@@ -50,7 +50,7 @@ export default function MenuPage() {
       setFetched(true);
     }
     // }
-  }); //useEffect hook is to get data as soon as user lands on the page
+  },[]); //useEffect hook is to get data as soon as user lands on the page
 
   const props: IMenuItemProps = {
     menuItems: state.menuItems,
@@ -70,7 +70,6 @@ export default function MenuPage() {
                 <Loading primary={true}/>
               </div>
             }>
-              <RestaurantList />
               <MealListByRestaurant {...props} />
             </React.Suspense>
             {

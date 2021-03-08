@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { RefObject, useContext } from "react";
 import { addOrderItem, subtractMeal } from "../../state/Actions";
 import { IMenuItem, IRestaurant } from "../../state/interfaces";
 import Card from "./Card";
@@ -32,25 +32,30 @@ const useStyles = makeStyles({
   cardContainer: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'space-evenly'
+    justifyContent: 'center',
+    // alignContent: 'space-evenly'
   }
 });
 
-export default function RestaurantList() {
-    var classes = useStyles();
-    const { state } = useContext(Store);
+interface IRestaurantList {
+  refs: Array<RefObject<HTMLElement>>
+}
 
-    return (
-      <section>
-        <div className={classes.restaurantText}>Restaurants</div>
-        <div className="restaurant-line"></div>
-        <div className={classes.cardContainer}>
-          {
-            state.restaurants.map((restaurant: IRestaurant) => {
-              return (<RestaurantCard restaurant={restaurant} />);
-            })
-          }
-        </div>
-      </section>
-    );
+export default function RestaurantList({refs}: IRestaurantList) {
+  var classes = useStyles();
+  const { state } = useContext(Store);
+  
+  return (
+    <section>
+      <div className={classes.restaurantText}>Restaurants</div>
+      <div className="restaurant-line"></div>
+      <div className={classes.cardContainer}>
+        {
+          state.restaurants.map((restaurant: IRestaurant, index: number) => {
+            return (<RestaurantCard restaurant={restaurant} refs={refs} index={index} />);
+          })
+        }
+      </div>
+    </section>
+  );
 }

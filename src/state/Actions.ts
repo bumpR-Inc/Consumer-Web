@@ -5,13 +5,24 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 export const fetchDataAction = async (dispatch: any) => {
   //use aync for api calls 2:06
-  const URL = `${REACT_APP_BACKEND_API_URL}/menuItems/`;
-  const data = await fetch(URL); //fetches URL
-  const dataJSON = await data.json(); //convert to json
+  let URL = `${REACT_APP_BACKEND_API_URL}/menuItems/`;
+  let data = await fetch(URL); //fetches URL
+  const mealData = await data.json(); //convert to json
+
+  URL = `${REACT_APP_BACKEND_API_URL}/deliveryDay/?next=true`;
+  data = await fetch(URL); //fetches URL
+  const nextDeliveryDay = await data.json(); //convert to json
+  const date = new Date(nextDeliveryDay[0].date);
+  
+  const payload = {
+    meals: mealData,
+    date: date
+  };
+
   return dispatch({
     //basically returns this object to our reducer in Store.tsx
     type: "FETCH_DATA",
-    payload: dataJSON, //do ._embedded.episodes because we know basedo nthis specific api URL
+    payload: payload, //do ._embedded.episodes because we know basedo nthis specific api URL
   });
 };
 
