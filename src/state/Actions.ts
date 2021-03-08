@@ -14,7 +14,8 @@ export const fetchDataAction = async (dispatch: any) => {
   const nextDeliveryDay = await data.json(); //convert to json
   const date = new Date(nextDeliveryDay[0].date);
   console.log(date)
-  date.setHours(date.getHours() + 7); // due to pst conversion
+  date.setHours(date.getHours() + 8); // due to pst conversion
+  date.setHours(0);
   console.log(date)
   
   const payload = {
