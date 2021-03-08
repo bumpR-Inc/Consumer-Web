@@ -5,30 +5,33 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 export const fetchDataAction = async (dispatch: any) => {
   //use aync for api calls 2:06
-  let URL = `${REACT_APP_BACKEND_API_URL}/menuItems/`;
-  let data = await fetch(URL); //fetches URL
+  const URL = `${REACT_APP_BACKEND_API_URL}/menuItems/`;
+  const data = await fetch(URL); //fetches URL
   const mealData = await data.json(); //convert to json
 
-  URL = `${REACT_APP_BACKEND_API_URL}/deliveryDay/?next=true`;
-  data = await fetch(URL); //fetches URL
+  return dispatch({
+    //basically returns this object to our reducer in Store.tsx
+    type: "FETCH_DATA",
+    payload: mealData, //do ._embedded.episodes because we know basedo nthis specific api URL
+  });
+};
+
+export const fetchDeliveryDateAction = async (dispatch: any) => {
+  const URL = `${REACT_APP_BACKEND_API_URL}/deliveryDay/?next=true`;
+  const data = await fetch(URL); //fetches URL
   const nextDeliveryDay = await data.json(); //convert to json
   const date = new Date(nextDeliveryDay[0].date);
   console.log(date)
   date.setHours(date.getHours() + 8); // due to pst conversion
   date.setHours(0);
-  console.log(date)
-  
-  const payload = {
-    meals: mealData,
-    date: date
-  };
+  console.log(date);
 
   return dispatch({
     //basically returns this object to our reducer in Store.tsx
-    type: "FETCH_DATA",
-    payload: payload, //do ._embedded.episodes because we know basedo nthis specific api URL
+    type: "FETCH_DELIVERY_DATE",
+    payload: date, //do ._embedded.episodes because we know basedo nthis specific api URL
   });
-};
+}
 
 //unused as of 1/9/2021. TODO: implement fully
 export const fetchRestaurantsAction = async (dispatch: any) => {

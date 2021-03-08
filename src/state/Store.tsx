@@ -37,7 +37,10 @@ export const Store = React.createContext<IState | any>(initialState);
 function reducer(state: IState, action: IAction): IState {
   switch (action.type) {
     case "FETCH_DATA":
-      state = { ...state, menuItems: action.payload.meals, date: state.date <= new Date() ? action.payload.date : state.date};
+      state = { ...state, menuItems: action.payload };
+      break;
+    case "FETCH_DELIVERY_DATE":
+      state = { ...state, date: state.date <= new Date() ? action.payload : state.date };
       break;
     case "FETCH_RESTAURANTS":
       state = { ...state, restaurants: action.payload };
