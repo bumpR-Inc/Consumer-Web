@@ -16,7 +16,9 @@ export interface IState {
   restaurants: Array<IRestaurant>;
   totalCost: number;
   orderCode: string;
-  menuItemInModal?: any,
+  menuItemInModal?: any;
+  referralCode: string;
+  referralModal: boolean;
 }
 
 export interface IAction {

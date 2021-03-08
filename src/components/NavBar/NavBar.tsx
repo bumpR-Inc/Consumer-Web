@@ -5,7 +5,7 @@ import { theme } from "../Theme";
 import { Store } from "../../state/Store";
 import AddressModal from "./AddressModal";
 import DateModal from "./DateModal";
-import { fromMenu, toMobileUpdateAddressPage, toOrderHistory, updateAddress } from "../../state/Actions";
+import { fromMenu, setReferralModal, toMobileUpdateAddressPage, toOrderHistory, updateAddress } from "../../state/Actions";
 import { SwipeableDrawer } from "@material-ui/core";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -199,74 +199,129 @@ export default function NavBar() {
     <React.Fragment>
       <div className={classes.container}>
         <div className={classes.logoContainer}>
-          <button className={classes.menuButton} onClick={handleMenuButtonClick}><Menu/></button>
-          <h1 className={classes.logo} onClick={() => {
-            window.analytics.track('TO_LANDING_FROM_MENU', {
-              host: window.location.hostname,
-              state: state
-            });
-            fromMenu(dispatch)
-          }}>{theme.breakpoints.values.sm >= window.innerWidth ? 'GN.' : 'Good Neighbor.'}</h1>
+          <button
+            className={classes.menuButton}
+            onClick={handleMenuButtonClick}
+          >
+            <Menu />
+          </button>
+          <h1
+            className={classes.logo}
+            onClick={() => {
+              window.analytics.track("TO_LANDING_FROM_MENU", {
+                host: window.location.hostname,
+                state: state,
+              });
+              fromMenu(dispatch);
+            }}
+          >
+            {theme.breakpoints.values.sm >= window.innerWidth
+              ? "GN."
+              : "Good Neighbor."}
+          </h1>
         </div>
         <div className={classes.detailsContainer}>
           <div className={classes.detailsWrap}>
-            <h1 className={`${classes.details} + ${classes.detailsTo}`}> Lunch on </h1>
-            <button onClick={handleDateClick} className={classes.details}>{dateFormat(state.date, "DDD, mmmm d")}</button>
-            <h1 className={`${classes.details} + ${classes.detailsTo}`}> to </h1>
-            <button onClick={handleAddressClick} className={classes.details}>{state.address?.split(',')[0]}</button>          </div>
+            <h1 className={`${classes.details} + ${classes.detailsTo}`}>
+              {" "}
+              Lunch on{" "}
+            </h1>
+            <button onClick={handleDateClick} className={classes.details}>
+              {dateFormat(state.date, "DDD, mmmm d")}
+            </button>
+            <h1 className={`${classes.details} + ${classes.detailsTo}`}>
+              {" "}
+              to{" "}
+            </h1>
+            <button onClick={handleAddressClick} className={classes.details}>
+              {state.address?.split(",")[0]}
+            </button>{" "}
+          </div>
         </div>
       </div>
 
-      <AddressModal anchor={addressAnchor} handleClose={handleAddressClose}/>
+      <AddressModal anchor={addressAnchor} handleClose={handleAddressClose} />
       <DateModal anchor={dateAnchor} handleClose={handleDateClose} />
-      {
-        drawerOpen && <SwipeableDrawer
-          anchor={'left'}
+      {drawerOpen && (
+        <SwipeableDrawer
+          anchor={"left"}
           open={drawerOpen}
-          onClose={() => {setDrawerOpen(false)}}
-          onOpen={() => {setDrawerOpen(true)}}
+          onClose={() => {
+            setDrawerOpen(false);
+          }}
+          onOpen={() => {
+            setDrawerOpen(true);
+          }}
         >
           <div className={classes.sideBar}>
-            {isAuthenticated ? 
-              (<>
+            {isAuthenticated ? (
+              <>
                 <div className={classes.sideBarItem}>
-                  <a className={classes.sideBarItemText} onClick={() => {
-                    window.analytics.track('HAMBURGER_TO_ORDER_HISTORY', {
-                      host: window.location.hostname,
-                      state: state,
-                      landing: state.landing
-                    });
-                    toOrderHistory(dispatch);
-                  }}>Orders</a>
+                  <a
+                    className={classes.sideBarItemText}
+                    onClick={() => {
+                      window.analytics.track("HAMBURGER_TO_ORDER_HISTORY", {
+                        host: window.location.hostname,
+                        state: state,
+                        landing: state.landing,
+                      });
+                      toOrderHistory(dispatch);
+                    }}
+                  >
+                    Orders
+                  </a>
                 </div>
                 <div className={classes.sideBarItem}>
-                  <a className={classes.sideBarItemText} onClick={() => {
-                    window.analytics.track('HAMBURGER_MENU_LOG_OUT', {
+                  <a onClick={() => {
+                    window.analytics.track('OPENNED_REFERRAL_MODAL', {
                       host: window.location.hostname,
                       state: state,
-                      landing: state.landing
                     });
-                    logout({ returnTo: window.location.origin });
-                  }}>Log Out</a>
+                    setReferralModal(dispatch, true);
+                  }}
+                    className={classes.sideBarItemText}
+                  >
+                    Referral Code
+                  </a>
                 </div>
-              </>) :
-              (<>
                 <div className={classes.sideBarItem}>
-                  <a className={classes.sideBarItemText} onClick={() => {
-                    window.analytics.track('HAMBURGER_MENU_LOG_IN', {
-                      host: window.location.hostname,
-                      state: state,
-                      landing: state.landing
-                    });
-                    loginWithRedirect();
-                  }}>Sign In</a>
+                  <a
+                    className={classes.sideBarItemText}
+                    onClick={() => {
+                      window.analytics.track("HAMBURGER_MENU_LOG_OUT", {
+                        host: window.location.hostname,
+                        state: state,
+                        landing: state.landing,
+                      });
+                      logout({ returnTo: window.location.origin });
+                    }}
+                  >
+                    Log Out
+                  </a>
                 </div>
-              </>)
-            }
+              </>
+            ) : (
+              <>
+                <div className={classes.sideBarItem}>
+                  <a
+                    className={classes.sideBarItemText}
+                    onClick={() => {
+                      window.analytics.track("HAMBURGER_MENU_LOG_IN", {
+                        host: window.location.hostname,
+                        state: state,
+                        landing: state.landing,
+                      });
+                      loginWithRedirect();
+                    }}
+                  >
+                    Sign In
+                  </a>
+                </div>
+              </>
+            )}
           </div>
         </SwipeableDrawer>
-      }
+      )}
     </React.Fragment>
-  )
-  ;
+  );
 }

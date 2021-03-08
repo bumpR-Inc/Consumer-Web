@@ -2,18 +2,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useEffect, useState } from "react";
 
 import React from "react";
-import { theme } from "../../components/Theme";
+import { theme } from "../../../components/Theme";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import RoomIcon from "@material-ui/icons/Room";
-import CartCard from "../../components/OrderingUI/CartCard";
-import CartPriceBreakdown from "../../components/OrderingUI/CartPriceBreakdown";
+import CartCard from "../../../components/OrderingUI/CartCard";
+import CartPriceBreakdown from "../../../components/OrderingUI/CartPriceBreakdown";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { CircularProgress, ThemeProvider } from "@material-ui/core";
-import { fromOrderHistory } from "../../state/Actions";
-import { Store } from "../../state/Store";
-import { REACT_APP_BACKEND_API_URL } from '../../config';
-import Loading from "../../components/Loading";
+import { fromOrderHistory } from "../../../state/Actions";
+import { Store } from "../../../state/Store";
+import { REACT_APP_BACKEND_API_URL } from '../../../config';
+import Loading from "../../../components/Loading";
 
 const dateFormat = require("dateformat");
 
@@ -212,7 +212,7 @@ export default function Footer() {
             },
           }
         );
-        // console.log(response);
+        console.log(response);
         // console.log(response.data[0].items_info)
 
         var orders = response.data;
@@ -253,13 +253,13 @@ export default function Footer() {
         window.innerWidth > theme.breakpoints.values.md ? (
           <a
             className={classes.navText}
-              onClick={() => {
-                window.analytics.track('TO_MENU_FROM_ORDER_HISTORY', {
-                  host: window.location.hostname,
-                  state: state,
-                });
-                fromOrderHistory(dispatch);
-              }}
+            onClick={() => {
+              window.analytics.track("TO_MENU_FROM_ORDER_HISTORY", {
+                host: window.location.hostname,
+                state: state,
+              });
+              fromOrderHistory(dispatch);
+            }}
           >
             {"< Return to Ordering Page"}
           </a>
@@ -270,7 +270,7 @@ export default function Footer() {
         )}
       </div>
       <div className={classes.bodyContainer}>
-        {ordersRecieved && orders.length > 0? (
+        {ordersRecieved && orders.length > 0 ? (
           <>
             {(orderSelected === -1 ||
               window.innerWidth > theme.breakpoints.values.md) && (
@@ -286,7 +286,7 @@ export default function Footer() {
                         (index == orderSelected ? " " + classes.selected : "")
                       }
                       onClick={() => {
-                        window.analytics.track('ORDER_HISTORY_ORDER_CLICKED', {
+                        window.analytics.track("ORDER_HISTORY_ORDER_CLICKED", {
                           host: window.location.hostname,
                           state: state,
                           order_index: index,
@@ -349,29 +349,27 @@ export default function Footer() {
                 )}
                 <div className={classes.colBuffer} />
                 <CartPriceBreakdown
-                  menuItemsCost={//potential bug, jank since we don't pass in subtotal to the backend.
+                  menuItemsCost={
+                    //potential bug, jank since we don't pass in subtotal to the backend.
                     orders[orderSelected].pricePaid -
                     (orders[orderSelected].tax +
-                    orders[orderSelected].tip +
-                    orders[orderSelected].deliveryFee)
+                      orders[orderSelected].tip +
+                      orders[orderSelected].deliveryFee) +
+                      orders[orderSelected].referralDiscount
                   }
                   tax={orders[orderSelected].tax}
                   tipAmt={orders[orderSelected].tip}
                   deliveryFee={orders[orderSelected].deliveryFee}
                   totalCost={orders[orderSelected].pricePaid}
+                  discount={orders[orderSelected].referralDiscount}
                 />
               </div>
             )}
           </>
+        ) : !ordersRecieved ? (
+          <Loading primary={true} />
         ) : (
-          !ordersRecieved ?
-            (<Loading primary={true} />) : 
-          (
-            <h1 className={classes.noOrders}>
-                No Orders Placed Yet  
-            </h1>   
-          )
-          
+          <h1 className={classes.noOrders}>No Orders Placed Yet</h1>
         )}
       </div>
     </div>

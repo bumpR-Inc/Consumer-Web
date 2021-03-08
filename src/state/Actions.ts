@@ -1,5 +1,7 @@
 import { IAction, IMenuItem, IState, IRestaurant, IOrderItem, getUniqueOrderItemIdentifier } from "./interfaces";
 import { REACT_APP_BACKEND_API_URL } from '../config';
+import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const fetchDataAction = async (dispatch: any) => {
   //use aync for api calls 2:06
@@ -211,3 +213,21 @@ export const fromOrderHistory = async (dispatch: any) => {
     type: "FROM_ORDER_HISTORY",
   })
 }
+
+
+export const setReferralCode = async (dispatch: any, referralCode : string) => {
+
+
+  return dispatch({
+    type: "SET_REFERRAL_CODE",
+    payload: { referralCode: referralCode },
+  });
+};
+
+
+export const setReferralModal = async (dispatch: any, referralModal : boolean) => {
+  return dispatch({
+    type: "SET_REFERRAL_MODAL",
+    payload: { referralModal: referralModal },
+  });
+};
