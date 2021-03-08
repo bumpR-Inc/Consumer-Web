@@ -1,7 +1,7 @@
 import React from "react";
 import { IState, IAction } from "./interfaces";
 
-const currentSchemaVersion: number = 4;
+const currentSchemaVersion: number = 5;
 const cacheState: boolean = true;
 
 var initialState: IState = {
