@@ -128,6 +128,7 @@ const useStyles = makeStyles({
   },
   sideBarItem: {
     padding: '5%',
+    cursor: "pointer",
   },
   sideBarItemText: {
     fontSize: '3em',

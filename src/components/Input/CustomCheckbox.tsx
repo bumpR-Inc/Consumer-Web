@@ -51,7 +51,9 @@ const useStyles = makeStyles({
       backgroundColor: "#c92100",
     },
   },
-  FormControlLabel: {},
+  FormControlLabel: {
+    margin: '0px'
+  },
   label: {
     fontFamily: "Playfair Display",
     color: "#c92100",

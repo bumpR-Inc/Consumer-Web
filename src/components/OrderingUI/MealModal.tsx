@@ -8,6 +8,7 @@ import { Store } from "../../state/Store";
 import { FormControlLabel, Checkbox, Button } from "@material-ui/core";
 import { IAddIn, IOrderItem } from "../../state/interfaces";
 import { addOrderItem } from "../../state/Actions";
+import CustomCheckbox from "../Input/CustomCheckbox";
 
 const useStyles = makeStyles({
   popover: {
@@ -98,7 +99,7 @@ export default function MealModal({ handleClose }: MealModalProps) {
                 state.menuItemInModal.add_ins.map((addIn: IAddIn, index: number) => {
                   return <FormControlLabel
                     className={classes.addIn}
-                    control={<Checkbox checked={state.checkedA} onChange={(event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
+                    control={<CustomCheckbox checked={state.checkedA} onChange={(event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
                       if (checked) {
                         add_ins.add(addIn);
                       } else {
