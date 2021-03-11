@@ -319,7 +319,7 @@ export default function AddressSelect({ landing, miniButton, onConfirm, onSkipAd
                     }
                   }>
                   <h1 className={classes.hideMottoButton}>
-                    View Lunch Menu
+                    View Menu
                     {/* Coming Soon! */}
                   </h1>
                   </div>

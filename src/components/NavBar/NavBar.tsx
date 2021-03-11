@@ -223,10 +223,10 @@ export default function NavBar() {
         </div>
         <div className={classes.detailsContainer}>
           <div className={classes.detailsWrap}>
-            <h1 className={`${classes.details} + ${classes.detailsTo}`}>
+            {/* <h1 className={`${classes.details} + ${classes.detailsTo}`}>
               {" "}
               Lunch on{" "}
-            </h1>
+            </h1> */}
             <button onClick={handleDateClick} className={classes.details}>
               {dateFormat(state.date, "DDD, mmmm d")}
             </button>

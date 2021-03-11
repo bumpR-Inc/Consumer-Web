@@ -112,9 +112,9 @@ export default function Process() {
 
   return (
     <div className={classes.container}>
-      <Card image={step1image} number={1} title={'schedule meal by sunday midnight'} description={'By Midnight the previous Sunday, use our website to schedule Monday\'s Lunch, for just 99¢ delivery, no extra fees!'}/>
-      <Card image={step2image} number={2} title={'local restaurant prepares food'} description={'We provide a simplified preparation process for local restaurants, and negotiate bulk discounts to save you money.'}/>
-      <Card image={step3image} number={3} title={'we deliver lunchtime monday!'} description={'We plan super efficient routes so you don’t pay for delivery. Then our associates follow the route to bring the menuItem to you.'}/>
+      <Card image={step1image} number={1} title={'schedule your meal by midnight'} description={'By Midnight the previous day, use our website to schedule your lunch or dinner, for just 99¢ delivery, no extra fees!'}/>
+      <Card image={step2image} number={2} title={'local restaurant prepares order'} description={'We provide a simplified preparation process for local restaurants, and negotiate bulk discounts to save you money.'}/>
+      <Card image={step3image} number={3} title={'we deliver your delicous food!'} description={'We plan super efficient routes so you don’t pay for delivery. Then our associates follow the route to bring the menuItem to you.'}/>
     </div>
   );
 }
