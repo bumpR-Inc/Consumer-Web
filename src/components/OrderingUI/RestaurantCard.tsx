@@ -12,6 +12,7 @@ const useStyles = makeStyles({
     height: '30vh',
     maxHeight: '40vw',
     margin: '1vw',
+    cursor: 'pointer',
     // marginLeft: '0.25%',
     // marginRight: '0.25%',
     // backgroundColor: 'red',
