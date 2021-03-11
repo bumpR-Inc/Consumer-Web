@@ -46,7 +46,7 @@ export default function MealListByRestaurant(props: any) {
 
   return (
     <>
-      {/* <RestaurantList refs={refs}/> */}
+      <RestaurantList refs={refs}/>
       {
         state.restaurants.map((currRestaurant: IRestaurant, index: number) => {
           var menuItemsByRestaurant : Array<IRestaurant> = [];

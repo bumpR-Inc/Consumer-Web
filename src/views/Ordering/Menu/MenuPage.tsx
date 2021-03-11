@@ -66,11 +66,17 @@ export default function MenuPage() {
         <div className="menu-constrained-container">
           <React.Fragment>
             <React.Suspense fallback={
-              <div style={{ 'height': '60vh', margin: 'auto'}}>
+              <div style={{ 'height': '60vh', margin: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <Loading primary={true}/>
               </div>
             }>
-              <MealListByRestaurant {...props} />
+              {
+                fetched ?
+                  (<MealListByRestaurant {...props}/>) :
+                  (<div style={{ 'height': '60vh', margin: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <Loading primary={true}/>
+                  </div>)
+              }
             </React.Suspense>
             {
               state.orders.length > 0 && 
@@ -135,32 +141,3 @@ export default function MenuPage() {
     </MenuWrapper>
   );
 }
-
-// export default function HomePage() {
-//   const { state, dispatch } = React.useContext(Store);
-
-//   React.useEffect(() => {
-//     state.menuItems.length === 0 && fetchDataAction(dispatch); //if state episodes array is empty, run this function
-//   }); //useEffect hook is to get data as soon as user lands on the page
-
-//   const props: IMenuItemProps = {
-//     menuItems: state.menuItems,
-//     store: { state, dispatch },
-//     toggleFavAction: toggleFavAction,
-//     orders: state.orders,
-//   };
-//   return (
-//     <App path="/">
-//       <div>
-//         <React.Fragment>
-//           <React.Suspense fallback={<div>loading...</div>}>
-//             <div className="restaurant-name">Punjabi Dhaba</div>
-//             <section className="menuItem-layout">
-//               <MealList {...props} />
-//             </section>
-//           </React.Suspense>
-//         </React.Fragment>
-//       </div>
-//     </App>
-//   );
-// }
