@@ -43,7 +43,7 @@ export default function MealListByRestaurant(props: any) {
       _refs.push(React.createRef());
     }
     setRefs(_refs);
-  }, []);
+  }, [state]);
 
   return (
     <>
