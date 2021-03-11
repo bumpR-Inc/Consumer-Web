@@ -38,8 +38,9 @@ const useStyles = makeStyles({
     // backgroundColor: theme.palette.primary.main,
     padding: '1%',
     // fontWeight: 'bolder',
-    fontFamily: 'Rustico',
+    fontFamily: 'BrushNum',
     letterSpacing: '1.5px',
+    lineHeight: '120%',
     fontSize: '4em',
     color: theme.palette.secondary.main,
     textAlign: 'center',
@@ -65,7 +66,7 @@ export default function RestaurantCard({restaurant, refs, index}: IRestaurantCar
     }}
       className={classes.container} style={{
       backgroundImage:
-        `linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url(${restaurant.picture_url})`
+        `linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.35)), url(${restaurant.picture_url})`
     }}>
         <h1 className={classes.title}>{restaurant.name.toUpperCase()}</h1>
       </div>
