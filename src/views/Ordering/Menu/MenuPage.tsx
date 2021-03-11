@@ -14,9 +14,10 @@ import MealModal from "../../../components/OrderingUI/MealModal";
 import OrderCountdown from "../../../components/OrderCountdown";
 import Loading from "../../../components/Loading";
 import RestaurantList from "../../../components/OrderingUI/RestaurantList";
+import MealListByRestaurant from "../../../components/OrderingUI/MealListByRestaurant";
 
-const MealList = React.lazy<any>(() => import("../../../components/OrderingUI/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
-const MealListByRestaurant = React.lazy<any>(() => import("../../../components/OrderingUI/MealListByRestaurant")); //react lazy isntead of normal importing. see suspense and fallback below
+// const MealList = React.lazy<any>(() => import("../../../components/OrderingUI/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
+// const MealListByRestaurant = React.lazy<any>(() => import("../../../components/OrderingUI/MealListByRestaurant")); //react lazy isntead of normal importing. see suspense and fallback below
 
 export default function MenuPage() {
   //start of OAuth stuff
@@ -65,19 +66,13 @@ export default function MenuPage() {
       <div className="menu-full-flex-container">
         <div className="menu-constrained-container">
           <React.Fragment>
-            <React.Suspense fallback={
-              <div style={{ 'height': '60vh', margin: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                <Loading primary={true}/>
-              </div>
-            }>
-              {
-                fetched ?
-                  (<MealListByRestaurant {...props}/>) :
-                  (<div style={{ 'height': '60vh', margin: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                    <Loading primary={true}/>
-                  </div>)
-              }
-            </React.Suspense>
+            {
+              fetched ?
+                (<MealListByRestaurant {...props}/>) :
+                (<div style={{ 'height': '60vh', margin: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                  <Loading primary={true}/>
+                </div>)
+            }
             {
               state.orders.length > 0 && 
               (<div className="bottom-cart-btn-wrapper">

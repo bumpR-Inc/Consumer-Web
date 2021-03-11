@@ -6,10 +6,11 @@ import CartCard from "./CartCard";
 import { theme } from "../Theme";
 import { makeStyles } from "@material-ui/core/styles";
 import RestaurantList from "./RestaurantList";
+import MealsList from "./MealsList";
 
 // import MealsList from "./MealsList";
 
-const MealList = React.lazy<any>(() => import("./MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
+// const MealList = React.lazy<any>(() => import("./MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
 
 const useStyles = makeStyles({
   restaurantText: {
@@ -60,7 +61,7 @@ export default function MealListByRestaurant(props: any) {
                 <div className="restaurant-line"></div>
                 <div>
                   <section className="menuItem-layout">
-                    <MealList {...props} menuItemsByRestaurant={menuItemsByRestaurant} />
+                    <MealsList {...props} menuItemsByRestaurant={menuItemsByRestaurant} />
                   </section>
                 </div>
               </div>
