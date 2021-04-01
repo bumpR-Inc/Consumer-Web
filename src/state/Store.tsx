@@ -7,9 +7,9 @@ const cacheState: boolean = true;
 var initialState: IState = {
   menuItems: [],
   orders: [],
-  address: "Set Location",
-  geocode: undefined,
-  landing: true,
+  // address: "Set Location",
+  // geocode: undefined,
+  // landing: true,
   orderHistory: false,
   mobileUpdateAddressPage: false,
   date: new Date(),
@@ -20,10 +20,6 @@ var initialState: IState = {
   referralCode: "",//filled in cartmodal
   referralModal: false,//filled in cartmodal
   cartOpen: true,
-  group: {
-    pk: undefined,
-    members_info: []
-  }
 };
 
 var localState = localStorage.getItem("state");
@@ -42,9 +38,6 @@ export const Store = React.createContext<IState | any>(initialState);
 
 function reducer(state: IState, action: IAction): IState {
   switch (action.type) {
-    case "FETCH_GROUP":
-      state = { ...state, group: action.payload };
-      break;
     case "FETCH_MEALS":
       state = { ...state, menuItems: action.payload };
       break;
@@ -66,20 +59,14 @@ function reducer(state: IState, action: IAction): IState {
     case "SUBTRACT_MEAL":
       state = { ...state, orders: action.payload };
       break;
-    case "GO_TO_MENU":
-      state = {
-        ...state,
-        address: action.payload["address"],
-        geocode: action.payload["geocode"],
-        landing: false,
-      };
-      break;
-    case "FROM_MENU":
-      state = {
-        ...state,
-        landing: true,
-      };
-      break;
+    // case "GO_TO_MENU":
+    //   state = {
+    //     ...state,
+    //     address: action.payload["address"],
+    //     geocode: action.payload["geocode"],
+    //     // landing: false,
+    //   };
+    //   break;
     case "OPEN_MEAL_MODAL":
       state = { ...state, menuItemInModal: action.payload };
       break;
@@ -98,13 +85,13 @@ function reducer(state: IState, action: IAction): IState {
         mobileUpdateAddressPage: false,
       };
       break;
-    case "UPDATE_ADDRESS":
-      state = {
-        ...state,
-        address: action.payload["address"],
-        geocode: action.payload["geocode"],
-      };
-      break;
+    // case "UPDATE_ADDRESS":
+    //   state = {
+    //     ...state,
+    //     address: action.payload["address"],
+    //     geocode: action.payload["geocode"],
+    //   };
+    //   break;
     case "SET_DATE":
       state = {
         ...state,

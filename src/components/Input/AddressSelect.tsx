@@ -4,12 +4,13 @@ import { getDistance } from 'geolib';
 import React, { useState } from "react";
 import PlacesAutocomplete, {
   geocodeByAddress,
-
   getLatLng
 } from 'react-places-autocomplete';
 import motto from "../../assets/img/landing/motto.png";
 import { theme } from "../Theme";
 import { Store } from "../../state/Store";
+import { useRecoilState } from "recoil";
+import { landingPageState, locationState } from "../../state/Atoms";
 
 // const thresh: number = 12;
 
@@ -259,6 +260,8 @@ export default function AddressSelect({ landing, miniButton, onConfirm, onSkipAd
   let [coveredAddress, setCoveredAddress] = useState<boolean>(false);
   let [showMotto, setShowMotto] = useState<boolean>(landing);
   const { state } = React.useContext(Store);
+  const [onLanding] = useRecoilState(landingPageState);
+  const [_locationState] = useRecoilState(locationState);
 
   let setGeocode = (latLng: any) => {
     console.log(latLng);
@@ -278,7 +281,7 @@ export default function AddressSelect({ landing, miniButton, onConfirm, onSkipAd
     window.analytics.track('ADDRESS_FILLED_IN', {
       host: window.location.hostname,
       state: state,
-      landing: state.landing
+      landing: onLanding
     });
     handleAddressChange(address);
     geocodeByAddress(address)
@@ -306,9 +309,9 @@ export default function AddressSelect({ landing, miniButton, onConfirm, onSkipAd
                       window.analytics.track('VIEW_MENU_BUTTON_CLICKED', {
                         host: window.location.hostname,
                         state: state,
-                        to_address_select: !state.geocode
+                        to_address_select: !_locationState.geocode
                       });
-                      if (state.geocode) {
+                      if (_locationState.geocode) {
                           onSkipAddresPickerConfirm();
                         } else {
                         setShowMotto(false);
@@ -344,9 +347,9 @@ export default function AddressSelect({ landing, miniButton, onConfirm, onSkipAd
                               window.analytics.track('ADDRESS_CONFIRMED', {
                                 host: window.location.hostname,
                                 state: state,
-                                address: state.address,
-                                geocode: state.geocode,
-                                landing: state.landing
+                                address: _locationState.address,
+                                geocode: _locationState.geocode,
+                                landing: onLanding
                               });
                               onConfirm(addressState, geocode)
                             }}>
@@ -396,9 +399,9 @@ export default function AddressSelect({ landing, miniButton, onConfirm, onSkipAd
                         window.analytics.track('ADDRESS_CONFIRMED', {
                           host: window.location.hostname,
                           state: state,
-                          address: state.address,
-                          geocode: state.geocode,
-                          landing: state.landing
+                          address: _locationState.address,
+                          geocode: _locationState.geocode,
+                          landing: onLanding
                         });
                         onConfirm(addressState, geocode)
                       }}>

@@ -8,6 +8,8 @@ import { setDate } from "../../state/Actions";
 import axios from "axios";
 import { REACT_APP_BACKEND_API_URL } from "../../config";
 import Loading from "../Loading";
+import { useRecoilState } from "recoil";
+import { landingPageState, locationState } from "../../state/Atoms";
 
 
 interface DateModalProps {
@@ -18,7 +20,9 @@ export default function DayInput({handleSelect}: DateModalProps) {
   const { state, dispatch } = React.useContext(Store);
   const [ fetched, setFetched ] = useState<boolean>(false);
   const [ days, setDays ] = useState<any[]>([]);
-  const [ month, setMonth ] = useState<Date>(state.date);
+  const [month, setMonth] = useState<Date>(state.date);
+  const [onLanding] = useRecoilState(landingPageState);
+  const [_locationState] = useRecoilState(locationState);
 
   React.useEffect(() => {
     if (!fetched) {
@@ -40,9 +44,9 @@ export default function DayInput({handleSelect}: DateModalProps) {
       window.analytics.track('DATE_CONFIRMED', {
         host: window.location.hostname,
         state: state,
-        address: state.address,
-        geocode: state.geocode,
-        landing: state.landing
+        address: _locationState.address,
+        geocode: _locationState.geocode,
+        landing: onLanding
       });
       setDate(dispatch, day);
       handleSelect();

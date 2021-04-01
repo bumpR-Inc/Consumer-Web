@@ -1,10 +1,10 @@
-import React from "react";
-import { Store } from "../state/Store";
+import { useRecoilState } from "recoil";
+import { landingPageState } from "../state/Atoms";
 import LandingPage from "./LandingPage/LandingPage";
 import OrderingHomePage from "./Ordering/OrderingHomePage";
 
 export default function HomePage() {
-  const { state } = React.useContext(Store);
+  const [onLanding] = useRecoilState(landingPageState);
 
-  return state.landing ? <LandingPage /> : <OrderingHomePage/>;
+  return onLanding ? <LandingPage /> : <OrderingHomePage/>;
 }

@@ -7,9 +7,9 @@ export type Dispatch = React.Dispatch<IAction>;
 export interface IState {
   menuItems: Array<IMenuItem>;
   orders: Array<IOrderItem>;
-  address?: string;
-  geocode?: any;
-  landing: boolean;
+  // address?: string;
+  // geocode?: any;
+  // landing: boolean;
   orderHistory: boolean;
   mobileUpdateAddressPage: boolean;
   date: Date;
@@ -20,7 +20,6 @@ export interface IState {
   referralCode: string;
   referralModal: boolean;
   cartOpen: boolean;
-  group?: IGroup;
 }
 
 export interface IAction {
@@ -31,11 +30,6 @@ export interface IAction {
 export interface IOrderItem {
   menuItem: IMenuItem,
   add_ins: Array<IAddIn>
-}
-
-export interface IGroup {
-  pk?: number,
-  members_info: Array<IProfile>
 }
 
 export interface IProfile {
@@ -118,4 +112,14 @@ export interface IMenuItemProps {
   toggleFavAction: (state: IState, dispatch: any, menuItem: IMenuItem) => IAction;
   orders: Array<IMenuItem>;
   restaurants: Array<IRestaurant>;
+}
+
+export interface IGroup {
+  pk?: number,
+  members_info: Array<IProfile>
+}
+
+export interface ILocation {
+  address?: string,
+  geocode?: string,
 }

@@ -3,13 +3,15 @@ import React, { useState } from "react";
 import backgroundPreload from "../../assets/img/landing/background/landing-background-preload.jpg";
 import background from "../../assets/img/landing/background/landing-background.jpg";
 import { theme } from "../../components/Theme";
-import { goToMenu } from "../../state/Actions";
+// import { goToMenu } from "../../state/Actions";
 import { Store } from "../../state/Store";
 import AddressSelect from "../../components/Input/AddressSelect";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useAuth0 } from "@auth0/auth0-react";
 import { Menu } from "@material-ui/icons";
 import { SwipeableDrawer } from "@material-ui/core";
+import { useRecoilState } from "recoil";
+import { landingPageState, locationState } from "../../state/Atoms";
 
 const useStyles = makeStyles({
   container: {
@@ -196,6 +198,8 @@ export default function Hero() {
   const { state, dispatch } = React.useContext(Store);
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
   var classes = useStyles();
+  const [_landingState, setLandingState] = useRecoilState(landingPageState);
+  const [_locationState, setLocationState] = useRecoilState(locationState);
 
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
   const handleMenuButtonClick = () => {
@@ -215,7 +219,10 @@ export default function Hero() {
       address: address,
       geocode: geocode,
     });
-    goToMenu(dispatch, address, geocode);
+
+    setLandingState(false);
+    setLocationState({'address': address, 'geocode': geocode})
+    // goToMenu(dispatch, address, geocode);
   }
 
   return (
@@ -259,7 +266,7 @@ export default function Hero() {
             </div>
           </div>
           <div className={classes.addressContainer}>
-            <AddressSelect landing={true} miniButton={false} onConfirm={addressOnConfirm} onSkipAddresPickerConfirm={() => {addressOnConfirm(state.address, state.geocode)}}/>
+            <AddressSelect landing={true} miniButton={false} onConfirm={addressOnConfirm} onSkipAddresPickerConfirm={() => {addressOnConfirm(_locationState.address ?? '', state.geocode)}}/>
           </div>
           <div className={classes.bufferContainer}>
 
@@ -285,7 +292,7 @@ export default function Hero() {
                     window.analytics.track('HAMBURGER_MENU_LOG_OUT', {
                       host: window.location.hostname,
                       state: state,
-                      landing: state.landing
+                      landing: _landingState
                     });
                     logout({ returnTo: window.location.origin });
                   }}>Log Out</a>
@@ -297,7 +304,7 @@ export default function Hero() {
                     window.analytics.track('HAMBURGER_MENU_LOG_IN', {
                       host: window.location.hostname,
                       state: state,
-                      landing: state.landing
+                      landing: _landingState
                     });
                     loginWithRedirect();
                   }}>Sign In</a>

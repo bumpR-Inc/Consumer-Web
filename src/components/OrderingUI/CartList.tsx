@@ -52,6 +52,6 @@ export default function CartList(props: any): Array<JSX.Element> {
       );
     }); //
   } else {
-    return [<h1 className={classes.empty}>Cart Is Empty</h1>];
+    return [<h1 key="" className={classes.empty}>Cart Is Empty</h1>];
   }
 }

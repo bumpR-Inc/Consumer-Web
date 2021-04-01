@@ -5,9 +5,11 @@ import { theme } from "../Theme";
 import { Store } from "../../state/Store";
 import AddressModal from "./AddressModal";
 import DateModal from "./DateModal";
-import { fromMenu, setReferralModal, toMobileUpdateAddressPage, toOrderHistory } from "../../state/Actions";
+import { setReferralModal, toMobileUpdateAddressPage, toOrderHistory } from "../../state/Actions";
 import { SwipeableDrawer } from "@material-ui/core";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useRecoilState, useRecoilStateLoadable } from "recoil";
+import { landingPageState, locationState } from "../../state/Atoms";
 
 const dateFormat = require("dateformat");
 
@@ -148,6 +150,9 @@ export default function NavBar() {
 
   const [ addressAnchor, setAddressAnchor ] = useState<any>(null);
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+  const [landingState, setLandingState] = useRecoilState(landingPageState);
+  const [_locationState] = useRecoilState(locationState);
+
   const handleMenuButtonClick = () => {
     setDrawerOpen(true);
   }
@@ -156,8 +161,8 @@ export default function NavBar() {
     window.analytics.track('ADDRESS_UPDATE_OPENED', {
       host: window.location.hostname,
       state: state,
-      address: state.address,
-      geocode: state.geocode,
+      address: _locationState.address,
+      geocode: _locationState.geocode,
     });
     if (window.innerWidth <= theme.breakpoints.values.md) {
       toMobileUpdateAddressPage(dispatch);
@@ -170,8 +175,8 @@ export default function NavBar() {
     window.analytics.track('ADDRESS_UPDATE_CLOSED', {
       host: window.location.hostname,
       state: state,
-      address: state.address,
-      geocode: state.geocode,
+      address: _locationState.address,
+      geocode: _locationState.geocode,
     });
     setAddressAnchor(null);
   };
@@ -212,7 +217,9 @@ export default function NavBar() {
                 host: window.location.hostname,
                 state: state,
               });
-              fromMenu(dispatch);
+
+              setLandingState(true);
+              // fromMenu(dispatch);
             }}
           >
             {theme.breakpoints.values.sm >= window.innerWidth
@@ -234,7 +241,7 @@ export default function NavBar() {
               to{" "}
             </h1>
             <button onClick={handleAddressClick} className={classes.details}>
-              {state.address?.split(",")[0]}
+              {_locationState.address?.split(",")[0]}
             </button>{" "}
           </div>
         </div>
@@ -263,7 +270,7 @@ export default function NavBar() {
                       window.analytics.track("HAMBURGER_TO_ORDER_HISTORY", {
                         host: window.location.hostname,
                         state: state,
-                        landing: state.landing,
+                        landing: landingState, setLandingState,
                       });
                       toOrderHistory(dispatch);
                     }}
@@ -291,7 +298,7 @@ export default function NavBar() {
                       window.analytics.track("HAMBURGER_MENU_LOG_OUT", {
                         host: window.location.hostname,
                         state: state,
-                        landing: state.landing,
+                        landing: landingState, setLandingState,
                       });
                       logout({ returnTo: window.location.origin });
                     }}
@@ -309,7 +316,7 @@ export default function NavBar() {
                       window.analytics.track("HAMBURGER_MENU_LOG_IN", {
                         host: window.location.hostname,
                         state: state,
-                        landing: state.landing,
+                        landing: landingState, setLandingState,
                       });
                       loginWithRedirect();
                     }}

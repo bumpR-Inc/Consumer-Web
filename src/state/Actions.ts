@@ -1,50 +1,5 @@
-import { IAction, IMenuItem, IState, IOrderItem, getUniqueOrderItemIdentifier } from "./interfaces";
 import { REACT_APP_BACKEND_API_URL } from '../config';
-import axios from "axios";
-
-export const fetchGroup = async (dispatch: any, token: string) => {
-  const query: string = window.location.search.substring(1);
-  const query_list: string[] = query.split('&');
-  const query_data: any = {};
-
-  for (var i = 0; i < query_list.length; i++) {
-    const pair: string[] = query_list[i].split('=');
-    query_data[pair[0]] = pair[1];
-  }
-
-  if (query_data.hasOwnProperty('group')) {
-    await axios
-      .post(
-        `${REACT_APP_BACKEND_API_URL}/joingroup/${query_data.group}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-  }
-  
-  const data = await axios
-    .get(
-      `${REACT_APP_BACKEND_API_URL}/getgroup`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-      );
-    const groupData = await data.data; //convert to json
-
-  console.log('setting state')
-
-
-  return dispatch({
-    //basically returns this object to our reducer in Store.tsx
-    type: "FETCH_GROUP",
-    payload: groupData, //do ._embedded.episodes because we know basedo nthis specific api URL
-  });
-};
+import { getUniqueOrderItemIdentifier, IAction, IMenuItem, IOrderItem, IState } from "./interfaces";
 
 export const fetchMealsAction = async (dispatch: any) => {
   //use aync for api calls 2:06
@@ -176,39 +131,40 @@ export const subtractMeal = (
   return dispatch(dispatchObj);
 };
 
-export const goToMenu = async (
-  dispatch: any,
-  address: string,
-  geocode: any
-) => {
-  return dispatch({
-    //redirects to menu page, while settign the address and geocode
-    type: "GO_TO_MENU",
-    payload: { address: address, geocode: geocode },
-  });
-};
+// export const goToMenu = async (
+//   dispatch: any,
+//   address: string,
+//   geocode: any
+// ) => {
 
-export const fromMenu = async (
-  dispatch: any,
-) => {
-  return dispatch({
-    //redirects to menu page, while settign the address and geocode
-    type: "FROM_MENU",
-    payload: { },
-  });
-};
+//   return dispatch({
+//     //redirects to menu page, while settign the address and geocode
+//     type: "GO_TO_MENU",
+//     payload: { address: address, geocode: geocode },
+//   });
+// };
 
-export const updateAddress = async (
-  dispatch: any,
-  address: string,
-  geocode: any
-) => {
-  return dispatch({
-    //redirects to menu page, while settign the address and geocode
-    type: "UPDATE_ADDRESS",
-    payload: { address: address, geocode: geocode },
-  });
-};
+// export const fromMenu = async (
+//   dispatch: any,
+// ) => {
+//   return dispatch({
+//     //redirects to menu page, while settign the address and geocode
+//     type: "FROM_MENU",
+//     payload: { },
+//   });
+// };
+
+// export const updateAddress = async (
+//   dispatch: any,
+//   address: string,
+//   geocode: any
+// ) => {
+//   return dispatch({
+//     //redirects to menu page, while settign the address and geocode
+//     type: "UPDATE_ADDRESS",
+//     payload: { address: address, geocode: geocode },
+//   });
+// };
 
 export const setDate = async (
   dispatch: any,

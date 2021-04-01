@@ -20,6 +20,8 @@ import CartPriceBreakdown from "./CartPriceBreakdown";
 import VenmoBtn from "./VenmoBtn";
 import { REACT_APP_BACKEND_API_URL } from "../../config";
 import Loading from "../Loading";
+import { useRecoilState, useRecoilStateLoadable } from "recoil";
+import { locationState } from "../../state/Atoms";
 
 var dateFormat = require("dateformat");
 var QRCode = require("qrcode.react");
@@ -204,6 +206,7 @@ export default function CartModal() {
   const [discount, setDiscount] = React.useState(0);//set to 1 if validRefCode !== ""
   const [alreadyUsedReferral, setAlreadyUsedReferral] = React.useState(undefined);//hides referral code entry section if true
   const [refCodeMsg, setRefCodeMsg] = React.useState("");
+  const [_locationState] = useRecoilState(locationState);
   const deliveryFee = .99
 
   //Cost math and venmo string manipulation
@@ -345,7 +348,7 @@ export default function CartModal() {
       const token = await getAccessTokenSilently();
       const post_body = {
         deliveryTime: reformattedLunchTime, //  example: 2006-10-25 14:30:59"
-        location: state.address,
+        location: _locationState.address,
         menuItems: state.orders.map((item: IOrderItem) => {
           return {
             menuItem: item.menuItem.pk,
@@ -500,7 +503,7 @@ export default function CartModal() {
                     button below from your phone, or scan the QR code from your
                     camera app (not the Venmo app). Then, hit "Place Order."
                   </p>
-                  <p className={classes.cartText}>Address: {state.address}</p>
+                  <p className={classes.cartText}>Address: {_locationState.address}</p>
                   <p className={classes.cartText}>
                     Date/Time: {dateFormat(state.date, "isoDate")}
                   </p>

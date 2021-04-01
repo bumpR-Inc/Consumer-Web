@@ -1,11 +1,12 @@
-import { makeStyles } from "@material-ui/core/styles";
-import Popover from "@material-ui/core/Popover";
 import Dialog from "@material-ui/core/Dialog";
+import Popover from "@material-ui/core/Popover";
+import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
-import { theme } from "../Theme";
-import { Store } from "../../state/Store";
+import { useRecoilState } from "recoil";
+import { locationState } from "../../state/Atoms";
 import AddressSelect from "../Input/AddressSelect";
-import { updateAddress } from "../../state/Actions";
+import { theme } from "../Theme";
+// import { updateAddress } from "../../state/Actions";
 
 const useStyles = makeStyles({
   popover: {
@@ -48,12 +49,14 @@ interface AddressModalProps {
 }
 
 export default function AddressModal({anchor, handleClose}: AddressModalProps) {
-  const { dispatch } = React.useContext(Store);
   var classes = useStyles();
+  const [_, setLocationState] = useRecoilState(locationState);
   
   const addressOnConfirm = (address: string, geocode: any) => {
     handleClose();
-    updateAddress(dispatch, address, geocode);
+    setLocationState({'address': address, 'geocode': geocode})
+    // updateAddress(dispatch, address, geocode);
+
   }
 
   return (

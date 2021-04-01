@@ -76,7 +76,7 @@ export default function MenuPage() {
               (window.innerWidth > theme.breakpoints.values.sm || state.orders.length <= 0) &&
               <>
                 <OrderCountdown />
-                <GroupOrderAlert />
+                {/* <GroupOrderAlert /> */}
               </>
             }
           </React.Fragment>

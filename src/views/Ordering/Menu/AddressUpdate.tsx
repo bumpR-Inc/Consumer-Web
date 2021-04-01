@@ -4,7 +4,9 @@ import AddressSelect from "../../../components/Input/AddressSelect";
 import { theme } from "../../../components/Theme";
 import { Store } from "../../../state/Store";
 import React from "react";
-import { updateAddress, fromMobileUpdateAddressPage } from "../../../state/Actions";
+import { fromMobileUpdateAddressPage } from "../../../state/Actions";
+import { useRecoilState } from "recoil";
+import { locationState } from "../../../state/Atoms";
 
 const useStyles = makeStyles({
   container: {
@@ -51,9 +53,11 @@ const useStyles = makeStyles({
 export default function DealCarousel() {
   let classes = useStyles();
   const { state, dispatch } = React.useContext(Store);
+  const [_locationState, setLocationState] = useRecoilState(locationState);
 
   const update = (address: string, geocode: any) => {
-    updateAddress(dispatch, address, geocode);
+    // updateAddress(dispatch, address, geocode);
+    setLocationState({address: address, geocode: geocode})
     fromMobileUpdateAddressPage(dispatch);
   }
 
@@ -68,7 +72,7 @@ export default function DealCarousel() {
           window.analytics.track('ADDRESS_UPDATE_CLOSED', {
             host: window.location.hostname,
             state: state,
-            address: state.address,
+            address: _locationState.address,
             geocode: state.geocode,
           });
           fromMobileUpdateAddressPage(dispatch);

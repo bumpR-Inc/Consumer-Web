@@ -6,6 +6,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import config from "./auth_config.json";
 import { StoreProvider } from "./state/Store";
 import HttpsRedirect from './HttpsRedirect';
+import { RecoilRoot } from "recoil";
 
 declare global {
   interface Window { analytics: any; }
@@ -35,9 +36,11 @@ ReactDOM.render(
       redirectUri={window.location.origin}
       onRedirectCallback={onRedirectCallback}
     >
-      <StoreProvider>
-        <App/>
-      </StoreProvider>
+      <RecoilRoot>
+        <StoreProvider>
+          <App/>
+        </StoreProvider>
+      </RecoilRoot>
     </Auth0Provider>
   </HttpsRedirect>,
   document.getElementById("root")
