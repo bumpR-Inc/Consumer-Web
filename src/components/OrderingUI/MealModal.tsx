@@ -1,11 +1,9 @@
 import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
-import Popover from "@material-ui/core/Popover";
 import Dialog from "@material-ui/core/Dialog";
 import React, { useContext } from "react";
-import DayInput from "../Input/DayInput";
 import { theme } from "../Theme";
 import { Store } from "../../state/Store";
-import { FormControlLabel, Checkbox, Button } from "@material-ui/core";
+import { FormControlLabel } from "@material-ui/core";
 import { IAddIn, IOrderItem } from "../../state/interfaces";
 import { addOrderItem } from "../../state/Actions";
 import CustomCheckbox from "../Input/CustomCheckbox";
@@ -92,7 +90,7 @@ export default function MealModal({ handleClose }: MealModalProps) {
         >
           <div className={classes.dialogCard}>
             <h1 className={classes.dialogTitle}>{state.menuItemInModal.foodName}</h1>
-            <img src={state.menuItemInModal.picture_url} className={classes.dialogImage} />
+            <img src={state.menuItemInModal.picture_url} className={classes.dialogImage} alt="menu item"/>
             <p className={classes.dialogDescription}>{state.menuItemInModal.description}</p>
             <ThemeProvider theme={theme}>
               {
@@ -106,7 +104,7 @@ export default function MealModal({ handleClose }: MealModalProps) {
                         add_ins.delete(addIn);
                       }
                     }} name="checkedA" />}
-                    label={`${addIn.name} (\$${addIn.price})`}
+                    label={`${addIn.name} (${addIn.price})`}
                   />
                 })
               }

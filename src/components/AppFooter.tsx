@@ -1,8 +1,4 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { Link } from "@reach/router";
-import { title } from "process";
-import React from "react";
-import texture from "../../assets/img/texture.png";
 import { theme } from "./Theme";
 // import instagramLogo from "../assets/img/branding/instagram-logo.png";
 import InstagramIcon from '@material-ui/icons/Instagram';
@@ -170,6 +166,7 @@ export default function AppFooter({ invertColors }: AppFooterProps) {
               className={classes.link + (invertColors ? ' ' + classes.inverted : '')}
               href={"https://www.instagram.com/eatgoodneighbor/"}
               target="_blank"
+              rel="noreferrer"
             >
               <InstagramIcon className={classes.igIcon + (invertColors ? ' ' + classes.inverted : '')}/>
               {/* <img className={classes.igIcon + (invertColors ? ' ' + classes.inverted : '')} src={instagramLogo}></img> */}

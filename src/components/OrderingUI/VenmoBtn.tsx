@@ -1,6 +1,4 @@
-import React from 'react'
 import venmoImg from "../../assets/img/ui/venmo.png";
-import { Link } from "@reach/router";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { theme } from "../Theme";
@@ -28,7 +26,7 @@ export default function VenmoBtn(props : any) {
     return (
       <div>
         <a href={props.paymentLink}>
-          <img className={classes.venmoBtn} src={venmoImg}></img>
+          <img className={classes.venmoBtn} src={venmoImg} alt="pay button"></img>
         </a>
       </div>
     );

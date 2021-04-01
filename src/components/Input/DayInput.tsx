@@ -1,14 +1,12 @@
-import Popover from "@material-ui/core/Popover";
-import React, { useState, PointerEvent } from "react";
+import React, { useState } from "react";
 import { Store } from "../../state/Store";
-import DayPicker, { DayModifiers, FunctionModifier } from 'react-day-picker';
+import DayPicker, { DayModifiers } from 'react-day-picker';
 import './input-style.css';
 import { theme } from "../Theme";
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { setDate } from "../../state/Actions";
 import axios from "axios";
 import { REACT_APP_BACKEND_API_URL } from "../../config";
-import { CircularProgress } from "@material-ui/core";
 import Loading from "../Loading";
 
 

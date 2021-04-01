@@ -1,11 +1,11 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Fade, Snackbar } from "@material-ui/core";
 import Alert from '@material-ui/lab/Alert';
 import { Schedule } from "@material-ui/icons";
 import Countdown, { zeroPad } from 'react-countdown';
-import { theme } from "./Theme";
-import { Store } from "../state/Store";
+import { theme } from "../Theme";
+import { Store } from "../../state/Store";
 
 const useStyles = makeStyles({
   fade: {
@@ -34,7 +34,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function OrderCountdown() {
+export default function GroupOrderAlert() {
   var classes = useStyles();
   const [alertOpen, setAlertOpen] = useState<boolean>(true);
   const { state } = useContext(Store);
@@ -54,7 +54,7 @@ export default function OrderCountdown() {
   return (
     <Fade in={true} timeout={{enter: 600}} style={{ transitionDelay: '1000ms' }}>
       <Snackbar open={alertOpen} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} onClose={() => {setAlertOpen(false)}}>
-        <Alert className={classes.alert} onClose={() => { setAlertOpen(false) }} severity="error" icon={
+        <Alert className={classes.alert} onClose={() => { setAlertOpen(false) }} severity="info" icon={
           <Schedule className={classes.icon} />
         }>
           <Countdown date={state.date} renderer={renderer}/>

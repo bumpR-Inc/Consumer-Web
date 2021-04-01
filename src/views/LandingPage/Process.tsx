@@ -1,7 +1,4 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { title } from "process";
-import React from "react";
-import texture from "../../assets/img/decoration/pattern-big.png";
 import { theme } from "../../components/Theme";
 import step1image from "../../assets/img/landing/process/step1.png";
 import step2image from "../../assets/img/landing/process/step2.png";
@@ -96,7 +93,7 @@ function Card({ number, image, title, description }: CardProps) {
   return (
     <div className={classes.card}>
       <div className={classes.cardImageContainer}>
-        <img className={classes.cardImage} src={image} />
+        <img className={classes.cardImage} src={image} alt="process card visual"/>
       </div>
       <div className={classes.cardHeaderContainer}>
         <h1 className={classes.cardNumber}>{number.toString() + '. '}</h1>

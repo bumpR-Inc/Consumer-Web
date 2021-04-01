@@ -1,4 +1,3 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Cancel, CheckCircle, Loop, Room } from "@material-ui/icons";
 import { getDistance } from 'geolib';
@@ -11,10 +10,8 @@ import PlacesAutocomplete, {
 import motto from "../../assets/img/landing/motto.png";
 import { theme } from "../Theme";
 import { Store } from "../../state/Store";
-import { useHistory } from "react-router-dom";
-import { updateAddress } from "../../state/Actions";
 
-const thresh: number = 12;
+// const thresh: number = 12;
 
 const useStyles = makeStyles({
   container: {
@@ -254,14 +251,14 @@ interface AddressSelectProps {
 }
 
 export default function AddressSelect({ landing, miniButton, onConfirm, onSkipAddresPickerConfirm }: AddressSelectProps) {  
-  let history = useHistory();
+  // let history = useHistory();
   let classes = useStyles();
   let [addressState, handleAddressChange] = useState<string>('');
   let [geocode, handleGeocodeChange] = useState<any>(null);
-  let [validAddress, setValidAddress] = useState<boolean>(false);
+  // let [validAddress, setValidAddress] = useState<boolean>(false);
   let [coveredAddress, setCoveredAddress] = useState<boolean>(false);
   let [showMotto, setShowMotto] = useState<boolean>(landing);
-  const { dispatch, state } = React.useContext(Store);
+  const { state } = React.useContext(Store);
 
   let setGeocode = (latLng: any) => {
     console.log(latLng);
@@ -269,12 +266,12 @@ export default function AddressSelect({ landing, miniButton, onConfirm, onSkipAd
     console.log(distance);
     handleGeocodeChange(latLng);
     setCoveredAddress(distance <= 1500);
-    setValidAddress(true);
+    // setValidAddress(true);
   }
 
   let setAddressError = (error: any) => {
     console.log(error);
-    setValidAddress(false);
+    // setValidAddress(false);
   }
 
   let handleAddressSelect = (address: string) => {
@@ -293,7 +290,7 @@ export default function AddressSelect({ landing, miniButton, onConfirm, onSkipAd
   return (
     <div className={classes.container} style={{justifyContent: showMotto ? 'center' : 'flex-start'}}>
       {showMotto && <div>
-          <img src={motto} className={classes.motto} />
+          <img src={motto} className={classes.motto} alt="motto" />
       </div>}
       <PlacesAutocomplete
           value={addressState}
@@ -369,13 +366,13 @@ export default function AddressSelect({ landing, miniButton, onConfirm, onSkipAd
               {(loading || suggestions.length > 0) ? (<div className={classes.addressSuggestionBox}>
                 {loading && <div className={classes.addressSuggestionItem}>Loading...</div>}
                 {suggestions.map((suggestion, myKey) => {
-                  const className = suggestion.active
-                    ? 'suggestion-item--active'
-                    : 'suggestion-item';
+                  // const className = suggestion.active
+                  //   ? 'suggestion-item--active'
+                  //   : 'suggestion-item';
                   // inline style for demonstration purpose
-                  const style = suggestion.active
-                    ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                    : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                  // const style = suggestion.active
+                  //   ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                  //   : { backgroundColor: '#ffffff', cursor: 'pointer' };
                   return (
                     <div className={classes.addressSuggestionItem}
                     // key={myKey}
@@ -410,7 +407,7 @@ export default function AddressSelect({ landing, miniButton, onConfirm, onSkipAd
                       )
                     :
                       (
-                        <a href="" className={classes.invalidAddressLink}>
+                        <a href="/" className={classes.invalidAddressLink}>
                           <button className={classes.invalidAddressButton}>
                             We don't deliver there... yet. <br/> Click to fill out update form!
                           </button>

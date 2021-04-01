@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { addOrderItem, subtractMeal } from "../../state/Actions";
-import { getUniqueOrderItemIdentifier, IMenuItem, IOrderItem } from "../../state/interfaces";
+import { getUniqueOrderItemIdentifier, IOrderItem } from "../../state/interfaces";
 import CartCard from "./CartCard";
 import { makeStyles } from "@material-ui/core/styles";
 import { Store } from "../../state/Store";
@@ -40,6 +40,7 @@ export default function CartList(props: any): Array<JSX.Element> {
     return Object.keys(uniques).map((key: string) => {
       return (
         <CartCard
+            key={key}
             item={uniques[key].item}
             numInCart={uniques[key].quantity}
             addOnClick={() => {

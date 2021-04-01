@@ -72,7 +72,7 @@ const useStyles = makeStyles({
 
 export default function MediaCard(props: any) {
   const classes = useStyles();
-  const MAX_SUMMARY_LENGTH = 120;
+  // const MAX_SUMMARY_LENGTH = 120;
   const { state } = React.useContext(Store);
 
   var limitedSummary = props.menuItem.description;
@@ -102,13 +102,13 @@ export default function MediaCard(props: any) {
           });
           props.addOnClick();
         }}>
-          <img src={addImg} className={classes.cardAddButton} />
+          <img src={addImg} className={classes.cardAddButton} alt="add to cart" />
         </Button>
         <div>
           <p className={classes.cardPrice}>${props.menuItem.price}</p>
 
         </div>
-        {props.menuItem.dietaryRestrictions == "Vegetarian" ? <MealPropertyTag text={"Veg"}/> : <p></p>}
+        {props.menuItem.dietaryRestrictions === "Vegetarian" ? <MealPropertyTag text={"Veg"}/> : <p></p>}
       </div>
     </Card>
   );

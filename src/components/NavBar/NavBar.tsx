@@ -1,11 +1,11 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { BorderBottom, BorderColor, GpsNotFixed, Menu } from "@material-ui/icons";
+import { Menu } from "@material-ui/icons";
 import React, { useState, MouseEvent } from "react";
 import { theme } from "../Theme";
 import { Store } from "../../state/Store";
 import AddressModal from "./AddressModal";
 import DateModal from "./DateModal";
-import { fromMenu, setReferralModal, toMobileUpdateAddressPage, toOrderHistory, updateAddress } from "../../state/Actions";
+import { fromMenu, setReferralModal, toMobileUpdateAddressPage, toOrderHistory } from "../../state/Actions";
 import { SwipeableDrawer } from "@material-ui/core";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -166,7 +166,6 @@ export default function NavBar() {
     }
   };
 
-
   const handleAddressClose = () => {
     window.analytics.track('ADDRESS_UPDATE_CLOSED', {
       host: window.location.hostname,
@@ -258,7 +257,7 @@ export default function NavBar() {
             {isAuthenticated ? (
               <>
                 <div className={classes.sideBarItem}>
-                  <a
+                  <a href="/"
                     className={classes.sideBarItemText}
                     onClick={() => {
                       window.analytics.track("HAMBURGER_TO_ORDER_HISTORY", {
@@ -273,7 +272,7 @@ export default function NavBar() {
                   </a>
                 </div>
                 <div className={classes.sideBarItem}>
-                  <a onClick={() => {
+                  <a href="/" onClick={() => {
                     window.analytics.track('OPENNED_REFERRAL_MODAL', {
                       host: window.location.hostname,
                       state: state,
@@ -286,7 +285,7 @@ export default function NavBar() {
                   </a>
                 </div>
                 <div className={classes.sideBarItem}>
-                  <a
+                  <a href="/"
                     className={classes.sideBarItemText}
                     onClick={() => {
                       window.analytics.track("HAMBURGER_MENU_LOG_OUT", {
@@ -304,7 +303,7 @@ export default function NavBar() {
             ) : (
               <>
                 <div className={classes.sideBarItem}>
-                  <a
+                  <a href="/"
                     className={classes.sideBarItemText}
                     onClick={() => {
                       window.analytics.track("HAMBURGER_MENU_LOG_IN", {

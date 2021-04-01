@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import React, { useState, MouseEvent } from "react";
+import React, { useState } from "react";
 import backgroundPreload from "../../assets/img/landing/background/landing-background-preload.jpg";
 import background from "../../assets/img/landing/background/landing-background.jpg";
 import { theme } from "../../components/Theme";
@@ -281,7 +281,7 @@ export default function Hero() {
                   <a className={classes.sideBarItemText} href="/orders">Orders</a>
                 </div> */}
                 <div className={classes.sideBarItem}>
-                  <a className={classes.sideBarItemText} onClick={() => {
+                  <a href="/" className={classes.sideBarItemText} onClick={() => {
                     window.analytics.track('HAMBURGER_MENU_LOG_OUT', {
                       host: window.location.hostname,
                       state: state,
@@ -293,7 +293,7 @@ export default function Hero() {
               </>) :
               (<>
                 <div className={classes.sideBarItem}>
-                  <a className={classes.sideBarItemText} onClick={() => {
+                  <a href="/" className={classes.sideBarItemText} onClick={() => {
                     window.analytics.track('HAMBURGER_MENU_LOG_IN', {
                       host: window.location.hostname,
                       state: state,

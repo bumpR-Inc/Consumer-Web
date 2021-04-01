@@ -1,14 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import { BorderBottom, BorderColor, GpsNotFixed } from "@material-ui/icons";
 import Popover from "@material-ui/core/Popover";
 import Dialog from "@material-ui/core/Dialog";
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Slide from '@material-ui/core/Slide';
-import React, { useState, PointerEvent } from "react";
+import React from "react";
 import { theme } from "../Theme";
 import { Store } from "../../state/Store";
 import AddressSelect from "../Input/AddressSelect";
@@ -55,7 +48,7 @@ interface AddressModalProps {
 }
 
 export default function AddressModal({anchor, handleClose}: AddressModalProps) {
-  const { state, dispatch } = React.useContext(Store);
+  const { dispatch } = React.useContext(Store);
   var classes = useStyles();
   
   const addressOnConfirm = (address: string, geocode: any) => {

@@ -1,7 +1,6 @@
-import React, { RefObject, useContext } from "react";
-import { IMenuItem, IRestaurant } from "../../state/interfaces";
+import { RefObject } from "react";
+import { IRestaurant } from "../../state/interfaces";
 import { makeStyles } from "@material-ui/core/styles";
-import { Store } from "../../state/Store";
 import { theme } from "../Theme";
 
 const useStyles = makeStyles({
@@ -58,7 +57,7 @@ interface IRestaurantCard {
 
 export default function RestaurantCard({restaurant, refs, index}: IRestaurantCard) {
   var classes = useStyles();
-  const { state } = useContext(Store);
+  // const { state } = useContext(Store);
 
   return (
     <div onClick={() => {

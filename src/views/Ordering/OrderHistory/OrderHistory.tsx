@@ -9,7 +9,6 @@ import CartCard from "../../../components/OrderingUI/CartCard";
 import CartPriceBreakdown from "../../../components/OrderingUI/CartPriceBreakdown";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
-import { CircularProgress, ThemeProvider } from "@material-ui/core";
 import { fromOrderHistory } from "../../../state/Actions";
 import { Store } from "../../../state/Store";
 import { REACT_APP_BACKEND_API_URL } from '../../../config';
@@ -176,7 +175,7 @@ export default function Footer() {
       host: window.location.hostname,
       state: state,
     });
-  }, []);
+  }, [state]);
 
   const [orders, setOrders] = useState<any[]>([]);
   const [ordersRecieved, setOrdersRecieved] = useState<boolean>(false);
@@ -186,9 +185,6 @@ export default function Footer() {
   const {
     isAuthenticated,
     getAccessTokenSilently,
-    loginWithRedirect,
-    loginWithPopup,
-    getAccessTokenWithPopup,
   } = useAuth0();
 
   const onOrderClick = (index: number) => {
@@ -251,7 +247,8 @@ export default function Footer() {
       <div className={classes.navContainer}>
         {orderSelected === -1 ||
         window.innerWidth > theme.breakpoints.values.md ? (
-          <a
+            <a
+            href="/"
             className={classes.navText}
             onClick={() => {
               window.analytics.track("TO_MENU_FROM_ORDER_HISTORY", {
@@ -264,7 +261,7 @@ export default function Footer() {
             {"< Return to Ordering Page"}
           </a>
         ) : (
-          <a className={classes.navText} onClick={clearOrder}>
+          <a href="/" className={classes.navText} onClick={clearOrder}>
             {"< Back"}
           </a>
         )}
@@ -283,7 +280,7 @@ export default function Footer() {
                     <div
                       className={
                         classes.orderListItem +
-                        (index == orderSelected ? " " + classes.selected : "")
+                        (index === orderSelected ? " " + classes.selected : "")
                       }
                       onClick={() => {
                         window.analytics.track("ORDER_HISTORY_ORDER_CLICKED", {
@@ -298,7 +295,7 @@ export default function Footer() {
                       <h1
                         className={
                           classes.orderListItemTitle +
-                          (index == orderSelected ? " " + classes.selected : "")
+                          (index === orderSelected ? " " + classes.selected : "")
                         }
                       >
                         {dateFormat(orders[index].deliveryTime, "ddd, mmmm d")}
@@ -306,7 +303,7 @@ export default function Footer() {
                       <h1
                         className={
                           classes.orderListItemSubtitle +
-                          (index == orderSelected ? " " + classes.selected : "")
+                          (index === orderSelected ? " " + classes.selected : "")
                         }
                       >
                         {orders[index].items_text}

@@ -1,32 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
-import App from "../../../App";
+import React, { useEffect, useState } from "react";
 import CartModal from "../../../components/OrderingUI/CartModal";
-import { closeMealModal, fetchDataAction, fetchRestaurantsAction, toggleFavAction } from "../../../state/Actions";
+import { closeCart, closeMealModal, fetchMealsAction, fetchRestaurantsAction, openCart, toggleFavAction } from "../../../state/Actions";
 import { IMenuItemProps } from "../../../state/interfaces";
 import { Store } from "../../../state/Store";
 import MenuWrapper from "./Wrapper";
-import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
-import axios from 'axios'
-import { CircularProgress, SwipeableDrawer, ThemeProvider } from "@material-ui/core";
-import { REACT_APP_BACKEND_API_URL } from '../../../config';
 import { theme } from "../../../components/Theme";
 import MealModal from "../../../components/OrderingUI/MealModal";
 import OrderCountdown from "../../../components/OrderCountdown";
+import GroupOrderAlert from "../../../components/OrderingUI/GroupOrderAlert";
 import Loading from "../../../components/Loading";
-import RestaurantList from "../../../components/OrderingUI/RestaurantList";
 import MealListByRestaurant from "../../../components/OrderingUI/MealListByRestaurant";
 
-// const MealList = React.lazy<any>(() => import("../../../components/OrderingUI/MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
-// const MealListByRestaurant = React.lazy<any>(() => import("../../../components/OrderingUI/MealListByRestaurant")); //react lazy isntead of normal importing. see suspense and fallback below
-
 export default function MenuPage() {
-  //start of OAuth stuff
-  const {
-    getAccessTokenSilently,
-    loginWithPopup,
-    getAccessTokenWithPopup,
-  } = useAuth0();
-
   const { state, dispatch } = React.useContext(Store);
 
   useEffect(() => {
@@ -34,24 +19,23 @@ export default function MenuPage() {
       host: window.location.hostname,
       state: state,
     });
-  }, []);
+  }, [state]);
 
 
   //end of OAuth-enabled function to submit order
 
-  const [displayModal, setDisplayModal] = React.useState(false);
   const [fetched, setFetched] = useState<boolean>(false);
 
   React.useEffect(() => {
     // if (state.menuItems?.length === 0 ?? false) {
       //if state menuItems array is empty, run these functions to fill up state.
     if (!fetched) {
-      fetchDataAction(dispatch);
+      fetchMealsAction(dispatch);
       fetchRestaurantsAction(dispatch);
       setFetched(true);
     }
     // }
-  },[]); //useEffect hook is to get data as soon as user lands on the page
+  },[fetched, dispatch]); //useEffect hook is to get data as soon as user lands on the page
 
   const props: IMenuItemProps = {
     menuItems: state.menuItems,
@@ -80,12 +64,7 @@ export default function MenuPage() {
                   <div
                     className="cart-button"
                     onClick={() => {
-                      window.analytics.track('CART_OPENED', {
-                        host: window.location.hostname,
-                        state: state,
-                        cart: state.orders
-                      });
-                      setDisplayModal(!displayModal)
+                      state.cartOpen ? closeCart(dispatch) : openCart(dispatch)
                     }}
                   >
                     <h1>Cart ({state.orders.length})</h1>
@@ -95,7 +74,10 @@ export default function MenuPage() {
             }
             {
               (window.innerWidth > theme.breakpoints.values.sm || state.orders.length <= 0) &&
-              <OrderCountdown/>
+              <>
+                <OrderCountdown />
+                <GroupOrderAlert />
+              </>
             }
           </React.Fragment>
         </div>
@@ -108,30 +90,17 @@ export default function MenuPage() {
 
       {/* helps shade background, and makes it so that if you click background it closes modal. */}
       <div
-        className={`Overlay ${displayModal ? "Show" : "Hide"}`}
+        className={`Overlay ${state.cartOpen ? "Show" : "Hide"}`}
         onClick={() => {
-          window.analytics.track('CART_CLOSED', {
-            host: window.location.hostname,
-            state: state,
-            cart: state.orders
-          });
-          setDisplayModal(!displayModal);
+          state.cartOpen ? closeCart(dispatch) : openCart(dispatch)
         }}
       />
       <div>
-        <CartModal
-          closeFunction={() => {
-            window.analytics.track('CART_CLOSED', {
-              host: window.location.hostname,
-              state: state,
-              cart: state.orders
-            });
-            setDisplayModal(false);
-          }}
-          displayModal={displayModal}
-        />
+        <CartModal/>
       </div>
       <div className="menu-buffer"></div>
+
+    
       
     </MenuWrapper>
   );

@@ -1,6 +1,4 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { title } from "process";
-import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
 import texture from "../../assets/img/landing/decoration/pattern-big.png";
 import { theme } from "../../components/Theme";
 import deal1 from "../../assets/img/landing/deals/deal1.png";
@@ -13,7 +11,7 @@ import deal7 from "../../assets/img/landing/deals/deal7.png";
 import deal8 from "../../assets/img/landing/deals/deal8.png";
 import deal9 from "../../assets/img/landing/deals/deal9.png";
 import deal10 from "../../assets/img/landing/deals/deal10.png";
-import Marquee, { Motion, randomIntFromInterval } from "react-marquee-slider";
+import Marquee from "react-marquee-slider";
 
 const useStyles = makeStyles({
   container: {
@@ -92,7 +90,6 @@ const useStyles = makeStyles({
 
 export default function DealCarousel() {
   let classes = useStyles();
-  const [speedChange, setSpeedChange] = useState<number>(0);
 
   let deals: string[] = [deal1, deal2, deal3, deal4, deal5, deal6, deal7, deal8, deal9, deal10];
 
@@ -113,9 +110,9 @@ export default function DealCarousel() {
               deals.map((value: string, index: number) => {
                 return (
                   <div className={classes.deal}>
-                    {index % 2 == 0
-                      ? <img src={value} className={classes.dealImage} style={{ marginTop: '40%' }} />
-                      : <img src={value} className={classes.dealImage} style={{ marginBottom: '40%' }} />}
+                    {index % 2 === 0
+                      ? <img src={value} className={classes.dealImage} style={{ marginTop: '40%' }} alt="deal"/>
+                      : <img src={value} className={classes.dealImage} style={{ marginBottom: '40%' }} alt="deal"/>}
                   </div>
                 );
               })

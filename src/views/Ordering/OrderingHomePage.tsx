@@ -1,4 +1,3 @@
-import { Menu } from "@material-ui/core";
 import React from "react";
 import { Store } from "../../state/Store";
 import OrderHistory from "./OrderHistory/OrderHistory";

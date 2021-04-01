@@ -1,18 +1,18 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { setRef, TextField } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   setOrderCode,
   clearOrderData,
   setTotalCost,
-  toggleFavAction,
   toOrderHistory,
   setReferralCode,
-  setReferralModal
+  setReferralModal,
+  closeCart
 } from "../../state/Actions";
-import { IAddIn, IMenuItem, IOrderItem } from "../../state/interfaces";
+import { IAddIn, IOrderItem } from "../../state/interfaces";
 import { Store } from "../../state/Store";
 import CustomCheckbox from "../Input/CustomCheckbox";
 import { theme } from "../Theme";
@@ -20,10 +20,8 @@ import CartPriceBreakdown from "./CartPriceBreakdown";
 import VenmoBtn from "./VenmoBtn";
 import { REACT_APP_BACKEND_API_URL } from "../../config";
 import Loading from "../Loading";
-import { ContactSupportOutlined } from "@material-ui/icons";
 
 var dateFormat = require("dateformat");
-
 var QRCode = require("qrcode.react");
 
 // const EpisodeList = React.lazy<any>(() => import("./MealsList")); //react lazy isntead of normal importing. see suspense and fallback below
@@ -192,24 +190,25 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CartModal(modalProps: any) {
+export default function CartModal() {
   var classes = useStyles();
   const { state, dispatch } = React.useContext(Store);
-  const { isAuthenticated, loginWithRedirect, logout, getAccessTokenSilently } = useAuth0();
+  const { isAuthenticated, loginWithRedirect, getAccessTokenSilently } = useAuth0();
   const [checkedPaidBox, setPaidBox] = React.useState(false); //for tracking state of checkbox at bottom
   const [orderInProgress, setOrderInProgress] = React.useState(false); //for tracking if order button is clicked
   const [tipAmt, setTipAmt] = React.useState(0); //for tracking tip
   const [attemptedToConfirmOrder, setAttemptedToConfirmOrder] = React.useState(
     false
   ); //for tracking state of checkbox at bottom
-  const [validRefCode, setValidRefCode] = React.useState("");//if validRefCode != "", then it applies and user gets the discount. If validRefCode is "", then no valid ref code for discount.
-  const [discount, setDiscount] = React.useState(0);//set to 1 if validRefCode != ""
+  const [validRefCode, setValidRefCode] = React.useState("");//if validRefCode !== "", then it applies and user gets the discount. If validRefCode is "", then no valid ref code for discount.
+  const [discount, setDiscount] = React.useState(0);//set to 1 if validRefCode !== ""
   const [alreadyUsedReferral, setAlreadyUsedReferral] = React.useState(undefined);//hides referral code entry section if true
   const [refCodeMsg, setRefCodeMsg] = React.useState("");
   const deliveryFee = .99
+
   //Cost math and venmo string manipulation
   var venmoLink: string =
-    "venmo://paycharge?txn=pay&recipients=GN-delivery&amount="; //partial, still need more parameters
+  "venmo://paycharge?txn=pay&recipients=GN-delivery&amount="; //partial, still need more parameters
 
   //calculates cost of menuItems
   const taxRate: number = 0.095;
@@ -222,61 +221,65 @@ export default function CartModal(modalProps: any) {
   //TODO: ADD TIP OPTION, MAKE RESPONSIVE, FIGURE OUT WHAT HAPPENS IF VENMO ISN'T INSTALLED, ADD CASHAPP (SHOULDN'T BE HARD)
   var totalCost: number = menuItemsCost + tipAmt + tax + deliveryFee - discount;
   totalCost = Math.round(totalCost * 100) / 100;
+  
 
-  if (totalCost != state.totalCost) {
-    setTotalCost(dispatch, totalCost);
-  }
+  useEffect(() => {
+    if (totalCost !== state.totalCost) {
+      setTotalCost(dispatch, totalCost);
+    }
+
+    //order code
+    if (
+      state.orderCode === "" ||
+      (typeof state.orderCode === "undefined")//this is to mitigate a bug that Justin saw on his device
+    ) {
+      var newOrderCode = "";
+      var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890123456789";
+      for (var i = 0; i < 5; i++)
+        newOrderCode += possible.charAt(
+          Math.floor(Math.random() * possible.length)
+        );
+      // var newOrderCode : string = Math.random().toString(36).substring(7);
+      setOrderCode(dispatch, newOrderCode);
+    }
+
+    //referral code functions
+    //get user's referral code from backend
+    const getReferralCode = async () => {
+      try {
+        const token = await getAccessTokenSilently();
+
+        await axios.get(
+          `${REACT_APP_BACKEND_API_URL}/referralCode`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        ).then((response) => {
+          setReferralCode(dispatch, response.data)
+        })
+        // console.log(response.data);
+      } catch (error) {
+        console.log("Error in getting referral code.");
+      }
+    }
+    //gets and sets self referralcode in store
+    if (state.referralCode === "" && isAuthenticated) {
+      getReferralCode();
+    } else if (!isAuthenticated) {//need to reset if switching between user accounts
+      if (state.referralCode !== "") {
+        setReferralCode(dispatch, "");
+      }
+    }
+  }, [dispatch, state.totalCost, totalCost]);
+
   venmoLink = venmoLink.concat(totalCost.toString());
   venmoLink = venmoLink.concat(
     "&note=www.goodneighbor.delivery:%20Pre-ordered%20lunches%20delivered%20on%20Mondays%20for%2099%20cents%21%20%23"
   );
 
-  //order code
-  if (
-    state.orderCode == "" ||
-    (typeof state.orderCode == "undefined")//this is to mitigate a bug that Justin saw on his device
-  ) {
-    var newOrderCode = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890123456789";
-    for (var i = 0; i < 5; i++)
-      newOrderCode += possible.charAt(
-        Math.floor(Math.random() * possible.length)
-      );
-    // var newOrderCode : string = Math.random().toString(36).substring(7);
-    setOrderCode(dispatch, newOrderCode);
-  }
   venmoLink = venmoLink.concat(state.orderCode);
-
-
-  //referral code functions
-  //get user's referral code from backend
-  const getReferralCode = async () => {
-    try {
-      const token = await getAccessTokenSilently();
-
-      await axios.get(
-        `${REACT_APP_BACKEND_API_URL}/referralCode`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      ).then((response) => {
-        setReferralCode(dispatch, response.data)
-      })
-      // console.log(response.data);
-    } catch (error) {
-      console.log("Error in getting referral code.");
-    }
-  }
-  //gets and sets self referralcode in store
-  if (state.referralCode == "" && isAuthenticated) {
-    getReferralCode();
-  } else if (!isAuthenticated) {//need to reset if switching between user accounts
-    if (state.referralCode != "") {
-      setReferralCode(dispatch, "");
-    }
-  }
 
     const validateReferralCode = async (refCode: string) => {
       try {
@@ -324,7 +327,7 @@ export default function CartModal(modalProps: any) {
     }
   };
 
-  if (alreadyUsedReferral == undefined) {
+  if (alreadyUsedReferral === undefined) {
     checkIfAlreadyUsedReferral();
   }
   
@@ -405,7 +408,7 @@ export default function CartModal(modalProps: any) {
   };
 
   return (
-    <div className={`Modal ${modalProps.displayModal ? "Show" : "Hide"}`}>
+    <div className={`Modal ${state.cartOpen ? "Show" : "Hide"}`}>
       <div className="cart-header">Cart</div>
       <React.Suspense fallback={<div>loading...</div>}>
         <div className="cart-outer-width-container">
@@ -460,13 +463,13 @@ export default function CartModal(modalProps: any) {
                             var currReferralCode: string = String(
                               event.target.value
                             );
-                            if (currReferralCode.length == 6) {
+                            if (currReferralCode.length === 6) {
                               //hardcoded value, which is kind of bad
                               validateReferralCode(currReferralCode);
-                              if (validRefCode != "") {
+                              if (validRefCode !== "") {
                                 setDiscount(1);
                               }
-                            } else if (currReferralCode.length == 0) {
+                            } else if (currReferralCode.length === 0) {
                               setDiscount(0)
                               setRefCodeMsg("");
                             } else {
@@ -537,7 +540,7 @@ export default function CartModal(modalProps: any) {
       </React.Suspense>
       <div className="cart-buttons-bottom">
         <div className="cart-buttons">
-          <div className="cart-back-button" onClick={modalProps.closeFunction}>
+          <div className="cart-back-button" onClick={() => closeCart(dispatch)}>
             Back
           </div>
           <div
@@ -554,7 +557,7 @@ export default function CartModal(modalProps: any) {
                   state: state,
                   cart: state.orders,
                 });
-                loginWithRedirect();
+                loginWithRedirect({appState: {'cartOpen': true}});
               } else if (checkedPaidBox && state.menuItems.length > 0) {
                 if (!orderInProgress) {
                   submitOrder();

@@ -1,8 +1,5 @@
-import React, { RefObject, useEffect, useRef, useState } from "react";
-import { addOrderItem, subtractMeal } from "../../state/Actions";
+import React, { RefObject, useEffect, useState } from "react";
 import { IMenuItem, IRestaurant } from "../../state/interfaces";
-import Card from "./Card";
-import CartCard from "./CartCard";
 import { theme } from "../Theme";
 import { makeStyles } from "@material-ui/core/styles";
 import RestaurantList from "./RestaurantList";
@@ -33,8 +30,8 @@ const useStyles = makeStyles({
 
 export default function MealListByRestaurant(props: any) {
   const classes = useStyles();
-  const { menuItems, toggleFavAction, orders, store } = props;
-  const { state, dispatch } = store;
+  const { store } = props;
+  const { state } = store;
   const [ refs, setRefs ] = useState<Array<RefObject<HTMLElement>>>([]);
   
   useEffect(() => {

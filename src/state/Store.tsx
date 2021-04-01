@@ -19,11 +19,16 @@ var initialState: IState = {
   menuItemInModal: undefined,
   referralCode: "",//filled in cartmodal
   referralModal: false,//filled in cartmodal
+  cartOpen: true,
+  group: {
+    pk: undefined,
+    members_info: []
+  }
 };
 
 var localState = localStorage.getItem("state");
 var stateSchemaVersion: number = parseInt(localStorage.getItem("stateSchemeVersion") ?? "-1");
-if (localState != null && cacheState && stateSchemaVersion === currentSchemaVersion) {
+if (localState !== null && cacheState && stateSchemaVersion === currentSchemaVersion) {
   initialState = JSON.parse(localState);
   initialState.date = new Date(JSON.parse(localState).date);
 } else {
@@ -32,11 +37,15 @@ if (localState != null && cacheState && stateSchemaVersion === currentSchemaVers
   localStorage.setItem("state", stateStringified);
 }
 
+
 export const Store = React.createContext<IState | any>(initialState);
 
 function reducer(state: IState, action: IAction): IState {
   switch (action.type) {
-    case "FETCH_DATA":
+    case "FETCH_GROUP":
+      state = { ...state, group: action.payload };
+      break;
+    case "FETCH_MEALS":
       state = { ...state, menuItems: action.payload };
       break;
     case "FETCH_DELIVERY_DATE":
@@ -146,11 +155,31 @@ function reducer(state: IState, action: IAction): IState {
         referralModal: action.payload['referralModal'],
       }
       break;
+    case "OPEN_CART":
+      window.analytics.track('CART_OPENED', {
+        host: window.location.hostname,
+        state: state,
+        cart: state.orders
+      });
+      state = {
+        ...state,
+        cartOpen: true,
+      }
+      break;
+    case "CLOSE_CART":
+      window.analytics.track('CART_CLOSED', {
+        host: window.location.hostname,
+        state: state,
+        cart: state.orders
+      });
+      state = {
+        ...state,
+        cartOpen: false,
+      }
+      break;
     case "NO_CHANGE":
-      state = state;
       break;
     default:
-      state = state;
       break;
   }
 

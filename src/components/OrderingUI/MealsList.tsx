@@ -1,11 +1,9 @@
-import React from "react";
 import { addOrderItem, openMealModal, subtractMeal } from "../../state/Actions";
 import { IMenuItem, IOrderItem } from "../../state/interfaces";
 import Card from "./Card";
-import CartCard from "./CartCard";
 
 export default function MealsList(props: any) {
-  const { menuItems, toggleFavAction, orders, store } = props;
+  const { orders, store } = props;
   const { state, dispatch } = store;
 
   return <>

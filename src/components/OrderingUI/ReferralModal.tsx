@@ -1,12 +1,8 @@
-import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import React, { useContext } from "react";
-import DayInput from "../Input/DayInput";
 import { theme } from "../Theme";
 import { Store } from "../../state/Store";
-import { FormControlLabel, Checkbox, Button } from "@material-ui/core";
-import { IAddIn, IOrderItem } from "../../state/interfaces";
-import { addOrderItem } from "../../state/Actions";
 import history from "../../utils/history";
 
 const useStyles = makeStyles({
@@ -77,8 +73,8 @@ interface ReferralModal {
 
 export default function MealModal({ handleClose }: ReferralModal) {
   const classes = useStyles();
-  const { dispatch, state } = useContext(Store);
-  var add_ins: Set<IAddIn> = new Set<IAddIn>();
+  const { state } = useContext(Store);
+  // var add_ins: Set<IAddIn> = new Set<IAddIn>();
 
   return (
     <div>

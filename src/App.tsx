@@ -3,15 +3,14 @@ import { useAuth0 } from "@auth0/auth0-react";
 import history from "./utils/history";
 import "./App.css";
 import HomePage from "./views/HomePage";
-import LandingPage from "./views/LandingPage/LandingPage";
 import PrivacyPolicy from "./views/Misc/PrivacyPolicy";
-// import PrivacyPolicy from "./views/PrivacyPolicy";
 import TermsOfService from "./views/TermsOfService";
 
 // initFontAwesome();
 
 const App = () => {
-  const { user, isAuthenticated, isLoading, error } = useAuth0();  
+  const { user, isAuthenticated, error } = useAuth0();
+
   if (isAuthenticated) {
     window.analytics.identify(user.sub, {
       name: user.name,

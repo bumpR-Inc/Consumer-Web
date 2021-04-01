@@ -19,6 +19,8 @@ export interface IState {
   menuItemInModal?: any;
   referralCode: string;
   referralModal: boolean;
+  cartOpen: boolean;
+  group?: IGroup;
 }
 
 export interface IAction {
@@ -31,13 +33,27 @@ export interface IOrderItem {
   add_ins: Array<IAddIn>
 }
 
+export interface IGroup {
+  pk?: number,
+  members_info: Array<IProfile>
+}
+
+export interface IProfile {
+  pk: number,
+  user: number,
+  name: string,
+  email: string,
+  address: string,
+  phoneNumber: number
+}
+
 export const getUniqueOrderItemIdentifier = (item: IOrderItem) => {
   const addInPks = item.add_ins.map((add_in: IAddIn) => add_in.pk);
   return item.menuItem.pk.toString() + "_" + addInPks.sort().join("_");
 }
 
 export const compareOrderItems = (i1: IOrderItem, i2: IOrderItem) => {
-  return i1.menuItem.pk == i2.menuItem.pk && compareAddIns(i1.add_ins, i2.add_ins);
+  return i1.menuItem.pk === i2.menuItem.pk && compareAddIns(i1.add_ins, i2.add_ins);
 } 
 
 function compareAddIns(_arr1: Array<IAddIn>, _arr2: Array<IAddIn>) {

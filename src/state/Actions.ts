@@ -1,9 +1,52 @@
-import { IAction, IMenuItem, IState, IRestaurant, IOrderItem, getUniqueOrderItemIdentifier } from "./interfaces";
+import { IAction, IMenuItem, IState, IOrderItem, getUniqueOrderItemIdentifier } from "./interfaces";
 import { REACT_APP_BACKEND_API_URL } from '../config';
 import axios from "axios";
-import { useAuth0 } from "@auth0/auth0-react";
 
-export const fetchDataAction = async (dispatch: any) => {
+export const fetchGroup = async (dispatch: any, token: string) => {
+  const query: string = window.location.search.substring(1);
+  const query_list: string[] = query.split('&');
+  const query_data: any = {};
+
+  for (var i = 0; i < query_list.length; i++) {
+    const pair: string[] = query_list[i].split('=');
+    query_data[pair[0]] = pair[1];
+  }
+
+  if (query_data.hasOwnProperty('group')) {
+    await axios
+      .post(
+        `${REACT_APP_BACKEND_API_URL}/joingroup/${query_data.group}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  }
+  
+  const data = await axios
+    .get(
+      `${REACT_APP_BACKEND_API_URL}/getgroup`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      );
+    const groupData = await data.data; //convert to json
+
+  console.log('setting state')
+
+
+  return dispatch({
+    //basically returns this object to our reducer in Store.tsx
+    type: "FETCH_GROUP",
+    payload: groupData, //do ._embedded.episodes because we know basedo nthis specific api URL
+  });
+};
+
+export const fetchMealsAction = async (dispatch: any) => {
   //use aync for api calls 2:06
   const URL = `${REACT_APP_BACKEND_API_URL}/menuItems/`;
   const data = await fetch(URL); //fetches URL
@@ -11,7 +54,7 @@ export const fetchDataAction = async (dispatch: any) => {
 
   return dispatch({
     //basically returns this object to our reducer in Store.tsx
-    type: "FETCH_DATA",
+    type: "FETCH_MEALS",
     payload: mealData, //do ._embedded.episodes because we know basedo nthis specific api URL
   });
 };
@@ -58,7 +101,7 @@ export const toggleFavAction = (
   };
   if (menuItemInFav) {
     const favWithoutMeal = state.orders.filter(
-      (fav: IOrderItem) => fav.menuItem.pk != menuItem.pk
+      (fav: IOrderItem) => fav.menuItem.pk !== menuItem.pk
     ); //filter method removes obj if attribute is true
     dispatchObj = {
       type: "REMOVE_FAV",
@@ -247,5 +290,18 @@ export const setReferralModal = async (dispatch: any, referralModal : boolean) =
   return dispatch({
     type: "SET_REFERRAL_MODAL",
     payload: { referralModal: referralModal },
+  });
+};
+
+export const openCart = async (dispatch: any) => {
+  return dispatch({
+    type: "OPEN_CART",
+  });
+};
+
+
+export const closeCart = async (dispatch: any) => {
+  return dispatch({
+    type: "CLOSE_CART",
   });
 };

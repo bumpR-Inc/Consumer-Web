@@ -1,16 +1,10 @@
-import { Menu } from "@material-ui/core";
-import React, { useEffect } from "react";
-import { fetchDeliveryDateAction } from "../state/Actions";
+import React from "react";
 import { Store } from "../state/Store";
 import LandingPage from "./LandingPage/LandingPage";
-import OrderingHomePage from "./Ordering/OrderingHomePage";;
+import OrderingHomePage from "./Ordering/OrderingHomePage";
 
 export default function HomePage() {
-  const { state, dispatch } = React.useContext(Store);
-
-  useEffect(() => {
-    fetchDeliveryDateAction(dispatch);
-  }, []);
+  const { state } = React.useContext(Store);
 
   return state.landing ? <LandingPage /> : <OrderingHomePage/>;
 }

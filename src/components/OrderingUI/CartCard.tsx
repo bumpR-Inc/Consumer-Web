@@ -1,14 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import "../../index.css";
-import addImg from "../assets/img/add.png";
 import { Store } from "../../state/Store";
 import { IAddIn, IOrderItem } from "../../state/interfaces";
 
@@ -76,7 +68,7 @@ export default function CartCard({item, hideButtons, numInCart, subtractOnClick,
   return (
     <div className={classes.card}>
       <div className={classes.imageContainer}>
-        <img className={classes.image} src={item.menuItem.picture_url}></img>
+        <img className={classes.image} src={item.menuItem.picture_url} alt="food item"></img>
       </div>
       <div className={classes.detailContainer}>
         <div className="cart-card-title">{item.menuItem.foodName}</div>
