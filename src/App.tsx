@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Route, Router, Switch } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import "./App.css";
-import { fetchGroupAPI } from "./state/API";
+import { fetchGroupAPI } from "./state/api/GroupAPI";
 import { groupState } from "./state/Atoms";
 import history from "./utils/history";
 import HomePage from "./views/HomePage";

@@ -7,9 +7,10 @@ import MenuWrapper from "./Wrapper";
 import { theme } from "../../../components/Theme";
 import MealModal from "../../../components/OrderingUI/MealModal";
 import OrderCountdown from "../../../components/OrderCountdown";
-import GroupOrderAlert from "../../../components/OrderingUI/GroupOrderAlert";
+import GroupOrderAlert from "../../../components/GroupOrdering/GroupOrderAlert";
 import Loading from "../../../components/Loading";
 import MealListByRestaurant from "../../../components/OrderingUI/MealListByRestaurant";
+import GroupOrderModal from "../../../components/GroupOrdering/GroupOrderModal";
 
 export default function MenuPage() {
   const { state, dispatch } = React.useContext(Store);
@@ -25,6 +26,7 @@ export default function MenuPage() {
   //end of OAuth-enabled function to submit order
 
   const [fetched, setFetched] = useState<boolean>(false);
+  const [groupOrderModal, setGroupOrderModal] = useState<boolean>(state.orders.length == 0);
 
   React.useEffect(() => {
     // if (state.menuItems?.length === 0 ?? false) {
@@ -85,6 +87,11 @@ export default function MenuPage() {
 
       { state.menuItemInModal && 
         <MealModal handleClose={() => {closeMealModal(dispatch)}}/>
+      }
+
+      {
+        state.orders.length == 0 && groupOrderModal &&
+        <GroupOrderModal handleClose={() => setGroupOrderModal(false)}/>
       }
 
 
